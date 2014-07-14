@@ -47,7 +47,7 @@ cd octopress
 
 ``` bash
 sudo gem install bundler    #这句需要root权限，所以需要在前面添加sudo
-rbenv rehash	#没有安装rbenv，这句可省
+rbenv rehash	              #没有安装rbenv，这句可省
 bundle install
 ```
 
@@ -62,7 +62,7 @@ rake install
 ``` bash
 gem sources -r https://rubygems.org/
 gem sources -a http://ruby.taobao.org/    #这里可能需要一些时间
-gem sources -l    #查看当前源，保证当前源是只有一个的
+gem sources -l                            #查看当前源，保证当前源是只有一个的
 ```
 
 <br /><br /><br />
