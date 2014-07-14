@@ -191,6 +191,16 @@ git push -f
 #强制覆盖
 ```
 
+git 的两条设置
+
+``` bash
+git config --global push.default simple
+# 设置push的时候只push当前分支
+
+git config --global push.default matching
+# push所有变动
+```
+
 
 <br />
 <br />
