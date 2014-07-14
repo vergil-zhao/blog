@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://Veracruz.github.io/sitemap.xml 
