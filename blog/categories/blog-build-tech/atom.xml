@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog_build_tech | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/blog-build-tech/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-14T21:47:36+08:00</updated>
+  <updated>2014-07-14T22:07:22+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -68,7 +68,7 @@ cd octopress
 
 <p><code>bash
 sudo gem install bundler    #这句需要root权限，所以需要在前面添加sudo
-rbenv rehash    #没有安装rbenv，这句可省
+rbenv rehash                  #没有安装rbenv，这句可省
 bundle install
 </code></p>
 
@@ -83,7 +83,7 @@ rake install
 <p><code>bash
 gem sources -r https://rubygems.org/
 gem sources -a http://ruby.taobao.org/    #这里可能需要一些时间
-gem sources -l    #查看当前源，保证当前源是只有一个的
+gem sources -l                            #查看当前源，保证当前源是只有一个的
 </code></p>
 
 <br /><br /><br />
