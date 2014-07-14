@@ -4,7 +4,7 @@
   <title><![CDATA[Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-14T20:15:12+08:00</updated>
+  <updated>2014-07-14T21:47:36+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -257,6 +257,21 @@
 </span><span class='line'>
 </span><span class='line'>git push -f
 </span><span class='line'><span class="c">#强制覆盖</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>git 的两条设置</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git config --global push.default simple
+</span><span class='line'><span class="c"># 设置push的时候只push当前分支</span>
+</span><span class='line'>
+</span><span class='line'>git config --global push.default matching
+</span><span class='line'><span class="c"># push所有变动</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

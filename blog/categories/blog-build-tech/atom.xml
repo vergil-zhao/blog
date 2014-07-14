@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog_build_tech | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/blog-build-tech/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-14T20:15:12+08:00</updated>
+  <updated>2014-07-14T21:47:36+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -229,6 +229,19 @@ rake deploy</p>
 <p>git push -f</p>
 
 <h1>强制覆盖</h1>
+
+<p>```</p>
+
+<p>git 的两条设置</p>
+
+<p>``` bash
+git config &mdash;global push.default simple</p>
+
+<h1>设置push的时候只push当前分支</h1>
+
+<p>git config &mdash;global push.default matching</p>
+
+<h1>push所有变动</h1>
 
 <p>```</p>
 
