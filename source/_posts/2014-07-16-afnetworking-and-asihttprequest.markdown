@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AFNetworking &amp; ASIHTTPRequest 的初步使用方法"
+title: "AFNetworking & ASIHTTPRequest 的初步使用方法"
 date: 2014-07-16 13:54:07 +0800
 comments: true
 categories: iOS
@@ -158,7 +158,7 @@ iOS 7.1
 
 它有自己的管理类，这种请求非常简单明了，会直接解析JSON到一个 `NSDictionary`，当然前提是返回的响应是很规范的，可是很多时候并不是这样。这种请求方式要求响应头中的 `Content-type` 字段的值必须是 `text/json`，也就是`Content-type: text/json`。很多时候返回的响应头这个字段的值是 `text/html`, 这个时候这个库就会返回一个错误。当然错误格式的JSON数据也会返回错误。下面是调用的代码段.
 
-``` objc 
+``` objectivec 
 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
 //设置支持所有的MIME格式，略隐蔽的设置选项
@@ -179,7 +179,7 @@ manager.responseSerializer.acceptableContentTypes = nil;
 
 这个库提供了响应的序列化器(serializer)，就是解析器，这个可以自己定制，如果不指定则不会解析，仅接收原始数据在block的参数 `responseObject` 中。`operation`有很多有用的属性，例如`operation.response.allHeaderFields` 可以查看完整的响应头。下面这段代码指定了XML的序列化器。
 
-``` objc 
+``` objectivec 
 NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:SOME_URL]];
 AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
@@ -198,7 +198,7 @@ operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
 ---
 
 下面的代码很方便的实现了一个文件的下载。
-```objc 
+```objectivec 
 AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:FILE_URL]];
     
@@ -246,7 +246,7 @@ NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progre
 
 还要在项目的 `Build Settings` 中的 `Header Search Paths` 字段中添加 `/usr/include/libxml2/`。
 
-如果项目是ARC，请在这个库的所有文件添加标签 `-fnobjc-arc`，在 `Build Phases` 中的 `Compile Sources`。或者也可以把项目改成mrc而你自己创建的文件添加标签 `-fobjc-arc`。
+如果项目是ARC，请在这个库的所有文件添加标签 `-fnobjectivec-arc`，在 `Build Phases` 中的 `Compile Sources`。或者也可以把项目改成mrc而你自己创建的文件添加标签 `-fobjectivec-arc`。
 
 另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。
 
@@ -258,7 +258,7 @@ NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progre
 
 有同步和异步请求，同步的意义不大，这里给出异步请求。请求的处理有两种方式，一种是代理，一种是 `block`。下面给出 `block` 方式的，代理方式在 `ASIHTTPRequestDelegate` 的文件中的定义很容易理解。
 
-``` objc 
+``` objectivec 
 NSURL *url = [NSURL URLWithString:SOME_URL];
     
 //使用__weak来防止使用block出现的retain循环
@@ -283,7 +283,7 @@ __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 
 支持多种缓存策略，这里使用永久缓存的策略。
 
-``` objc 
+``` objectivec 
 NSURL *url = [NSURL URLWithString:FILE_URL];
 __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     
@@ -304,7 +304,7 @@ request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
 
 下载任务是支持进度显示的，需要用一个UIProgressView代理，和设置显示精确进度，下面两句
 
-``` objc
+``` objectivec
 request.showAccurateProgress = YES;
 request.downloadProgressDelegate = progressView;
 ```
