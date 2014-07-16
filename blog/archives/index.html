@@ -9,7 +9,7 @@
   <meta name="author" content="Veracruz">
 
   
-  <meta name="description" content="Blog Archive 2014 AFNetworking &amp; ASIHTTPRequest 的初步使用方法
+  <meta name="description" content="Blog Archive 2014 AFNetworking & ASIHTTPRequest 的初步使用方法
 Jul 16 2014 posted in ios 使用Github + Octopress建立博客
 Jul 14 2014 posted in blog_build_tech &hellip;">
   
@@ -82,7 +82,7 @@ Jul 14 2014 posted in blog_build_tech &hellip;">
 
 <article>
   
-<h1><a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking &amp; ASIHTTPRequest 的初步使用方法</a></h1>
+<h1><a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking & ASIHTTPRequest 的初步使用方法</a></h1>
 <time datetime="2014-07-16T13:54:07+08:00" pubdate><span class='month'>Jul</span> <span class='day'>16</span> <span class='year'>2014</span></time>
 
 <footer>
@@ -120,7 +120,7 @@ Jul 14 2014 posted in blog_build_tech &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking &amp; ASIHTTPRequest 的初步使用方法</a>
+        <a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking & ASIHTTPRequest 的初步使用方法</a>
       </li>
     
       <li class="post">
@@ -128,6 +128,35 @@ Jul 14 2014 posted in blog_build_tech &hellip;">
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/Veracruz">@Veracruz</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'Veracruz',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
@@ -141,7 +170,11 @@ Jul 14 2014 posted in blog_build_tech &hellip;">
 
 	</ul>
 </section>
-
+<section>
+    <h1>Recent Comments</h1>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="0" data-excerpt-length="18"></ul>
+    
+</section>
   
 </aside>
 

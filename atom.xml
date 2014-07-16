@@ -4,7 +4,7 @@
   <title><![CDATA[Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-16T16:41:27+08:00</updated>
+  <updated>2014-07-16T17:57:16+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[AFNetworking &amp; ASIHTTPRequest 的初步使用方法]]></title>
+    <title type="html"><![CDATA[AFNetworking & ASIHTTPRequest 的初步使用方法]]></title>
     <link href="http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest/"/>
     <updated>2014-07-16T13:54:07+08:00</updated>
     <id>http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest</id>
@@ -151,17 +151,13 @@
 </table>
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h2>AFNetworking</h2>
 
 <p>这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>导入库</h3>
 
@@ -169,8 +165,7 @@
 
 <p>只要将下载之后的目录下的 <code>AFNetworking</code> 和 <code>UIKit+AFNetworking</code> 两个文件夹导入到工程即可，并且不需要添加其他框架。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>GET请求并解析JSON</h3>
 
@@ -188,7 +183,7 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">AFHTTPRequestOperationManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">AFHTTPRequestOperationManager</span> <span class="n">manager</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">AFHTTPRequestOperationManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">AFHTTPRequestOperationManager</span> <span class="n">manager</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//设置支持所有的MIME格式，略隐蔽的设置选项</span>
 </span><span class='line'><span class="n">manager</span><span class="p">.</span><span class="n">responseSerializer</span><span class="p">.</span><span class="n">acceptableContentTypes</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
@@ -201,10 +196,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>通用请求</h3>
 
@@ -225,7 +217,7 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">]];</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">]];</span>
 </span><span class='line'><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFHTTPRequestOperation</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithRequest</span><span class="o">:</span><span class="n">request</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//指定序列化器</span>
@@ -263,7 +255,7 @@
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">AFURLSessionManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFURLSessionManager</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithSessionConfiguration</span><span class="o">:</span><span class="p">[</span><span class="n">NSURLSessionConfiguration</span> <span class="n">defaultSessionConfiguration</span><span class="p">]];</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">AFURLSessionManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFURLSessionManager</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithSessionConfiguration</span><span class="o">:</span><span class="p">[</span><span class="n">NSURLSessionConfiguration</span> <span class="n">defaultSessionConfiguration</span><span class="p">]];</span>
 </span><span class='line'><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">]];</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">NSURLSessionDownloadTask</span> <span class="o">*</span><span class="n">task</span> <span class="o">=</span> <span class="p">[</span><span class="n">manager</span> <span class="n">downloadTaskWithRequest</span><span class="o">:</span><span class="n">request</span> <span class="n">progress</span><span class="o">:</span><span class="nb">nil</span> <span class="n">destination</span><span class="o">:^</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="n">targetPath</span><span class="p">,</span> <span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">)</span>
@@ -280,17 +272,13 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h2>ASIHTTPRequest</h2>
 
 <p>这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>导入库</h3>
 
@@ -298,8 +286,7 @@
 
 <p>下载库之后，将目录下的 <code>Classes</code> 和 <code>External</code> 文件夹导入到项目中，这并不是完整的导入，它的单元测试模块的一些文件并不包含在这个目录中，需要用 <em>ruby</em> 相关的命令来导入。这里只需要删除 <code>Classes</code> 目录下的 <code>Test</code> 删除即可。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>项目设置</h3>
 
@@ -315,12 +302,11 @@
 
 <p>还要在项目的 <code>Build Settings</code> 中的 <code>Header Search Paths</code> 字段中添加 <code>/usr/include/libxml2/</code>。</p>
 
-<p>如果项目是ARC，请在这个库的所有文件添加标签 <code>-fnobjc-arc</code>，在 <code>Build Phases</code> 中的 <code>Compile Sources</code>。或者也可以把项目改成mrc而你自己创建的文件添加标签 <code>-fobjc-arc</code>。</p>
+<p>如果项目是ARC，请在这个库的所有文件添加标签 <code>-fnobjectivec-arc</code>，在 <code>Build Phases</code> 中的 <code>Compile Sources</code>。或者也可以把项目改成mrc而你自己创建的文件添加标签 <code>-fobjectivec-arc</code>。</p>
 
 <p>另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>数据请求</h3>
 
@@ -343,7 +329,7 @@
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">//使用__weak来防止使用block出现的retain循环</span>
 </span><span class='line'><span class="n">__weak</span> <span class="n">ASIHTTPRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="n">url</span><span class="p">];</span>
@@ -361,10 +347,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>文件下载缓存</h3>
 
@@ -388,7 +371,7 @@
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">];</span>
 </span><span class='line'><span class="n">__weak</span> <span class="n">ASIHTTPRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="n">url</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">downloadCache</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIDownloadCache</span> <span class="n">sharedCache</span><span class="p">];</span>
@@ -411,7 +394,7 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">showAccurateProgress</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">showAccurateProgress</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
 </span><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">downloadProgressDelegate</span> <span class="o">=</span> <span class="n">progressView</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -420,13 +403,11 @@
 
 <hr />
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <p>以上就是两个库的基本用法，还有一些上传数据，身份验证等等点击下面的参考资料中的链接查看。</p>
 
-<br /><br /><br /><br />
-
+<p><br /><br /><br /><br /></p>
 
 <h4>参考资料</h4>
 
@@ -457,10 +438,7 @@
 <!-- more -->
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">申请一个 <em>GitHub</em> 账号</font></h3>
 
@@ -468,8 +446,7 @@
 
 <p>首先需要一个 <em>GitHub</em> 的账号，这个Coder通常都有，进入 <em><a href="http://github.com/">Github</a></em> ，首页就可以快速的注册一个账号。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">建立一个新的仓库(Repository)</font></h3>
 
@@ -477,8 +454,7 @@
 
 <p>登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是<code>your_username.github.io</code>，建立时不用初始化。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">安装 <em>Octopress</em> 以及所需依赖</font></h3>
 
@@ -524,10 +500,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">配置并部署 Octopress</font></h3>
 
@@ -586,8 +559,7 @@
 
 <p>关于博客的设置一般在 <code>_config.yml</code> 文件中，具体内容参照官方说明 <a href="http://octopress.org/docs/configuring">Configure your blog</a>。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">开始撰写博客</font></h3>
 
@@ -660,8 +632,7 @@
 
 <p>完整参数参考 <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a>。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">过程中的一些问题</font></h3>
 
@@ -703,19 +674,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
+<p><br />
 <br />
-
-
 <br />
-
-
-<br />
-
-
-<br />
-
+<br /></p>
 
 <h4>参考资料</h4>
 
