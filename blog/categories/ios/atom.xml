@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ios | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-16T17:57:16+08:00</updated>
+  <updated>2014-07-16T19:08:23+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -27,10 +27,11 @@
 
 <p>当前使用的环境是</p>
 
-<pre><code>Mac OS X 10.9.4
+<p><code>
+Mac OS X 10.9.4
 Xcode 5.1.1
 iOS 7.1
-</code></pre>
+</code></p>
 
 <p>下面是两个库的地址</p>
 
@@ -148,13 +149,17 @@ iOS 7.1
 </table>
 
 
-<p><br /><br /><br /></p>
+
+
+<br /><br /><br />
+
 
 <h2>AFNetworking</h2>
 
 <p>这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>导入库</h3>
 
@@ -162,7 +167,8 @@ iOS 7.1
 
 <p>只要将下载之后的目录下的 <code>AFNetworking</code> 和 <code>UIKit+AFNetworking</code> 两个文件夹导入到工程即可，并且不需要添加其他框架。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>GET请求并解析JSON</h3>
 
@@ -170,19 +176,24 @@ iOS 7.1
 
 <p>它有自己的管理类，这种请求非常简单明了，会直接解析JSON到一个 <code>NSDictionary</code>，当然前提是返回的响应是很规范的，可是很多时候并不是这样。这种请求方式要求响应头中的 <code>Content-type</code> 字段的值必须是 <code>text/json</code>，也就是<code>Content-type: text/json</code>。很多时候返回的响应头这个字段的值是 <code>text/html</code>, 这个时候这个库就会返回一个错误。当然错误格式的JSON数据也会返回错误。下面是调用的代码段.</p>
 
-<pre><code class="objectivec ">AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+<p>``` objectivec
+AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];</p>
 
-//设置支持所有的MIME格式，略隐蔽的设置选项
-manager.responseSerializer.acceptableContentTypes = nil;
+<p>//设置支持所有的MIME格式，略隐蔽的设置选项
+manager.responseSerializer.acceptableContentTypes = nil;</p>
 
-[manager GET:JSON_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"%@ : ", [responseObject class], responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"error : %@", error);
-    }];
+<p>[manager GET:JSON_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {</p>
+
+<pre><code>NSLog(@"%@ : ", [responseObject class], responseObject);
+} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+NSLog(@"error : %@", error);
+}];
 </code></pre>
 
-<p><br /><br /></p>
+<p>```</p>
+
+<br /><br />
+
 
 <h3>通用请求</h3>
 
@@ -190,20 +201,23 @@ manager.responseSerializer.acceptableContentTypes = nil;
 
 <p>这个库提供了响应的序列化器(serializer)，就是解析器，这个可以自己定制，如果不指定则不会解析，仅接收原始数据在block的参数 <code>responseObject</code> 中。<code>operation</code>有很多有用的属性，例如<code>operation.response.allHeaderFields</code> 可以查看完整的响应头。下面这段代码指定了XML的序列化器。</p>
 
-<pre><code class="objectivec ">NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:SOME_URL]];
-AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+<p>``` objectivec
+NSURLRequest <em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:SOME_URL]];
+AFHTTPRequestOperation </em>operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];</p>
 
-//指定序列化器
-operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
+<p>//指定序列化器
+operation.responseSerializer = [AFXMLParserResponseSerializer serializer];</p>
 
-[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"%@ : ", [responseObject class], responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    NSLog(@"error : %@", error);
-    }];
+<p>[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {</p>
 
-[[NSOperationQueue mainQueue] addOperation:operation];
+<pre><code>NSLog(@"%@ : ", [responseObject class], responseObject);
+} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+NSLog(@"error : %@", error);
+}];
 </code></pre>
+
+<p>[[NSOperationQueue mainQueue] addOperation:operation];
+```从上面的代码的输出可以看到，它使用了iOS自带的XML解析器。</p>
 
 <h3>文件下载保存</h3>
 
@@ -214,26 +228,30 @@ operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
 AFURLSessionManager <em>manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 NSURLRequest </em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:FILE_URL]];</p>
 
-<p>NSURLSessionDownloadTask <em>task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL </em>(NSURL <em>targetPath, NSURLResponse </em>response)
-    {
-    NSURL <em>documentURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-    return [documentURL URLByAppendingPathComponent:FILE_NAME];
-    } completionHandler:^(NSURLResponse </em>response, NSURL <em>filePath, NSError </em>error)
-    {
-    NSLog(@&ldquo;error : %@&rdquo;, error);
-    }];</p>
+<p>NSURLSessionDownloadTask <em>task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL </em>(NSURL <em>targetPath, NSURLResponse </em>response)</p>
+
+<pre><code>{
+NSURL *documentURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+return [documentURL URLByAppendingPathComponent:FILE_NAME];
+} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
+{
+NSLog(@"error : %@", error);
+}];
+</code></pre>
 
 <p>//不要忘记开始任务
 [task resume];
 ```</p>
 
-<p><br /><br /><br /></p>
+<br /><br /><br />
+
 
 <h2>ASIHTTPRequest</h2>
 
 <p>这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>导入库</h3>
 
@@ -241,7 +259,8 @@ NSURLRequest </em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:FI
 
 <p>下载库之后，将目录下的 <code>Classes</code> 和 <code>External</code> 文件夹导入到项目中，这并不是完整的导入，它的单元测试模块的一些文件并不包含在这个目录中，需要用 <em>ruby</em> 相关的命令来导入。这里只需要删除 <code>Classes</code> 目录下的 <code>Test</code> 删除即可。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>项目设置</h3>
 
@@ -261,7 +280,8 @@ NSURLRequest </em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:FI
 
 <p>另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>数据请求</h3>
 
@@ -269,24 +289,32 @@ NSURLRequest </em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:FI
 
 <p>有同步和异步请求，同步的意义不大，这里给出异步请求。请求的处理有两种方式，一种是代理，一种是 <code>block</code>。下面给出 <code>block</code> 方式的，代理方式在 <code>ASIHTTPRequestDelegate</code> 的文件中的定义很容易理解。</p>
 
-<pre><code class="objectivec ">NSURL *url = [NSURL URLWithString:SOME_URL];
+<p>``` objectivec
+NSURL *url = [NSURL URLWithString:SOME_URL];</p>
 
-//使用__weak来防止使用block出现的retain循环
-__weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+<p>//使用<strong>weak来防止使用block出现的retain循环
+</strong>weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];</p>
 
-//使用代理方式则添加下面这句
-//request.delegate = self;
+<p>//使用代理方式则添加下面这句
+//request.delegate = self;</p>
 
-[request setCompletionBlock:^{
-    NSLog(@"%@", request.responseString);
-    }];
-[request setFailedBlock:^{
-    NSLog(@"%@", request.error);
-    }];
-[request startAsynchronous];
+<p>[request setCompletionBlock:^{</p>
+
+<pre><code>NSLog(@"%@", request.responseString);
+}];
 </code></pre>
 
-<p><br /><br /></p>
+<p>[request setFailedBlock:^{</p>
+
+<pre><code>NSLog(@"%@", request.error);
+}];
+</code></pre>
+
+<p>[request startAsynchronous];
+```</p>
+
+<br /><br />
+
 
 <h3>文件下载缓存</h3>
 
@@ -294,39 +322,48 @@ __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 
 <p>支持多种缓存策略，这里使用永久缓存的策略。</p>
 
-<pre><code class="objectivec ">NSURL *url = [NSURL URLWithString:FILE_URL];
-__weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+<p>``` objectivec
+NSURL <em>url = [NSURL URLWithString:FILE_URL];
+__weak ASIHTTPRequest </em>request = [ASIHTTPRequest requestWithURL:url];</p>
 
-request.downloadCache = [ASIDownloadCache sharedCache];
+<p>request.downloadCache = [ASIDownloadCache sharedCache];</p>
 
-//指定缓存策略
-request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;
+<p>//指定缓存策略
+request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;</p>
 
-[request setCompletionBlock:^{
-    [request.responseData writeToFile:LOCAL_FILE_URL atomically:YES];
-    }];
-[request setFailedBlock:^{
-    NSLog(@"%@", request.error);
-    }];
+<p>[request setCompletionBlock:^{</p>
 
-[request startAsynchronous];
+<pre><code>[request.responseData writeToFile:LOCAL_FILE_URL atomically:YES];
+}];
 </code></pre>
+
+<p>[request setFailedBlock:^{</p>
+
+<pre><code>NSLog(@"%@", request.error);
+}];
+</code></pre>
+
+<p>[request startAsynchronous];
+```</p>
 
 <p>下载任务是支持进度显示的，需要用一个UIProgressView代理，和设置显示精确进度，下面两句</p>
 
-<pre><code class="objectivec">request.showAccurateProgress = YES;
+<p><code>objectivec
+request.showAccurateProgress = YES;
 request.downloadProgressDelegate = progressView;
-</code></pre>
+</code></p>
 
 <hr />
 
 <hr />
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <p>以上就是两个库的基本用法，还有一些上传数据，身份验证等等点击下面的参考资料中的链接查看。</p>
 
-<p><br /><br /><br /><br /></p>
+<br /><br /><br /><br />
+
 
 <h4>参考资料</h4>
 
