@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest/</loc>
+    <lastmod>2014-07-16T13:54:07+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://Veracruz.github.io/blog/2014/07/14/how-to-create-your-own-blog-on-github-pages/</loc>
     <lastmod>2014-07-14T14:50:09+08:00</lastmod>
     <priority>0.8</priority>
@@ -11,14 +17,14 @@
   
   <url>
     <loc>http://Veracruz.github.io/blog/archives/</loc>
-    <lastmod>2014-07-14T22:07:22+08:00</lastmod>
+    <lastmod>2014-07-16T16:24:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://Veracruz.github.io/</loc>
-    <lastmod>2014-07-14T22:07:22+08:00</lastmod>
+    <lastmod>2014-07-16T16:24:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

@@ -1,24 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Code in Technicolor]]></title>
-  <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
-  <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-16T16:24:01+08:00</updated>
-  <id>http://Veracruz.github.io/</id>
-  <author>
-    <name><![CDATA[Veracruz]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>AFNetworking &amp; ASIHTTPRequest 的初步使用方法 - Code in Technicolor</title>
+  <meta name="author" content="Veracruz">
 
   
-  <entry>
-    <title type="html"><![CDATA[AFNetworking &amp; ASIHTTPRequest 的初步使用方法]]></title>
-    <link href="http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest/"/>
-    <updated>2014-07-16T13:54:07+08:00</updated>
-    <id>http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest</id>
-    <content type="html"><![CDATA[<p>总结一下 <em>AFNetworking</em> 和 <em>ASIHTTPRequest</em> 两个网络库的基本使用以及一些问题</p>
+  <meta name="description" content="总结一下 AFNetworking 和 ASIHTTPRequest 两个网络库的基本使用以及一些问题 首先到 github 下载这两个库，ASIHTTPRequest 从2011年就停止更新了，写这篇文章的时候 AFNetworking 的版本是 2.3.1。 当前使用的环境是 1
+2
+3 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Code in Technicolor" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Code in Technicolor</a></h1>
+  
+    <h2>Concentrate on iOS & Web. Build life in technicolor by coding.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/searching" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Veracruz.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">AFNetworking &amp; ASIHTTPRequest 的初步使用方法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-16T13:54:07+08:00" pubdate data-updated="true">Jul 16<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>总结一下 <em>AFNetworking</em> 和 <em>ASIHTTPRequest</em> 两个网络库的基本使用以及一些问题</p>
 
 <!-- more -->
 
@@ -438,294 +513,122 @@
 <li><a href="http://cocoadocs.org/docsets/AFNetworking/2.3.1/index.html">AFNetworking 官方文档</a></li>
 </ol>
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[使用Github + Octopress建立博客]]></title>
-    <link href="http://Veracruz.github.io/blog/2014/07/14/how-to-create-your-own-blog-on-github-pages/"/>
-    <updated>2014-07-14T14:50:09+08:00</updated>
-    <id>http://Veracruz.github.io/blog/2014/07/14/how-to-create-your-own-blog-on-github-pages</id>
-    <content type="html"><![CDATA[<p>学习研究的过程需要不断地总结，没有总结的学习会很快丢失那些记忆，建立一个博客是个很好的方法。</p>
 
-<p>在 <em><a href="http://github.com/">Github</a></em> 上建立博客的好处是，不需要去申请域名去租用一个空间，而且建立的过程可以学到很多东西。</p>
+<span class="byline author vcard">Posted by <span class="fn">Veracruz</span></span>
 
-<p>接下来总结一下使用 <em>GitHub Pages</em> 提供的托管服务的静态博客的建立流程以及一些问题。</p>
+      
 
-<p>以下操作环境都是在Mac中，不在Mac下可能会有不少差别，需要手动安装Git、ruby等等。</p>
 
-<!-- more -->
 
 
 
 
-<br /><br /><br />
 
 
-<h3><font color="330000">申请一个 <em>GitHub</em> 账号</font></h3>
-
-<hr />
-
-<p>首先需要一个 <em>GitHub</em> 的账号，这个Coder通常都有，进入 <em><a href="http://github.com/">Github</a></em> ，首页就可以快速的注册一个账号。</p>
-
-<br /><br /><br />
-
-
-<h3><font color="330000">建立一个新的仓库(Repository)</font></h3>
-
-<hr />
-
-<p>登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是<code>your_username.github.io</code>，建立时不用初始化。</p>
-
-<br /><br /><br />
-
-
-<h3><font color="330000">安装 <em>Octopress</em> 以及所需依赖</font></h3>
-
-<hr />
-
-<p><em>Octopress</em> 是一个静态的博客系统，而它是基于 <em>jekyll</em>，一个静态blog生成工具。这是一套很好的方案，并且有很多人在用。</p>
-
-<p>clone 一份 <em>Octopress</em> 到本地，注意整理好路径</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nb">cd </span>octopress
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后安装一些依赖</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo gem install bundler    <span class="c">#这句需要root权限，所以需要在前面添加sudo</span>
-</span><span class='line'>rbenv rehash                <span class="c">#没有安装rbenv，这句可省</span>
-</span><span class='line'>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>安装 <em>Octopress</em> 的默认主题</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake install
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个过程可能需要一段时间，命令<code>gem</code>你可以使用<code>-V</code>参数来监视完整的输出，另外如果速度过慢，或者失败的话，可以替换<code>gem</code>的源为<code>http://ruby.taobo.org/</code>，命令如下</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem sources -r https://rubygems.org/
-</span><span class='line'>gem sources -a http://ruby.taobao.org/    <span class="c">#这里可能需要一些时间</span>
-</span><span class='line'>gem sources -l                            <span class="c">#查看当前源，保证当前源是只有一个的</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<br /><br /><br />
-
-
-<h3><font color="330000">配置并部署 Octopress</font></h3>
-
-<hr />
-
-<p>执行下面语句来设置 <em>GitHub Pages</em></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake setup_github_pages
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个过程会要求在 <em>GitHub</em> 上建立的Repo的地址</p>
-
-<p><code>SSH</code> 地址</p>
-
-<p><code>git@github.com:username/username.github.io.git</code></p>
-
-<p>或者 <code>HTTPS</code> 地址</p>
-
-<p><code>https://github.com/your_username/your_username.github.io.git</code></p>
-
-<p>会有以下的操作，引用自 <a href="http://octopress.org/docs/deploying/github/]">Octopress官方文档</a></p>
-
-<blockquote><ul>
-<li>Ask for and store your Github Pages repository url.</li>
-<li>Rename the remote pointing to imathis/octopress from &lsquo;origin&rsquo; to &lsquo;octopress&rsquo;</li>
-<li>Add your Github Pages repository as the default origin remote.</li>
-<li>Switch the active branch from master to source.</li>
-<li>Configure your blog&rsquo;s url according to your repository.</li>
-<li>Setup a master branch in the _deploy directory for deployment.</li>
-</ul>
-</blockquote>
-
-<p>接下来</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake generate
-</span><span class='line'>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>执行后会生成静态博客，并将生成的文件复制到 <code>_deploy/</code> 目录下，<code>add</code>到git，然后<code>commit</code> &amp; <code>push</code> 到 <code>master branch</code>。打开 <code>http://your_userrname.github.io/</code> 就可以看到新建的博客了。</p>
-
-<p>注意把源代码 <code>push</code> 到 <code>source branch</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git add .
-</span><span class='line'>git commit -m <span class="s1">&#39;your message&#39;</span>
-</span><span class='line'>git push origin <span class="nb">source</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>关于博客的设置一般在 <code>_config.yml</code> 文件中，具体内容参照官方说明 <a href="http://octopress.org/docs/configuring">Configure your blog</a>。</p>
-
-<br /><br /><br />
-
-
-<h3><font color="330000">开始撰写博客</font></h3>
-
-<hr />
-
-<p>博客的每个post都在 <code>source/_post</code> 目录下，文件名的按照 <em>jekyll</em> 的建议命名方式 <code>YYYY-MM-DD-post-title.markdown</code>。</p>
-
-<p>简单的建立方式是利用下面的命令</p>
-
-<h4>Syntax</h4>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;title&quot;</span><span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它会按照上面所说的方式命名文件，扩展名为 <code>markdown</code>，这个可以再 <code>Rakefile</code> 中设置。还会在文件中加入 <em>yaml</em> 的头部。</p>
-
-<p>还可以添加新的页面</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_page<span class="o">[</span>super-awesome<span class="o">]</span>
-</span><span class='line'><span class="c"># creates /source/super-awesome/index.markdown</span>
-</span><span class='line'>
-</span><span class='line'>rake new_page<span class="o">[</span>super-awesome/page.html<span class="o">]</span>
-</span><span class='line'><span class="c"># creates /source/super-awesome/page.html</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>博客的内容使用 <em>markdown</em> 标记，具体的语法参见 <a href="http://wowubuntu.com/markdown/">Markdown 语法说明</a>。</p>
-
-<p>还可以使用 <em>Liquid</em> 模板引擎的语法，具体参见 <a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid for Designers</a>。</p>
-
-<p>使用以下语句可以在本地预览</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake preview
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样会生成并自动观察变化重生成，打开 <code>http://localhost:4000/</code> 中可以看到结果。</p>
-
-<p>或者可以在 <code>generate</code> 之后使用</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>jekyll serve
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3><font colot="330000">文章中代码的高亮</font></h3>
-
-<hr />
-
-<p>最直接简单的办法</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="sb">```</span> language
-</span><span class='line'>your code
-</span><span class='line'>  <span class="sb">```</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用 <em>Pygments</em> 来实现高亮，可用的语言参考 <a href="http://pygments.org/docs/lexers/">Available lexers</a>。</p>
-
-<p>完整参数参考 <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a>。</p>
-
-<br /><br /><br />
-
-
-<h3><font color="330000">过程中的一些问题</font></h3>
-
-<hr />
-
-<p><code>push</code> 或者 <code>rake deploy</code> 的过程中会遇到injected的问题，原因是文件重复，不能直接覆盖，使用以下语句解决</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>_deploy
-</span><span class='line'>git pull
-</span><span class='line'><span class="nb">cd</span> ..
-</span><span class='line'>rake deploy
-</span><span class='line'><span class="c"># 以上是使用rake时解决办法</span>
-</span><span class='line'>
-</span><span class='line'>git push -f
-</span><span class='line'><span class="c">#强制覆盖</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>git 的两条设置</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git config --global push.default simple
-</span><span class='line'><span class="c"># 设置push的时候只push当前分支</span>
-</span><span class='line'>
-</span><span class='line'>git config --global push.default matching
-</span><span class='line'><span class="c"># push所有变动</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<br />
-
-
-<br />
-
-
-<br />
-
-
-<br />
-
-
-<h4>参考资料</h4>
-
-<hr />
-
-<ol>
-<li><a href="http://octopress.org/">Octopress 官网</a></li>
-</ol>
-
-]]></content>
-  </entry>
   
-</feed>
+
+
+<time datetime="2014-07-16T13:54:07+08:00" pubdate data-updated="true">Jul 16<sup>th</sup>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest/" data-via="" data-counturl="http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/14/how-to-create-your-own-blog-on-github-pages/" title="Previous Post: 使用Github + Octopress建立博客">&laquo; 使用Github + Octopress建立博客</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking &amp; ASIHTTPRequest 的初步使用方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/14/how-to-create-your-own-blog-on-github-pages/">使用Github + Octopress建立博客</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+	<h1>Categories</h1>
+	<ul id="categories">
+		<li class='category'><a href='/blog/categories/blog-build-tech/'>blog_build_tech (1)</a></li>
+<li class='category'><a href='/blog/categories/ios/'>ios (1)</a></li>
+
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Veracruz -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
