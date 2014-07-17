@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Blog_build_tech | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/blog-build-tech/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-16T19:08:23+08:00</updated>
+  <updated>2014-07-18T00:32:40+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -28,34 +28,25 @@
 
 <!-- more -->
 
+<p><br /><br /><br /></p>
 
-
-
-<br /><br /><br />
-
-
-<h3><font color="330000">申请一个 <em>GitHub</em> 账号</font></h3>
+<h3 id="font-color330000-github-font"><font color="330000">申请一个 *GitHub* 账号</font></h3>
 
 <hr />
-
 <p>首先需要一个 <em>GitHub</em> 的账号，这个Coder通常都有，进入 <em><a href="http://github.com/">Github</a></em> ，首页就可以快速的注册一个账号。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">建立一个新的仓库(Repository)</font></h3>
+<h3 id="font-color330000repositoryfont"><font color="330000">建立一个新的仓库(Repository)</font></h3>
 
 <hr />
-
 <p>登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是<code>your_username.github.io</code>，建立时不用初始化。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">安装 <em>Octopress</em> 以及所需依赖</font></h3>
+<h3 id="font-color330000-octopress-font"><font color="330000">安装 *Octopress* 以及所需依赖</font></h3>
 
 <hr />
-
 <p><em>Octopress</em> 是一个静态的博客系统，而它是基于 <em>jekyll</em>，一个静态blog生成工具。这是一套很好的方案，并且有很多人在用。</p>
 
 <p>clone 一份 <em>Octopress</em> 到本地，注意整理好路径</p>
@@ -68,7 +59,7 @@ cd octopress
 
 <p><code>bash
 sudo gem install bundler    #这句需要root权限，所以需要在前面添加sudo
-rbenv rehash                  #没有安装rbenv，这句可省
+rbenv rehash	              #没有安装rbenv，这句可省
 bundle install
 </code></p>
 
@@ -86,13 +77,11 @@ gem sources -a http://ruby.taobao.org/    #这里可能需要一些时间
 gem sources -l                            #查看当前源，保证当前源是只有一个的
 </code></p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">配置并部署 Octopress</font></h3>
+<h3 id="font-color330000-octopressfont"><font color="330000">配置并部署 Octopress</font></h3>
 
 <hr />
-
 <p>执行下面语句来设置 <em>GitHub Pages</em></p>
 
 <p><code>bash
@@ -111,14 +100,15 @@ rake setup_github_pages
 
 <p>会有以下的操作，引用自 <a href="http://octopress.org/docs/deploying/github/]">Octopress官方文档</a></p>
 
-<blockquote><ul>
-<li>Ask for and store your Github Pages repository url.</li>
-<li>Rename the remote pointing to imathis/octopress from &lsquo;origin&rsquo; to &lsquo;octopress&rsquo;</li>
-<li>Add your Github Pages repository as the default origin remote.</li>
-<li>Switch the active branch from master to source.</li>
-<li>Configure your blog&rsquo;s url according to your repository.</li>
-<li>Setup a master branch in the _deploy directory for deployment.</li>
-</ul>
+<blockquote>
+  <ul>
+    <li>Ask for and store your Github Pages repository url.</li>
+    <li>Rename the remote pointing to imathis/octopress from ‘origin’ to ‘octopress’</li>
+    <li>Add your Github Pages repository as the default origin remote.</li>
+    <li>Switch the active branch from master to source.</li>
+    <li>Configure your blog’s url according to your repository.</li>
+    <li>Setup a master branch in the _deploy directory for deployment.</li>
+  </ul>
 </blockquote>
 
 <p>接下来</p>
@@ -140,19 +130,16 @@ git push origin source
 
 <p>关于博客的设置一般在 <code>_config.yml</code> 文件中，具体内容参照官方说明 <a href="http://octopress.org/docs/configuring">Configure your blog</a>。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">开始撰写博客</font></h3>
+<h3 id="font-color330000font"><font color="330000">开始撰写博客</font></h3>
 
 <hr />
-
 <p>博客的每个post都在 <code>source/_post</code> 目录下，文件名的按照 <em>jekyll</em> 的建议命名方式 <code>YYYY-MM-DD-post-title.markdown</code>。</p>
 
 <p>简单的建立方式是利用下面的命令</p>
 
-<h4>Syntax</h4>
-
+<h4 id="syntax">Syntax</h4>
 <p><code>bash
 rake new_post["title"]
 </code></p>
@@ -162,15 +149,12 @@ rake new_post["title"]
 <p>还可以添加新的页面</p>
 
 <p>``` bash
-rake new_page[super-awesome]</p>
+rake new_page[super-awesome]
+# creates /source/super-awesome/index.markdown</p>
 
-<h1>creates /source/super-awesome/index.markdown</h1>
-
-<p>rake new_page[super-awesome/page.html]</p>
-
-<h1>creates /source/super-awesome/page.html</h1>
-
-<p>```</p>
+<p>rake new_page[super-awesome/page.html]
+# creates /source/super-awesome/page.html
+```</p>
 
 <p>博客的内容使用 <em>markdown</em> 标记，具体的语法参见 <a href="http://wowubuntu.com/markdown/">Markdown 语法说明</a>。</p>
 
@@ -190,81 +174,60 @@ rake preview
 jekyll serve
 </code></p>
 
-<h3><font colot="330000">文章中代码的高亮</font></h3>
+<h3 id="font-colot330000font"><font colot="330000">文章中代码的高亮</font></h3>
 
 <hr />
-
 <p>最直接简单的办法</p>
 
 <p><code>
 </code> language
-your code</p>
-
-<pre><code>```
-</code></pre>
-
-<p>```</p>
+your code 
+	<code>
+</code></p>
 
 <p>使用 <em>Pygments</em> 来实现高亮，可用的语言参考 <a href="http://pygments.org/docs/lexers/">Available lexers</a>。</p>
 
 <p>完整参数参考 <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a>。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">过程中的一些问题</font></h3>
+<h3 id="font-color330000font-1"><font color="330000">过程中的一些问题</font></h3>
 
 <hr />
-
 <p><code>push</code> 或者 <code>rake deploy</code> 的过程中会遇到injected的问题，原因是文件重复，不能直接覆盖，使用以下语句解决</p>
 
 <p>``` bash
 cd _deploy
 git pull
 cd ..
-rake deploy</p>
+rake deploy
+# 以上是使用rake时解决办法</p>
 
-<h1>以上是使用rake时解决办法</h1>
-
-<p>git push -f</p>
-
-<h1>强制覆盖</h1>
-
-<p>```</p>
+<p>git push -f
+#强制覆盖
+```</p>
 
 <p>git 的两条设置</p>
 
 <p>``` bash
-git config &mdash;global push.default simple</p>
+git config –global push.default simple
+# 设置push的时候只push当前分支</p>
 
-<h1>设置push的时候只push当前分支</h1>
+<p>git config –global push.default matching
+# push所有变动
+```</p>
 
-<p>git config &mdash;global push.default matching</p>
-
-<h1>push所有变动</h1>
-
-<p>```</p>
-
+<p><br />
 <br />
-
-
 <br />
+<br /></p>
 
-
-<br />
-
-
-<br />
-
-
-<h4>参考资料</h4>
+<h4 id="section">参考资料</h4>
 
 <hr />
-
 <ol>
-<li><a href="http://octopress.org/">Octopress 官网</a></li>
+  <li><a href="http://octopress.org/">Octopress 官网</a></li>
 </ol>
-
 ]]></content>
   </entry>
   

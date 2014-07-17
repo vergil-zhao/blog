@@ -9,7 +9,7 @@
   <meta name="author" content="Veracruz">
 
   
-  <meta name="description" content="总结一下 AFNetworking 和 ASIHTTPRequest 两个网络库的基本使用以及一些问题 ">
+  <meta name="description" content="本篇介绍iOS中的 Core Animation 的3D变换，CATransform3D 矩阵变换。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,9 +27,11 @@
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<!--
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
+-->
   
 
 </head>
@@ -65,6 +67,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/17/core-animation/">Core Animation 中的3D变换以及简单应用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-17T22:36:21+08:00" pubdate data-updated="true">Jul 17<sup>th</sup>, 2014</time>
+        
+        
+        | <a href="/blog/2014/07/17/core-animation/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本篇介绍iOS中的 <em>Core Animation</em> 的3D变换，<em>CATransform3D</em> 矩阵变换。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/07/17/core-animation/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -173,6 +219,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/17/core-animation/">Core Animation 中的3D变换以及简单应用</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking & ASIHTTPRequest 的初步使用方法</a>
       </li>
     
@@ -219,7 +269,7 @@
 	<h1>Categories</h1>
 	<ul id="categories">
 		<li class='category'><a href='/blog/categories/blog-build-tech/'>blog_build_tech (1)</a></li>
-<li class='category'><a href='/blog/categories/ios/'>ios (1)</a></li>
+<li class='category'><a href='/blog/categories/ios/'>ios (2)</a></li>
 
 	</ul>
 </section>
@@ -254,6 +304,21 @@
     var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
     document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1927408f733bc1f82c711c8aece7a832' type='text/javascript'%3E%3C/script%3E"));
 </script>
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+                       jax: ["input/TeX", "output/HTML-CSS"],
+                       tex2jax: {
+                       inlineMath: [ ['$', '$'] ],
+                       displayMath: [ ['$$', '$$']],
+                       processEscapes: true,
+                       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                       },
+                       messageStyle: "none",
+                       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+                       });
+    </script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
 </footer>
   
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-16T19:08:23+08:00</updated>
+  <updated>2014-07-18T00:32:40+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -12,6 +12,290 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Core Animation 中的3D变换以及简单应用]]></title>
+    <link href="http://Veracruz.github.io/blog/2014/07/17/core-animation/"/>
+    <updated>2014-07-17T22:36:21+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2014/07/17/core-animation</id>
+    <content type="html"><![CDATA[<p>本篇介绍iOS中的 <em>Core Animation</em> 的3D变换，<em>CATransform3D</em> 矩阵变换。</p>
+
+<!-- more -->
+
+<p><em>Core Animation</em> 是iOS中自带的动画框架，它包含了一些常用的变换和动画，旋转、缩放、平移、透视等。平面的动画有 <em>facebook</em> 的 <em>pop</em> 开源框架，下一篇讲介绍。三维的框架有 <em>Unity3D</em>，通常用CA做一个3D的动画还是很繁琐的，iOS上的 <em>OpenGL ES</em> 可能更科学。</p>
+
+<p>这个层面已经涉及到一些计算机图形学的知识，这里只说明基本的意义。</p>
+
+<p>首先，通过查看 <em>CATransform3D</em> 的定义可以知道，这是一个三维齐次变换矩阵. <em>4 * 4</em> 的矩阵，表示为</p>
+
+<p>$\begin{matrix}
+A &amp; A &amp; A &amp; C \cr
+A &amp; A &amp; A &amp; C \cr
+A &amp; A &amp; A &amp; C \cr
+B &amp; B &amp; B &amp; D
+\end{matrix}$</p>
+
+<p>A区是的变换是，旋转、比例、错切等变换，B区是平移变换，C区是透视变换，D是全比例变换。</p>
+
+<p>左上到右下的对角线是1，而其他的都为0的时候，就是 <code>CATransform3DIdentity</code> 变换，即恒等变换。一般的常用变换，CA都给出了一些C函数，例如 <code>CATransform3DRotate()</code>。</p>
+
+<p>这些操作都是在一个layer上，<code>layer.anchorPoint</code> 这个属性会影响到一些变换，比如旋转的轴。</p>
+
+<p>这里提一下iOS中坐标系的问题，CA中用的是左手坐标系，x轴正方向向右，y轴正方向向下，z轴正方向垂直于屏幕向上，也就是朝着用户的方向。所以这里，旋转的正方向就是顺时针，而旋转的角度的范围事实上为-180到180，所以如果使用变换来做动画，则使用 <code>CAKeyFrameAnimation</code> 来实现超过180度的旋转动画，而使用keypath的方式就不需要。</p>
+
+<p>在做animation的时候，使用 <code>CABasicAnimation</code> 用 <em>keypath</em> 来添加动画，这里有一个非官方的不完整列表，官方似乎并未提供完整列表。转载自<a href="http://www.cnblogs.com/pengyingh/articles/2379631.html">CABasicAnimation animationWithKeyPath 一些规定的值</a></p>
+
+<ul>
+  <li>sublayerTransform</li>
+  <li>transform</li>
+  <li>rotation</li>
+  <li>scale</li>
+  <li>translation</li>
+  <li>opacity</li>
+  <li>margin</li>
+  <li>zPosition</li>
+  <li>backgroundColor</li>
+  <li>cornerRadius</li>
+  <li>borderWidth</li>
+  <li>bounds</li>
+  <li>contents</li>
+  <li>contentsRect</li>
+  <li>cornerRadius</li>
+  <li>frame</li>
+  <li>hidden</li>
+  <li>mask</li>
+  <li>masksToBounds</li>
+  <li>opacity</li>
+  <li>position</li>
+  <li>shadowColor</li>
+  <li>shadowOffset</li>
+  <li>shadowOpacity</li>
+  <li>shadowRadius</li>
+</ul>
+
+<p>其中有一些是可以用 <code>.</code> 来连接子属性的，例如 <code>rotation.x</code>。</p>
+
+<p>有一个简单明了的示例是Mgen的一个旋转立方体，我这里给出 <code>ViewController.m</code> 的完整代码和我增加的几条注释，转载自<a href="http://www.mgenware.com/blog/?p=498">iOS CALayer和3D (1): 定义一个简单的旋转3D立方体</a>。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+<span class="line-number">83</span>
+<span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
+<span class="line-number">87</span>
+<span class="line-number">88</span>
+<span class="line-number">89</span>
+<span class="line-number">90</span>
+<span class="line-number">91</span>
+<span class="line-number">92</span>
+<span class="line-number">93</span>
+<span class="line-number">94</span>
+<span class="line-number">95</span>
+<span class="line-number">96</span>
+<span class="line-number">97</span>
+<span class="line-number">98</span>
+<span class="line-number">99</span>
+<span class="line-number">100</span>
+<span class="line-number">101</span>
+<span class="line-number">102</span>
+<span class="line-number">103</span>
+<span class="line-number">104</span>
+<span class="line-number">105</span>
+<span class="line-number">106</span>
+<span class="line-number">107</span>
+</pre></td><td class="code"><pre><code class="objc"><span class="line"><span class="c1">//</span>
+</span><span class="line"><span class="c1">//  ViewController.m</span>
+</span><span class="line"><span class="c1">//  CALayer_3DCube_from_Mgen_Blog</span>
+</span><span class="line"><span class="c1">//</span>
+</span><span class="line"><span class="c1">//  Created by Veracruz on 14-7-17.</span>
+</span><span class="line"><span class="c1">//  Copyright (c) 2014年 Veracruz. All rights reserved.</span>
+</span><span class="line"><span class="c1">//</span>
+</span><span class="line">
+</span><span class="line"><span class="cp">#import &quot;ViewController.h&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span>
+</span><span class="line">
+</span><span class="line"><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">CALayer</span> <span class="o">*</span><span class="n">rootLayer</span><span class="p">;</span> <span class="c1">//主layer，这里应理解为一个放置layer的舞台</span>
+</span><span class="line">
+</span><span class="line"><span class="k">@end</span>
+</span><span class="line">
+</span><span class="line"><span class="k">@implementation</span> <span class="nc">ViewController</span>
+</span><span class="line">
+</span><span class="line"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class="line"><span class="p">{</span>
+</span><span class="line">    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class="line">	<span class="c1">// Do any additional setup after loading the view, typically from a nib.</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">_rootLayer</span> <span class="o">=</span> <span class="p">[</span><span class="n">CALayer</span> <span class="n">layer</span><span class="p">];</span>
+</span><span class="line">    <span class="n">_rootLayer</span><span class="p">.</span><span class="n">contentsScale</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">].</span><span class="n">scale</span><span class="p">;</span>
+</span><span class="line">    <span class="n">_rootLayer</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1">//前</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span> <span class="n">addLayer</span><span class="o">:</span><span class="p">@[</span><span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@50</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">]];</span>
+</span><span class="line">    <span class="c1">//后</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span> <span class="n">addLayer</span><span class="o">:</span><span class="p">@[</span><span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="p">@(</span><span class="o">-</span><span class="mi">50</span><span class="p">),</span> <span class="p">@(</span><span class="n">M_PI</span><span class="p">),</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">]];</span>
+</span><span class="line">    <span class="c1">//左</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span> <span class="n">addLayer</span><span class="o">:</span><span class="p">@[@(</span><span class="o">-</span><span class="mi">50</span><span class="p">),</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="p">@(</span><span class="o">-</span><span class="n">M_PI_2</span><span class="p">),</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@1</span><span class="p">,</span> <span class="mi">@0</span><span class="p">]];</span>
+</span><span class="line">    <span class="c1">//右</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span> <span class="n">addLayer</span><span class="o">:</span><span class="p">@[</span><span class="mi">@50</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="p">@(</span><span class="n">M_PI_2</span><span class="p">),</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@1</span><span class="p">,</span> <span class="mi">@0</span><span class="p">]];</span>
+</span><span class="line">    <span class="c1">//上</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span> <span class="n">addLayer</span><span class="o">:</span><span class="p">@[</span><span class="mi">@0</span><span class="p">,</span> <span class="p">@(</span><span class="o">-</span><span class="mi">50</span><span class="p">),</span> <span class="mi">@0</span><span class="p">,</span> <span class="p">@(</span><span class="o">-</span><span class="n">M_PI_2</span><span class="p">),</span> <span class="mi">@1</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">]];</span>
+</span><span class="line">    <span class="c1">//下</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span> <span class="n">addLayer</span><span class="o">:</span><span class="p">@[</span><span class="mi">@0</span><span class="p">,</span> <span class="mi">@50</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="p">@(</span><span class="n">M_PI_2</span><span class="p">),</span> <span class="mi">@1</span><span class="p">,</span> <span class="mi">@0</span><span class="p">,</span> <span class="mi">@0</span><span class="p">]];</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1">//主Layer的3D变换</span>
+</span><span class="line">    <span class="n">CATransform3D</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">CATransform3DIdentity</span><span class="p">;</span>
+</span><span class="line">    <span class="c1">//这是做了一个透视</span>
+</span><span class="line">    <span class="n">transform</span><span class="p">.</span><span class="n">m34</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mi">700</span><span class="p">;</span>
+</span><span class="line">    <span class="c1">//在X轴上做一个20度的小旋转</span>
+</span><span class="line">    <span class="n">transform</span> <span class="o">=</span> <span class="n">CATransform3DRotate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="line">    <span class="c1">//设置CALayer的sublayerTransform</span>
+</span><span class="line">    <span class="n">_rootLayer</span><span class="p">.</span><span class="n">sublayerTransform</span> <span class="o">=</span> <span class="n">transform</span><span class="p">;</span>
+</span><span class="line">    <span class="c1">//添加Layer</span>
+</span><span class="line">    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">layer</span> <span class="n">addSublayer</span><span class="o">:</span><span class="n">_rootLayer</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1">//动画</span>
+</span><span class="line">    <span class="n">CABasicAnimation</span> <span class="o">*</span><span class="n">animation</span> <span class="o">=</span> <span class="p">[</span><span class="n">CABasicAnimation</span> <span class="n">animationWithKeyPath</span><span class="o">:</span><span class="s">@&quot;sublayerTransform.rotation.y&quot;</span><span class="p">];</span>
+</span><span class="line">    <span class="c1">//从0到360度</span>
+</span><span class="line">    <span class="n">animation</span><span class="p">.</span><span class="n">toValue</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="n">numberWithFloat</span><span class="o">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">];</span>
+</span><span class="line">    <span class="c1">//间隔3秒</span>
+</span><span class="line">    <span class="n">animation</span><span class="p">.</span><span class="n">duration</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class="line">    <span class="c1">//无限循环</span>
+</span><span class="line">    <span class="n">animation</span><span class="p">.</span><span class="n">repeatCount</span> <span class="o">=</span> <span class="n">HUGE_VALF</span><span class="p">;</span>
+</span><span class="line">    <span class="c1">//开始动画</span>
+</span><span class="line">    <span class="p">[</span><span class="n">_rootLayer</span> <span class="n">addAnimation</span><span class="o">:</span><span class="n">animation</span> <span class="n">forKey</span><span class="o">:</span><span class="s">@&quot;rotation&quot;</span><span class="p">];</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addLayer:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">params</span>
+</span><span class="line"><span class="p">{</span>
+</span><span class="line">    <span class="c1">//可以渐变颜色的layer</span>
+</span><span class="line">    <span class="n">CAGradientLayer</span> <span class="o">*</span><span class="n">gradientLayer</span> <span class="o">=</span> <span class="p">[</span><span class="n">CAGradientLayer</span> <span class="n">layer</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1">//这句似乎在有内容的时候才是必须的</span>
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">contentsScale</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">].</span><span class="n">scale</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1">//设置渐变的颜色序列</span>
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">@[(</span><span class="kt">id</span><span class="p">)[</span><span class="n">UIColor</span> <span class="n">grayColor</span><span class="p">].</span><span class="n">CGColor</span><span class="p">,</span>
+</span><span class="line">                             <span class="p">(</span><span class="kt">id</span><span class="p">)[</span><span class="n">UIColor</span> <span class="n">blackColor</span><span class="p">].</span><span class="n">CGColor</span><span class="p">];</span>
+</span><span class="line">    <span class="c1">//设置每个颜色起始的比例位置</span>
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">locations</span> <span class="o">=</span> <span class="p">@[</span><span class="mi">@0</span><span class="p">,</span> <span class="mi">@1</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line">    <span class="c1">//两个点的连线就是渐变的方向</span>
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">startPoint</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">startPoint</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">CATransform3D</span> <span class="n">transform</span> <span class="o">=</span>
+</span><span class="line">        <span class="n">CATransform3DMakeTranslation</span><span class="p">([[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">],</span>
+</span><span class="line">                                     <span class="p">[[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">1</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">],</span>
+</span><span class="line">                                     <span class="p">[[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">2</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]);</span>
+</span><span class="line">    <span class="n">transform</span> <span class="o">=</span>
+</span><span class="line">        <span class="n">CATransform3DRotate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span>
+</span><span class="line">                            <span class="p">[[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">3</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">],</span>
+</span><span class="line">                            <span class="p">[[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">4</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">],</span>
+</span><span class="line">                            <span class="p">[[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">5</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">],</span>
+</span><span class="line">                            <span class="p">[[</span><span class="n">params</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]);</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">gradientLayer</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line">    <span class="p">[</span><span class="n">_rootLayer</span> <span class="n">addSublayer</span><span class="o">:</span><span class="n">gradientLayer</span><span class="p">];</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didReceiveMemoryWarning</span>
+</span><span class="line"><span class="p">{</span>
+</span><span class="line">    <span class="p">[</span><span class="n">super</span> <span class="n">didReceiveMemoryWarning</span><span class="p">];</span>
+</span><span class="line">    <span class="c1">// Dispose of any resources that can be recreated.</span>
+</span><span class="line"><span class="p">}</span>
+</span><span class="line">
+</span><span class="line"><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>上面代码实现了一个立方体的旋转动画，通过这段代码即可了解CA中的变换和动画的一些用法。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[AFNetworking & ASIHTTPRequest 的初步使用方法]]></title>
@@ -22,18 +306,16 @@
 
 <!-- more -->
 
-
 <p>首先到 <em>github</em> 下载这两个库，<em>ASIHTTPRequest</em> 从2011年就停止更新了，写这篇文章的时候 <em>AFNetworking</em> 的版本是 <code>2.3.1</code>。</p>
 
 <p>当前使用的环境是</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Mac OS X 10.9.4
-</span><span class='line'>Xcode 5.1.1
-</span><span class='line'>iOS 7.1</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Mac OS X 10.9.4
+</span><span class="line">Xcode 5.1.1
+</span><span class="line">iOS 7.1</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>下面是两个库的地址</p>
 
@@ -150,164 +432,147 @@
 </tbody>
 </table>
 
+<p><br /><br /><br /></p>
 
-
-
-<br /><br /><br />
-
-
-<h2>AFNetworking</h2>
+<h2 id="afnetworking">AFNetworking</h2>
 
 <p>这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>导入库</h3>
+<h3 id="section">导入库</h3>
 
 <hr />
 
 <p>只要将下载之后的目录下的 <code>AFNetworking</code> 和 <code>UIKit+AFNetworking</code> 两个文件夹导入到工程即可，并且不需要添加其他框架。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>GET请求并解析JSON</h3>
+<h3 id="getjson">GET请求并解析JSON</h3>
 
 <hr />
 
 <p>它有自己的管理类，这种请求非常简单明了，会直接解析JSON到一个 <code>NSDictionary</code>，当然前提是返回的响应是很规范的，可是很多时候并不是这样。这种请求方式要求响应头中的 <code>Content-type</code> 字段的值必须是 <code>text/json</code>，也就是<code>Content-type: text/json</code>。很多时候返回的响应头这个字段的值是 <code>text/html</code>, 这个时候这个库就会返回一个错误。当然错误格式的JSON数据也会返回错误。下面是调用的代码段.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">AFHTTPRequestOperationManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">AFHTTPRequestOperationManager</span> <span class="n">manager</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//设置支持所有的MIME格式，略隐蔽的设置选项</span>
-</span><span class='line'><span class="n">manager</span><span class="p">.</span><span class="n">responseSerializer</span><span class="p">.</span><span class="n">acceptableContentTypes</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">manager</span> <span class="n">GET</span><span class="o">:</span><span class="n">JSON_URL</span> <span class="n">parameters</span><span class="o">:</span><span class="nb">nil</span> <span class="n">success</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="kt">id</span> <span class="n">responseObject</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@ : &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">responseObject</span> <span class="n">class</span><span class="p">],</span> <span class="n">responseObject</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span> <span class="n">failure</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;error : %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="objectivec"><span class="line"><span class="n">AFHTTPRequestOperationManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">AFHTTPRequestOperationManager</span> <span class="n">manager</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">//设置支持所有的MIME格式，略隐蔽的设置选项</span>
+</span><span class="line"><span class="n">manager</span><span class="p">.</span><span class="n">responseSerializer</span><span class="p">.</span><span class="n">acceptableContentTypes</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[</span><span class="n">manager</span> <span class="n">GET</span><span class="o">:</span><span class="n">JSON_URL</span> <span class="n">parameters</span><span class="o">:</span><span class="nb">nil</span> <span class="n">success</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="kt">id</span> <span class="n">responseObject</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@ : &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">responseObject</span> <span class="n">class</span><span class="p">],</span> <span class="n">responseObject</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}</span> <span class="n">failure</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;error : %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p><br /><br /></p>
 
-
-
-<br /><br />
-
-
-<h3>通用请求</h3>
+<h3 id="section-1">通用请求</h3>
 
 <hr />
 
 <p>这个库提供了响应的序列化器(serializer)，就是解析器，这个可以自己定制，如果不指定则不会解析，仅接收原始数据在block的参数 <code>responseObject</code> 中。<code>operation</code>有很多有用的属性，例如<code>operation.response.allHeaderFields</code> 可以查看完整的响应头。下面这段代码指定了XML的序列化器。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">]];</span>
-</span><span class='line'><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFHTTPRequestOperation</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithRequest</span><span class="o">:</span><span class="n">request</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//指定序列化器</span>
-</span><span class='line'><span class="n">operation</span><span class="p">.</span><span class="n">responseSerializer</span> <span class="o">=</span> <span class="p">[</span><span class="n">AFXMLParserResponseSerializer</span> <span class="n">serializer</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="n">setCompletionBlockWithSuccess</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="kt">id</span> <span class="n">responseObject</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@ : &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">responseObject</span> <span class="n">class</span><span class="p">],</span> <span class="n">responseObject</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span> <span class="n">failure</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;error : %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[[</span><span class="n">NSOperationQueue</span> <span class="n">mainQueue</span><span class="p">]</span> <span class="n">addOperation</span><span class="o">:</span><span class="n">operation</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="objectivec"><span class="line"><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">]];</span>
+</span><span class="line"><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFHTTPRequestOperation</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithRequest</span><span class="o">:</span><span class="n">request</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">//指定序列化器</span>
+</span><span class="line"><span class="n">operation</span><span class="p">.</span><span class="n">responseSerializer</span> <span class="o">=</span> <span class="p">[</span><span class="n">AFXMLParserResponseSerializer</span> <span class="n">serializer</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[</span><span class="n">operation</span> <span class="n">setCompletionBlockWithSuccess</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="kt">id</span> <span class="n">responseObject</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@ : &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">responseObject</span> <span class="n">class</span><span class="p">],</span> <span class="n">responseObject</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}</span> <span class="n">failure</span><span class="o">:^</span><span class="p">(</span><span class="n">AFHTTPRequestOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;error : %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}];</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[[</span><span class="n">NSOperationQueue</span> <span class="n">mainQueue</span><span class="p">]</span> <span class="n">addOperation</span><span class="o">:</span><span class="n">operation</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>从上面的代码的输出可以看到，它使用了iOS自带的XML解析器。</p>
 
-<h3>文件下载保存</h3>
+<h3 id="section-2">文件下载保存</h3>
 
 <hr />
 
 <p>下面的代码很方便的实现了一个文件的下载。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">AFURLSessionManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFURLSessionManager</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithSessionConfiguration</span><span class="o">:</span><span class="p">[</span><span class="n">NSURLSessionConfiguration</span> <span class="n">defaultSessionConfiguration</span><span class="p">]];</span>
-</span><span class='line'><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">]];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">NSURLSessionDownloadTask</span> <span class="o">*</span><span class="n">task</span> <span class="o">=</span> <span class="p">[</span><span class="n">manager</span> <span class="n">downloadTaskWithRequest</span><span class="o">:</span><span class="n">request</span> <span class="n">progress</span><span class="o">:</span><span class="nb">nil</span> <span class="n">destination</span><span class="o">:^</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="n">targetPath</span><span class="p">,</span> <span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">documentURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="n">URLForDirectory</span><span class="o">:</span><span class="n">NSDocumentDirectory</span> <span class="n">inDomain</span><span class="o">:</span><span class="n">NSUserDomainMask</span> <span class="n">appropriateForURL</span><span class="o">:</span><span class="nb">nil</span> <span class="n">create</span><span class="o">:</span><span class="nb">NO</span> <span class="n">error</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">documentURL</span> <span class="n">URLByAppendingPathComponent</span><span class="o">:</span><span class="n">FILE_NAME</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span> <span class="n">completionHandler</span><span class="o">:^</span><span class="p">(</span><span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSURL</span> <span class="o">*</span><span class="n">filePath</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;error : %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//不要忘记开始任务</span>
-</span><span class='line'><span class="p">[</span><span class="n">task</span> <span class="n">resume</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+</pre></td><td class="code"><pre><code class="objectivec"><span class="line"><span class="n">AFURLSessionManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AFURLSessionManager</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithSessionConfiguration</span><span class="o">:</span><span class="p">[</span><span class="n">NSURLSessionConfiguration</span> <span class="n">defaultSessionConfiguration</span><span class="p">]];</span>
+</span><span class="line"><span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">]];</span>
+</span><span class="line">
+</span><span class="line"><span class="n">NSURLSessionDownloadTask</span> <span class="o">*</span><span class="n">task</span> <span class="o">=</span> <span class="p">[</span><span class="n">manager</span> <span class="n">downloadTaskWithRequest</span><span class="o">:</span><span class="n">request</span> <span class="n">progress</span><span class="o">:</span><span class="nb">nil</span> <span class="n">destination</span><span class="o">:^</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="n">targetPath</span><span class="p">,</span> <span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">)</span>
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">    <span class="n">NSURL</span> <span class="o">*</span><span class="n">documentURL</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="n">URLForDirectory</span><span class="o">:</span><span class="n">NSDocumentDirectory</span> <span class="n">inDomain</span><span class="o">:</span><span class="n">NSUserDomainMask</span> <span class="n">appropriateForURL</span><span class="o">:</span><span class="nb">nil</span> <span class="n">create</span><span class="o">:</span><span class="nb">NO</span> <span class="n">error</span><span class="o">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class="line">    <span class="k">return</span> <span class="p">[</span><span class="n">documentURL</span> <span class="n">URLByAppendingPathComponent</span><span class="o">:</span><span class="n">FILE_NAME</span><span class="p">];</span>
+</span><span class="line">    <span class="p">}</span> <span class="n">completionHandler</span><span class="o">:^</span><span class="p">(</span><span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSURL</span> <span class="o">*</span><span class="n">filePath</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span>
+</span><span class="line">    <span class="p">{</span>
+</span><span class="line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;error : %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}];</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">//不要忘记开始任务</span>
+</span><span class="line"><span class="p">[</span><span class="n">task</span> <span class="n">resume</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p><br /><br /><br /></p>
 
-
-
-<br /><br /><br />
-
-
-<h2>ASIHTTPRequest</h2>
+<h2 id="asihttprequest">ASIHTTPRequest</h2>
 
 <p>这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>导入库</h3>
+<h3 id="section-3">导入库</h3>
 
 <hr />
 
 <p>下载库之后，将目录下的 <code>Classes</code> 和 <code>External</code> 文件夹导入到项目中，这并不是完整的导入，它的单元测试模块的一些文件并不包含在这个目录中，需要用 <em>ruby</em> 相关的命令来导入。这里只需要删除 <code>Classes</code> 目录下的 <code>Test</code> 删除即可。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>项目设置</h3>
+<h3 id="section-4">项目设置</h3>
 
 <hr />
 
 <p>需要添加以下框架和库</p>
 
-<p><code>CFNetworking.framework</code>
+<p><code>CFNetworking.framework	</code>
 <code>SystemConfiguration.framework</code>
 <code>MobileCoreServices.framework</code>
 <code>libz.dylib</code>
@@ -319,125 +584,113 @@
 
 <p>另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>数据请求</h3>
+<h3 id="section-5">数据请求</h3>
 
 <hr />
 
 <p>有同步和异步请求，同步的意义不大，这里给出异步请求。请求的处理有两种方式，一种是代理，一种是 <code>block</code>。下面给出 <code>block</code> 方式的，代理方式在 <code>ASIHTTPRequestDelegate</code> 的文件中的定义很容易理解。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//使用__weak来防止使用block出现的retain循环</span>
-</span><span class='line'><span class="n">__weak</span> <span class="n">ASIHTTPRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="n">url</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//使用代理方式则添加下面这句</span>
-</span><span class='line'><span class="c1">//request.delegate = self;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="n">setCompletionBlock</span><span class="o">:^</span><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">responseString</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="n">setFailedBlock</span><span class="o">:^</span><span class="p">{</span>
-</span><span class='line'>  <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">error</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="n">startAsynchronous</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class="objectivec"><span class="line"><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">SOME_URL</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">//使用__weak来防止使用block出现的retain循环</span>
+</span><span class="line"><span class="n">__weak</span> <span class="n">ASIHTTPRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="n">url</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">//使用代理方式则添加下面这句</span>
+</span><span class="line"><span class="c1">//request.delegate = self;</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[</span><span class="n">request</span> <span class="n">setCompletionBlock</span><span class="o">:^</span><span class="p">{</span>
+</span><span class="line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">responseString</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}];</span>
+</span><span class="line"><span class="p">[</span><span class="n">request</span> <span class="n">setFailedBlock</span><span class="o">:^</span><span class="p">{</span>
+</span><span class="line">	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">error</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}];</span>
+</span><span class="line"><span class="p">[</span><span class="n">request</span> <span class="n">startAsynchronous</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-
-
-<br /><br />
-
-
-<h3>文件下载缓存</h3>
+<p><br /><br />
+###文件下载缓存</p>
 
 <hr />
 
 <p>支持多种缓存策略，这里使用永久缓存的策略。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">];</span>
-</span><span class='line'><span class="n">__weak</span> <span class="n">ASIHTTPRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="n">url</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">downloadCache</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIDownloadCache</span> <span class="n">sharedCache</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//指定缓存策略</span>
-</span><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">cachePolicy</span> <span class="o">=</span> <span class="n">ASIOnlyLoadIfNotCachedCachePolicy</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="n">setCompletionBlock</span><span class="o">:^</span><span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">request</span><span class="p">.</span><span class="n">responseData</span> <span class="n">writeToFile</span><span class="o">:</span><span class="n">LOCAL_FILE_URL</span> <span class="n">atomically</span><span class="o">:</span><span class="nb">YES</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="n">setFailedBlock</span><span class="o">:^</span><span class="p">{</span>
-</span><span class='line'>      <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">error</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}];</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="n">startAsynchronous</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="objectivec"><span class="line"><span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="n">URLWithString</span><span class="o">:</span><span class="n">FILE_URL</span><span class="p">];</span>
+</span><span class="line"><span class="n">__weak</span> <span class="n">ASIHTTPRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="n">requestWithURL</span><span class="o">:</span><span class="n">url</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="n">request</span><span class="p">.</span><span class="n">downloadCache</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIDownloadCache</span> <span class="n">sharedCache</span><span class="p">];</span>
+</span><span class="line">
+</span><span class="line"><span class="c1">//指定缓存策略</span>
+</span><span class="line"><span class="n">request</span><span class="p">.</span><span class="n">cachePolicy</span> <span class="o">=</span> <span class="n">ASIOnlyLoadIfNotCachedCachePolicy</span><span class="p">;</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[</span><span class="n">request</span> <span class="n">setCompletionBlock</span><span class="o">:^</span><span class="p">{</span>
+</span><span class="line">    <span class="p">[</span><span class="n">request</span><span class="p">.</span><span class="n">responseData</span> <span class="n">writeToFile</span><span class="o">:</span><span class="n">LOCAL_FILE_URL</span> <span class="n">atomically</span><span class="o">:</span><span class="nb">YES</span><span class="p">];</span>
+</span><span class="line">    <span class="p">}];</span>
+</span><span class="line"><span class="p">[</span><span class="n">request</span> <span class="n">setFailedBlock</span><span class="o">:^</span><span class="p">{</span>
+</span><span class="line">  	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">error</span><span class="p">);</span>
+</span><span class="line">    <span class="p">}];</span>
+</span><span class="line">
+</span><span class="line"><span class="p">[</span><span class="n">request</span> <span class="n">startAsynchronous</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>下载任务是支持进度显示的，需要用一个UIProgressView代理，和设置显示精确进度，下面两句</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">showAccurateProgress</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
-</span><span class='line'><span class="n">request</span><span class="p">.</span><span class="n">downloadProgressDelegate</span> <span class="o">=</span> <span class="n">progressView</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="objectivec"><span class="line"><span class="n">request</span><span class="p">.</span><span class="n">showAccurateProgress</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class="line"><span class="n">request</span><span class="p">.</span><span class="n">downloadProgressDelegate</span> <span class="o">=</span> <span class="n">progressView</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <hr />
+<hr />
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <p>以上就是两个库的基本用法，还有一些上传数据，身份验证等等点击下面的参考资料中的链接查看。</p>
 
-<br /><br /><br /><br />
+<p><br /><br /><br /><br /></p>
 
-
-<h4>参考资料</h4>
+<h4 id="section-6">参考资料</h4>
 
 <hr />
 
 <ol>
-<li><a href="http://mobile.51cto.com/iphone-405168.htm">专题：iOS教程之ASIHttpRequest完全攻略</a></li>
-<li><a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use">ASIHTTPRequest 官方文档</a></li>
-<li><a href="http://cocoadocs.org/docsets/AFNetworking/2.3.1/index.html">AFNetworking 官方文档</a></li>
+  <li><a href="http://mobile.51cto.com/iphone-405168.htm">专题：iOS教程之ASIHttpRequest完全攻略</a></li>
+  <li><a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use">ASIHTTPRequest 官方文档</a></li>
+  <li><a href="http://cocoadocs.org/docsets/AFNetworking/2.3.1/index.html">AFNetworking 官方文档</a></li>
 </ol>
-
 ]]></content>
   </entry>
   
@@ -456,89 +709,70 @@
 
 <!-- more -->
 
+<p><br /><br /><br /></p>
 
-
-
-<br /><br /><br />
-
-
-<h3><font color="330000">申请一个 <em>GitHub</em> 账号</font></h3>
+<h3 id="font-color330000-github-font"><font color="330000">申请一个 *GitHub* 账号</font></h3>
 
 <hr />
-
 <p>首先需要一个 <em>GitHub</em> 的账号，这个Coder通常都有，进入 <em><a href="http://github.com/">Github</a></em> ，首页就可以快速的注册一个账号。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">建立一个新的仓库(Repository)</font></h3>
+<h3 id="font-color330000repositoryfont"><font color="330000">建立一个新的仓库(Repository)</font></h3>
 
 <hr />
-
 <p>登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是<code>your_username.github.io</code>，建立时不用初始化。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">安装 <em>Octopress</em> 以及所需依赖</font></h3>
+<h3 id="font-color330000-octopress-font"><font color="330000">安装 *Octopress* 以及所需依赖</font></h3>
 
 <hr />
-
 <p><em>Octopress</em> 是一个静态的博客系统，而它是基于 <em>jekyll</em>，一个静态blog生成工具。这是一套很好的方案，并且有很多人在用。</p>
 
 <p>clone 一份 <em>Octopress</em> 到本地，注意整理好路径</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone git://github.com/imathis/octopress.git octopress
-</span><span class='line'><span class="nb">cd </span>octopress
-</span></code></pre></td></tr></table></div></figure>
-
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">git clone git://github.com/imathis/octopress.git octopress
+</span><span class="line"><span class="nb">cd </span>octopress
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 <p>然后安装一些依赖</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo gem install bundler    <span class="c">#这句需要root权限，所以需要在前面添加sudo</span>
-</span><span class='line'>rbenv rehash                <span class="c">#没有安装rbenv，这句可省</span>
-</span><span class='line'>bundle install
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">sudo gem install bundler    <span class="c">#这句需要root权限，所以需要在前面添加sudo</span>
+</span><span class="line">rbenv rehash	              <span class="c">#没有安装rbenv，这句可省</span>
+</span><span class="line">bundle install
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>安装 <em>Octopress</em> 的默认主题</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake install
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">rake install
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这个过程可能需要一段时间，命令<code>gem</code>你可以使用<code>-V</code>参数来监视完整的输出，另外如果速度过慢，或者失败的话，可以替换<code>gem</code>的源为<code>http://ruby.taobo.org/</code>，命令如下</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem sources -r https://rubygems.org/
-</span><span class='line'>gem sources -a http://ruby.taobao.org/    <span class="c">#这里可能需要一些时间</span>
-</span><span class='line'>gem sources -l                            <span class="c">#查看当前源，保证当前源是只有一个的</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">gem sources -r https://rubygems.org/
+</span><span class="line">gem sources -a http://ruby.taobao.org/    <span class="c">#这里可能需要一些时间</span>
+</span><span class="line">gem sources -l                            <span class="c">#查看当前源，保证当前源是只有一个的</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p><br /><br /><br /></p>
 
-
-
-<br /><br /><br />
-
-
-<h3><font color="330000">配置并部署 Octopress</font></h3>
+<h3 id="font-color330000-octopressfont"><font color="330000">配置并部署 Octopress</font></h3>
 
 <hr />
-
 <p>执行下面语句来设置 <em>GitHub Pages</em></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake setup_github_pages
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">rake setup_github_pages
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这个过程会要求在 <em>GitHub</em> 上建立的Repo的地址</p>
 
@@ -552,74 +786,68 @@
 
 <p>会有以下的操作，引用自 <a href="http://octopress.org/docs/deploying/github/]">Octopress官方文档</a></p>
 
-<blockquote><ul>
-<li>Ask for and store your Github Pages repository url.</li>
-<li>Rename the remote pointing to imathis/octopress from &lsquo;origin&rsquo; to &lsquo;octopress&rsquo;</li>
-<li>Add your Github Pages repository as the default origin remote.</li>
-<li>Switch the active branch from master to source.</li>
-<li>Configure your blog&rsquo;s url according to your repository.</li>
-<li>Setup a master branch in the _deploy directory for deployment.</li>
-</ul>
+<blockquote>
+  <ul>
+    <li>Ask for and store your Github Pages repository url.</li>
+    <li>Rename the remote pointing to imathis/octopress from ‘origin’ to ‘octopress’</li>
+    <li>Add your Github Pages repository as the default origin remote.</li>
+    <li>Switch the active branch from master to source.</li>
+    <li>Configure your blog’s url according to your repository.</li>
+    <li>Setup a master branch in the _deploy directory for deployment.</li>
+  </ul>
 </blockquote>
 
 <p>接下来</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake generate
-</span><span class='line'>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">rake generate
+</span><span class="line">rake deploy
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>执行后会生成静态博客，并将生成的文件复制到 <code>_deploy/</code> 目录下，<code>add</code>到git，然后<code>commit</code> &amp; <code>push</code> 到 <code>master branch</code>。打开 <code>http://your_userrname.github.io/</code> 就可以看到新建的博客了。</p>
 
 <p>注意把源代码 <code>push</code> 到 <code>source branch</code></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git add .
-</span><span class='line'>git commit -m <span class="s1">&#39;your message&#39;</span>
-</span><span class='line'>git push origin <span class="nb">source</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">git add .
+</span><span class="line">git commit -m <span class="s1">&#39;your message&#39;</span>
+</span><span class="line">git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>关于博客的设置一般在 <code>_config.yml</code> 文件中，具体内容参照官方说明 <a href="http://octopress.org/docs/configuring">Configure your blog</a>。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">开始撰写博客</font></h3>
+<h3 id="font-color330000font"><font color="330000">开始撰写博客</font></h3>
 
 <hr />
-
 <p>博客的每个post都在 <code>source/_post</code> 目录下，文件名的按照 <em>jekyll</em> 的建议命名方式 <code>YYYY-MM-DD-post-title.markdown</code>。</p>
 
 <p>简单的建立方式是利用下面的命令</p>
 
-<h4>Syntax</h4>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;title&quot;</span><span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<h4 id="syntax">Syntax</h4>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">rake new_post<span class="o">[</span><span class="s2">&quot;title&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>它会按照上面所说的方式命名文件，扩展名为 <code>markdown</code>，这个可以再 <code>Rakefile</code> 中设置。还会在文件中加入 <em>yaml</em> 的头部。</p>
 
 <p>还可以添加新的页面</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_page<span class="o">[</span>super-awesome<span class="o">]</span>
-</span><span class='line'><span class="c"># creates /source/super-awesome/index.markdown</span>
-</span><span class='line'>
-</span><span class='line'>rake new_page<span class="o">[</span>super-awesome/page.html<span class="o">]</span>
-</span><span class='line'><span class="c"># creates /source/super-awesome/page.html</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">rake new_page<span class="o">[</span>super-awesome<span class="o">]</span>
+</span><span class="line"><span class="c"># creates /source/super-awesome/index.markdown</span>
+</span><span class="line">
+</span><span class="line">rake new_page<span class="o">[</span>super-awesome/page.html<span class="o">]</span>
+</span><span class="line"><span class="c"># creates /source/super-awesome/page.html</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>博客的内容使用 <em>markdown</em> 标记，具体的语法参见 <a href="http://wowubuntu.com/markdown/">Markdown 语法说明</a>。</p>
 
@@ -627,104 +855,85 @@
 
 <p>使用以下语句可以在本地预览</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake preview
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">rake preview
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>这样会生成并自动观察变化重生成，打开 <code>http://localhost:4000/</code> 中可以看到结果。</p>
 
 <p>或者可以在 <code>generate</code> 之后使用</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>jekyll serve
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">jekyll serve
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-<h3><font colot="330000">文章中代码的高亮</font></h3>
+<h3 id="font-colot330000font"><font colot="330000">文章中代码的高亮</font></h3>
 
 <hr />
-
 <p>最直接简单的办法</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="sb">```</span> language
-</span><span class='line'>your code
-</span><span class='line'>  <span class="sb">```</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="sb">```</span> language
+</span><span class="line">your code
+</span><span class="line">	<span class="sb">```</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>使用 <em>Pygments</em> 来实现高亮，可用的语言参考 <a href="http://pygments.org/docs/lexers/">Available lexers</a>。</p>
 
 <p>完整参数参考 <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a>。</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h3><font color="330000">过程中的一些问题</font></h3>
+<h3 id="font-color330000font-1"><font color="330000">过程中的一些问题</font></h3>
 
 <hr />
-
 <p><code>push</code> 或者 <code>rake deploy</code> 的过程中会遇到injected的问题，原因是文件重复，不能直接覆盖，使用以下语句解决</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>_deploy
-</span><span class='line'>git pull
-</span><span class='line'><span class="nb">cd</span> ..
-</span><span class='line'>rake deploy
-</span><span class='line'><span class="c"># 以上是使用rake时解决办法</span>
-</span><span class='line'>
-</span><span class='line'>git push -f
-</span><span class='line'><span class="c">#强制覆盖</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line"><span class="nb">cd </span>_deploy
+</span><span class="line">git pull
+</span><span class="line"><span class="nb">cd</span> ..
+</span><span class="line">rake deploy
+</span><span class="line"><span class="c"># 以上是使用rake时解决办法</span>
+</span><span class="line">
+</span><span class="line">git push -f
+</span><span class="line"><span class="c">#强制覆盖</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>git 的两条设置</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>git config --global push.default simple
-</span><span class='line'><span class="c"># 设置push的时候只push当前分支</span>
-</span><span class='line'>
-</span><span class='line'>git config --global push.default matching
-</span><span class='line'><span class="c"># push所有变动</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">git config --global push.default simple
+</span><span class="line"><span class="c"># 设置push的时候只push当前分支</span>
+</span><span class="line">
+</span><span class="line">git config --global push.default matching
+</span><span class="line"><span class="c"># push所有变动</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-
-
-
+<p><br />
 <br />
-
-
 <br />
+<br /></p>
 
-
-<br />
-
-
-<br />
-
-
-<h4>参考资料</h4>
+<h4 id="section">参考资料</h4>
 
 <hr />
-
 <ol>
-<li><a href="http://octopress.org/">Octopress 官网</a></li>
+  <li><a href="http://octopress.org/">Octopress 官网</a></li>
 </ol>
-
 ]]></content>
   </entry>
   

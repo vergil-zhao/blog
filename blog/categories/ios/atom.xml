@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ios | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-16T19:08:23+08:00</updated>
+  <updated>2014-07-18T00:32:40+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -14,6 +14,190 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Core Animation 中的3D变换以及简单应用]]></title>
+    <link href="http://Veracruz.github.io/blog/2014/07/17/core-animation/"/>
+    <updated>2014-07-17T22:36:21+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2014/07/17/core-animation</id>
+    <content type="html"><![CDATA[<p>本篇介绍iOS中的 <em>Core Animation</em> 的3D变换，<em>CATransform3D</em> 矩阵变换。</p>
+
+<!-- more -->
+
+<p><em>Core Animation</em> 是iOS中自带的动画框架，它包含了一些常用的变换和动画，旋转、缩放、平移、透视等。平面的动画有 <em>facebook</em> 的 <em>pop</em> 开源框架，下一篇讲介绍。三维的框架有 <em>Unity3D</em>，通常用CA做一个3D的动画还是很繁琐的，iOS上的 <em>OpenGL ES</em> 可能更科学。</p>
+
+<p>这个层面已经涉及到一些计算机图形学的知识，这里只说明基本的意义。</p>
+
+<p>首先，通过查看 <em>CATransform3D</em> 的定义可以知道，这是一个三维齐次变换矩阵. <em>4 * 4</em> 的矩阵，表示为</p>
+
+<p>$\begin{matrix}
+A &amp; A &amp; A &amp; C \cr
+A &amp; A &amp; A &amp; C \cr
+A &amp; A &amp; A &amp; C \cr
+B &amp; B &amp; B &amp; D
+\end{matrix}$</p>
+
+<p>A区是的变换是，旋转、比例、错切等变换，B区是平移变换，C区是透视变换，D是全比例变换。</p>
+
+<p>左上到右下的对角线是1，而其他的都为0的时候，就是 <code>CATransform3DIdentity</code> 变换，即恒等变换。一般的常用变换，CA都给出了一些C函数，例如 <code>CATransform3DRotate()</code>。</p>
+
+<p>这些操作都是在一个layer上，<code>layer.anchorPoint</code> 这个属性会影响到一些变换，比如旋转的轴。</p>
+
+<p>这里提一下iOS中坐标系的问题，CA中用的是左手坐标系，x轴正方向向右，y轴正方向向下，z轴正方向垂直于屏幕向上，也就是朝着用户的方向。所以这里，旋转的正方向就是顺时针，而旋转的角度的范围事实上为-180到180，所以如果使用变换来做动画，则使用 <code>CAKeyFrameAnimation</code> 来实现超过180度的旋转动画，而使用keypath的方式就不需要。</p>
+
+<p>在做animation的时候，使用 <code>CABasicAnimation</code> 用 <em>keypath</em> 来添加动画，这里有一个非官方的不完整列表，官方似乎并未提供完整列表。转载自<a href="http://www.cnblogs.com/pengyingh/articles/2379631.html">CABasicAnimation animationWithKeyPath 一些规定的值</a></p>
+
+<ul>
+  <li>sublayerTransform</li>
+  <li>transform</li>
+  <li>rotation</li>
+  <li>scale</li>
+  <li>translation</li>
+  <li>opacity</li>
+  <li>margin</li>
+  <li>zPosition</li>
+  <li>backgroundColor</li>
+  <li>cornerRadius</li>
+  <li>borderWidth</li>
+  <li>bounds</li>
+  <li>contents</li>
+  <li>contentsRect</li>
+  <li>cornerRadius</li>
+  <li>frame</li>
+  <li>hidden</li>
+  <li>mask</li>
+  <li>masksToBounds</li>
+  <li>opacity</li>
+  <li>position</li>
+  <li>shadowColor</li>
+  <li>shadowOffset</li>
+  <li>shadowOpacity</li>
+  <li>shadowRadius</li>
+</ul>
+
+<p>其中有一些是可以用 <code>.</code> 来连接子属性的，例如 <code>rotation.x</code>。</p>
+
+<p>有一个简单明了的示例是Mgen的一个旋转立方体，我这里给出 <code>ViewController.m</code> 的完整代码和我增加的几条注释，转载自<a href="http://www.mgenware.com/blog/?p=498">iOS CALayer和3D (1): 定义一个简单的旋转3D立方体</a>。</p>
+
+<p>```objc
+//
+//  ViewController.m
+//  CALayer_3DCube_from_Mgen_Blog
+//
+//  Created by Veracruz on 14-7-17.
+//  Copyright (c) 2014年 Veracruz. All rights reserved.
+//</p>
+
+<h1 id="import-viewcontrollerh">import “ViewController.h”</h1>
+
+<p>@interface ViewController ()</p>
+
+<p>@property (strong, nonatomic) CALayer *rootLayer; //主layer，这里应理解为一个放置layer的舞台</p>
+
+<p>@end</p>
+
+<p>@implementation ViewController</p>
+
+<ul>
+  <li>
+    <p>(void)viewDidLoad
+{
+  [super viewDidLoad];
+  // Do any additional setup after loading the view, typically from a nib.</p>
+
+    <p>_rootLayer = [CALayer layer];
+  _rootLayer.contentsScale = [UIScreen mainScreen].scale;
+  _rootLayer.frame =self.view.bounds;</p>
+
+    <p>//前
+  [self addLayer:@[@0, @0, @50, @0, @0, @0, @0]];
+  //后
+  [self addLayer:@[@0, @0, @(-50), @(M_PI), @0, @0, @0]];
+  //左
+  [self addLayer:@[@(-50), @0, @0, @(-M_PI_2), @0, @1, @0]];
+  //右
+  [self addLayer:@[@50, @0, @0, @(M_PI_2), @0, @1, @0]];
+  //上
+  [self addLayer:@[@0, @(-50), @0, @(-M_PI_2), @1, @0, @0]];
+  //下
+  [self addLayer:@[@0, @50, @0, @(M_PI_2), @1, @0, @0]];</p>
+
+    <p>//主Layer的3D变换
+  CATransform3D transform = CATransform3DIdentity;
+  //这是做了一个透视
+  transform.m34 = -1.0 / 700;
+  //在X轴上做一个20度的小旋转
+  transform = CATransform3DRotate(transform, M_PI / 9, 1, 0, 0);
+  //设置CALayer的sublayerTransform
+  _rootLayer.sublayerTransform = transform;
+  //添加Layer
+  [self.view.layer addSublayer:_rootLayer];</p>
+
+    <p>//动画
+  CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@”sublayerTransform.rotation.y”];
+  //从0到360度
+  animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+  //间隔3秒
+  animation.duration = 3.0;
+  //无限循环
+  animation.repeatCount = HUGE_VALF;
+  //开始动画
+  [_rootLayer addAnimation:animation forKey:@”rotation”];
+}</p>
+  </li>
+  <li>
+    <p>(void)addLayer:(NSArray *)params
+{
+  //可以渐变颜色的layer
+  CAGradientLayer *gradientLayer = [CAGradientLayer layer];</p>
+
+    <p>//这句似乎在有内容的时候才是必须的
+  gradientLayer.contentsScale = [UIScreen mainScreen].scale;</p>
+
+    <p>gradientLayer.bounds = CGRectMake(0, 0, 100, 100);
+  gradientLayer.position = self.view.center;</p>
+
+    <p>//设置渐变的颜色序列
+  gradientLayer.colors = @[(id)[UIColor grayColor].CGColor,
+                           (id)[UIColor blackColor].CGColor];
+  //设置每个颜色起始的比例位置
+  gradientLayer.locations = @[@0, @1];</p>
+
+    <p>//两个点的连线就是渐变的方向
+  gradientLayer.startPoint = CGPointMake(0, 0);
+  gradientLayer.startPoint = CGPointMake(0, 1);</p>
+
+    <p>CATransform3D transform =
+      CATransform3DMakeTranslation([[params objectAtIndex:0] floatValue],
+                                   [[params objectAtIndex:1] floatValue],
+                                   [[params objectAtIndex:2] floatValue]);
+  transform =
+      CATransform3DRotate(transform,
+                          [[params objectAtIndex:3] floatValue],
+                          [[params objectAtIndex:4] floatValue],
+                          [[params objectAtIndex:5] floatValue],
+                          [[params objectAtIndex:6] floatValue]);</p>
+
+    <p>gradientLayer.transform = transform;</p>
+
+    <p>[_rootLayer addSublayer:gradientLayer];
+}</p>
+  </li>
+  <li>
+    <p>(void)didReceiveMemoryWarning
+{
+  [super didReceiveMemoryWarning];
+  // Dispose of any resources that can be recreated.
+}</p>
+  </li>
+</ul>
+
+<p>@end
+```</p>
+
+<p>上面代码实现了一个立方体的旋转动画，通过这段代码即可了解CA中的变换和动画的一些用法。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[AFNetworking & ASIHTTPRequest 的初步使用方法]]></title>
     <link href="http://Veracruz.github.io/blog/2014/07/16/afnetworking-and-asihttprequest/"/>
     <updated>2014-07-16T13:54:07+08:00</updated>
@@ -21,7 +205,6 @@
     <content type="html"><![CDATA[<p>总结一下 <em>AFNetworking</em> 和 <em>ASIHTTPRequest</em> 两个网络库的基本使用以及一些问题</p>
 
 <!-- more -->
-
 
 <p>首先到 <em>github</em> 下载这两个库，<em>ASIHTTPRequest</em> 从2011年就停止更新了，写这篇文章的时候 <em>AFNetworking</em> 的版本是 <code>2.3.1</code>。</p>
 
@@ -148,127 +331,113 @@ iOS 7.1
 </tbody>
 </table>
 
+<p><br /><br /><br /></p>
 
-
-
-<br /><br /><br />
-
-
-<h2>AFNetworking</h2>
+<h2 id="afnetworking">AFNetworking</h2>
 
 <p>这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>导入库</h3>
+<h3 id="section">导入库</h3>
 
 <hr />
 
 <p>只要将下载之后的目录下的 <code>AFNetworking</code> 和 <code>UIKit+AFNetworking</code> 两个文件夹导入到工程即可，并且不需要添加其他框架。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>GET请求并解析JSON</h3>
+<h3 id="getjson">GET请求并解析JSON</h3>
 
 <hr />
 
 <p>它有自己的管理类，这种请求非常简单明了，会直接解析JSON到一个 <code>NSDictionary</code>，当然前提是返回的响应是很规范的，可是很多时候并不是这样。这种请求方式要求响应头中的 <code>Content-type</code> 字段的值必须是 <code>text/json</code>，也就是<code>Content-type: text/json</code>。很多时候返回的响应头这个字段的值是 <code>text/html</code>, 这个时候这个库就会返回一个错误。当然错误格式的JSON数据也会返回错误。下面是调用的代码段.</p>
 
-<p>``` objectivec
+<p>``` objectivec 
 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];</p>
 
 <p>//设置支持所有的MIME格式，略隐蔽的设置选项
 manager.responseSerializer.acceptableContentTypes = nil;</p>
 
-<p>[manager GET:JSON_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {</p>
+<p>[manager GET:JSON_URL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@”%@ : “, [responseObject class], responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@”error : %@”, error);
+    }];
+```</p>
 
-<pre><code>NSLog(@"%@ : ", [responseObject class], responseObject);
-} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-NSLog(@"error : %@", error);
-}];
-</code></pre>
+<p><br /><br /></p>
 
-<p>```</p>
-
-<br /><br />
-
-
-<h3>通用请求</h3>
+<h3 id="section-1">通用请求</h3>
 
 <hr />
 
 <p>这个库提供了响应的序列化器(serializer)，就是解析器，这个可以自己定制，如果不指定则不会解析，仅接收原始数据在block的参数 <code>responseObject</code> 中。<code>operation</code>有很多有用的属性，例如<code>operation.response.allHeaderFields</code> 可以查看完整的响应头。下面这段代码指定了XML的序列化器。</p>
 
-<p>``` objectivec
-NSURLRequest <em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:SOME_URL]];
-AFHTTPRequestOperation </em>operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];</p>
+<p>``` objectivec 
+NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:SOME_URL]];
+AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];</p>
 
 <p>//指定序列化器
 operation.responseSerializer = [AFXMLParserResponseSerializer serializer];</p>
 
-<p>[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {</p>
-
-<pre><code>NSLog(@"%@ : ", [responseObject class], responseObject);
-} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-NSLog(@"error : %@", error);
-}];
-</code></pre>
+<p>[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(@”%@ : “, [responseObject class], responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSLog(@”error : %@”, error);
+    }];</p>
 
 <p>[[NSOperationQueue mainQueue] addOperation:operation];
-```从上面的代码的输出可以看到，它使用了iOS自带的XML解析器。</p>
+```</p>
 
-<h3>文件下载保存</h3>
+<p>从上面的代码的输出可以看到，它使用了iOS自带的XML解析器。</p>
+
+<h3 id="section-2">文件下载保存</h3>
 
 <hr />
 
-<p>下面的代码很方便的实现了一个文件的下载。
-```objectivec
-AFURLSessionManager <em>manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-NSURLRequest </em>request = [NSURLRequest requestWithURL:[NSURL URLWithString:FILE_URL]];</p>
+<p>下面的代码很方便的实现了一个文件的下载。</p>
 
-<p>NSURLSessionDownloadTask <em>task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL </em>(NSURL <em>targetPath, NSURLResponse </em>response)</p>
+<p>```objectivec 
+AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:FILE_URL]];</p>
 
-<pre><code>{
-NSURL *documentURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-return [documentURL URLByAppendingPathComponent:FILE_NAME];
-} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
-{
-NSLog(@"error : %@", error);
-}];
-</code></pre>
+<p>NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response)
+    {
+    NSURL *documentURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+    return [documentURL URLByAppendingPathComponent:FILE_NAME];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error)
+    {
+    NSLog(@”error : %@”, error);
+    }];</p>
 
 <p>//不要忘记开始任务
 [task resume];
 ```</p>
 
-<br /><br /><br />
+<p><br /><br /><br /></p>
 
-
-<h2>ASIHTTPRequest</h2>
+<h2 id="asihttprequest">ASIHTTPRequest</h2>
 
 <p>这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>导入库</h3>
+<h3 id="section-3">导入库</h3>
 
 <hr />
 
 <p>下载库之后，将目录下的 <code>Classes</code> 和 <code>External</code> 文件夹导入到项目中，这并不是完整的导入，它的单元测试模块的一些文件并不包含在这个目录中，需要用 <em>ruby</em> 相关的命令来导入。这里只需要删除 <code>Classes</code> 目录下的 <code>Test</code> 删除即可。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>项目设置</h3>
+<h3 id="section-4">项目设置</h3>
 
 <hr />
 
 <p>需要添加以下框架和库</p>
 
-<p><code>CFNetworking.framework</code>
+<p><code>CFNetworking.framework	</code>
 <code>SystemConfiguration.framework</code>
 <code>MobileCoreServices.framework</code>
 <code>libz.dylib</code>
@@ -280,68 +449,54 @@ NSLog(@"error : %@", error);
 
 <p>另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。</p>
 
-<br /><br />
+<p><br /><br /></p>
 
-
-<h3>数据请求</h3>
+<h3 id="section-5">数据请求</h3>
 
 <hr />
 
 <p>有同步和异步请求，同步的意义不大，这里给出异步请求。请求的处理有两种方式，一种是代理，一种是 <code>block</code>。下面给出 <code>block</code> 方式的，代理方式在 <code>ASIHTTPRequestDelegate</code> 的文件中的定义很容易理解。</p>
 
-<p>``` objectivec
+<p>``` objectivec 
 NSURL *url = [NSURL URLWithString:SOME_URL];</p>
 
-<p>//使用<strong>weak来防止使用block出现的retain循环
-</strong>weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];</p>
+<p>//使用__weak来防止使用block出现的retain循环
+__weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];</p>
 
 <p>//使用代理方式则添加下面这句
 //request.delegate = self;</p>
 
-<p>[request setCompletionBlock:^{</p>
-
-<pre><code>NSLog(@"%@", request.responseString);
-}];
-</code></pre>
-
-<p>[request setFailedBlock:^{</p>
-
-<pre><code>NSLog(@"%@", request.error);
-}];
-</code></pre>
-
-<p>[request startAsynchronous];
+<p>[request setCompletionBlock:^{
+    NSLog(@”%@”, request.responseString);
+    }];
+[request setFailedBlock:^{
+	NSLog(@”%@”, request.error);
+    }];
+[request startAsynchronous];
 ```</p>
 
-<br /><br />
-
-
-<h3>文件下载缓存</h3>
+<p><br /><br />
+###文件下载缓存</p>
 
 <hr />
 
 <p>支持多种缓存策略，这里使用永久缓存的策略。</p>
 
-<p>``` objectivec
-NSURL <em>url = [NSURL URLWithString:FILE_URL];
-__weak ASIHTTPRequest </em>request = [ASIHTTPRequest requestWithURL:url];</p>
+<p>``` objectivec 
+NSURL *url = [NSURL URLWithString:FILE_URL];
+__weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];</p>
 
 <p>request.downloadCache = [ASIDownloadCache sharedCache];</p>
 
 <p>//指定缓存策略
 request.cachePolicy = ASIOnlyLoadIfNotCachedCachePolicy;</p>
 
-<p>[request setCompletionBlock:^{</p>
-
-<pre><code>[request.responseData writeToFile:LOCAL_FILE_URL atomically:YES];
-}];
-</code></pre>
-
-<p>[request setFailedBlock:^{</p>
-
-<pre><code>NSLog(@"%@", request.error);
-}];
-</code></pre>
+<p>[request setCompletionBlock:^{
+    [request.responseData writeToFile:LOCAL_FILE_URL atomically:YES];
+    }];
+[request setFailedBlock:^{
+  	NSLog(@”%@”, request.error);
+    }];</p>
 
 <p>[request startAsynchronous];
 ```</p>
@@ -354,27 +509,23 @@ request.downloadProgressDelegate = progressView;
 </code></p>
 
 <hr />
-
 <hr />
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <p>以上就是两个库的基本用法，还有一些上传数据，身份验证等等点击下面的参考资料中的链接查看。</p>
 
-<br /><br /><br /><br />
+<p><br /><br /><br /><br /></p>
 
-
-<h4>参考资料</h4>
+<h4 id="section-6">参考资料</h4>
 
 <hr />
 
 <ol>
-<li><a href="http://mobile.51cto.com/iphone-405168.htm">专题：iOS教程之ASIHttpRequest完全攻略</a></li>
-<li><a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use">ASIHTTPRequest 官方文档</a></li>
-<li><a href="http://cocoadocs.org/docsets/AFNetworking/2.3.1/index.html">AFNetworking 官方文档</a></li>
+  <li><a href="http://mobile.51cto.com/iphone-405168.htm">专题：iOS教程之ASIHttpRequest完全攻略</a></li>
+  <li><a href="http://allseeing-i.com/ASIHTTPRequest/How-to-use">ASIHTTPRequest 官方文档</a></li>
+  <li><a href="http://cocoadocs.org/docsets/AFNetworking/2.3.1/index.html">AFNetworking 官方文档</a></li>
 </ol>
-
 ]]></content>
   </entry>
   
