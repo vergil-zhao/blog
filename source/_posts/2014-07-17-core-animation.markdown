@@ -16,12 +16,12 @@ categories: iOS
 
 首先，通过查看 *CATransform3D* 的定义可以知道，这是一个三维齐次变换矩阵. *4 * 4* 的矩阵，表示为
 
-$\begin{matrix}
-A & A & A & C \cr
-A & A & A & C \cr
-A & A & A & C \cr
-B & B & B & D
-\end{matrix}$
+<pre>
+A A A C 
+A A A C 
+A A A C 
+B B B D
+</pre>
 
 A区是的变换是，旋转、比例、错切等变换，B区是平移变换，C区是透视变换，D是全比例变换。
 
