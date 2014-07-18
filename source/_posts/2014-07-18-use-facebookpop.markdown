@@ -19,7 +19,7 @@ categories:
 
 这里说一点需要注意的地方，根据动画的类型不同，这三个属性 `velocity` `fromValue` `toValue` 必须是同一类型，例如
 
-```objc
+```objectivec
 POPDecayAnimation *animation = [POPDecayAnimation animationWithPropertyNamed:kPOPViewCenter];
 animation.velocity = [NSValue valueWithCGPoint:CGPointMake(100, 100)];
 animation.name = @"spring to center";
