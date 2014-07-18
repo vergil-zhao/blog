@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ios | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-18T23:28:56+08:00</updated>
+  <updated>2014-07-19T00:01:08+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -27,17 +27,7 @@
 
 <p>这个层面已经涉及到一些计算机图形学的知识，这里只说明基本的意义。</p>
 
-<p>首先，通过查看 <em>CATransform3D</em> 的定义可以知道，这是一个三维齐次变换矩阵. <em>4 * 4</em> 的矩阵，表示为</p>
-
-<pre>
-A A A C 
-A A A C 
-A A A C 
-B B B D
-</pre>
-
-
-<p>A区是的变换是，旋转、比例、错切等变换，B区是平移变换，C区是透视变换，D是全比例变换。</p>
+<p>首先，通过查看 <em>CATransform3D</em> 的定义可以知道，这是一个三维齐次变换矩阵。</p>
 
 <p>左上到右下的对角线是1，而其他的都为0的时候，就是 <code>CATransform3DIdentity</code> 变换，即恒等变换。一般的常用变换，CA都给出了一些C函数，例如 <code>CATransform3DRotate()</code>。</p>
 
