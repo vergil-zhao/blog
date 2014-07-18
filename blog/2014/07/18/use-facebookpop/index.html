@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用 Facebook 的 Pop 开源动画库做顺畅的2D动画 - Code in Technicolor</title>
+  <meta name="author" content="Veracruz">
+
+  
+  <meta name="description" content="pop 是 Facebook 的在 Paper 中使用的动画库，开源之后非常受欢迎，它是一个成熟且经过良好测试的框架，使用它可以做出顺畅的2D动画。 pop 的理念是一切即可动画，你不仅仅可以在一个view或者layer上做动画，它是直接在 NSObject 做了扩展，任意一个继承于 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Veracruz.github.io/blog/2014/07/18/use-facebookpop">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Code in Technicolor" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<!--
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Code in Technicolor</a></h1>
+  
+    <h2>Concentrate on iOS & Web. Build life in technicolor by coding.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/searching" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Veracruz.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用 Facebook 的 Pop 开源动画库做顺畅的2D动画</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-18T15:15:58+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+        
+        
+        | <a href="#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>pop</em> 是 <em>Facebook</em> 的在 <em>Paper</em> 中使用的动画库，开源之后非常受欢迎，它是一个成熟且经过良好测试的框架，使用它可以做出顺畅的2D动画。</p>
+
+<!-- more -->
+
+
+<p><em>pop</em> 的理念是一切即可动画，你不仅仅可以在一个view或者layer上做动画，它是直接在 <code>NSObject</code> 做了扩展，任意一个继承于 <code>NSObject</code> 的对象都可以添加一个动画。</p>
+
+<p>在 <a href="https://github.com/maxmyers/FacebookPop">5 Steps For Using Facebook Pop</a> 上有一个很好的使用方法说明，官方 Repo 在这里 <a href="https://github.com/facebook/pop">facebook/pop</a>。</p>
+
+<p>在 <em>pop</em> 中有三种是直接应用于view和layer,分别是 <code>POPBasicAnimation</code> <code>POPSpringAnimation</code> <code>POPDecayAnimation</code>，分别对应，基本动画、弹性动画、衰减动画。有一个非常好的示例程序，github上的 <a href="https://github.com/schneiderandre/popping">poping</a> 库。
+在CocoaChina上有一篇好的文章 <a href="http://www.cocoachina.com/applenews/devnews/2014/0527/8565.html">Facebook Pop 使用指南</a>。</p>
+
+<p>这里说一点需要注意的地方，根据动画的类型不同，这三个属性 <code>velocity</code> <code>fromValue</code> <code>toValue</code> 必须是同一类型，例如</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">POPDecayAnimation</span> <span class="o">*</span><span class="n">animation</span> <span class="o">=</span> <span class="p">[</span><span class="n">POPDecayAnimation</span> <span class="n">animationWithPropertyNamed</span><span class="o">:</span><span class="n">kPOPViewCenter</span><span class="p">];</span>
+</span><span class='line'><span class="n">animation</span><span class="p">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSValue</span> <span class="n">valueWithCGPoint</span><span class="o">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)];</span>
+</span><span class='line'><span class="n">animation</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">@&quot;spring to center&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">UIView</span> <span class="o">*</span><span class="n">view</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)];</span>
+</span><span class='line'><span class="n">view</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+</span><span class='line'><span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">blueColor</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">addSubview</span><span class="o">:</span><span class="n">view</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">view</span> <span class="n">pop_addAnimation</span><span class="o">:</span><span class="n">animation</span> <span class="n">forKey</span><span class="o">:</span><span class="s">@&quot;decay&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Veracruz</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-18T15:15:58+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/17/core-animation/" title="Previous Post: Core Animation 中的3D变换以及简单应用">&laquo; Core Animation 中的3D变换以及简单应用</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/18/octopress-simprove-loading-rate/" title="Next Post: 关于提升 Octopress 的加载速度">关于提升 Octopress 的加载速度 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+<!--多说评论-->
+
+<section>
+    <h1>Comments</h1>
+    <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+<!-- <div class="ds-thread" data-title=""></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"veracruz"};
+    (function() {
+     var ds = document.createElement('script');
+     ds.type = 'text/javascript';ds.async = true;
+     ds.src = 'http://static.duoshuo.com/embed.js';
+     ds.charset = 'UTF-8';
+     (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+     })();
+    </script>
+ -->
+<!-- Duoshuo Comment END -->
+
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="" data-title="" data-url=""></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"veracruz"};
+	(function() {
+     var ds = document.createElement('script');
+     ds.type = 'text/javascript';ds.async = true;
+     ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+     ds.charset = 'UTF-8';
+     (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+     })();
+	</script>
+<!-- 多说公共JS代码 end --></div>
+</section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/octopress-simprove-loading-rate/">关于提升 Octopress 的加载速度</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/18/use-facebookpop/">使用 Facebook 的 Pop 开源动画库做顺畅的2D动画</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/17/core-animation/">Core Animation 中的3D变换以及简单应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/16/afnetworking-and-asihttprequest/">AFNetworking & ASIHTTPRequest 的初步使用方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/14/how-to-create-your-own-blog-on-github-pages/">使用Github + Octopress建立博客</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/Veracruz">@Veracruz</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'Veracruz',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+<section>
+	<h1>Categories</h1>
+	<ul id="categories">
+		<li class='category'><a href='/blog/categories/blog-build-tech/'>blog_build_tech (2)</a></li>
+<li class='category'><a href='/blog/categories/ios/'>ios (2)</a></li>
+
+	</ul>
+</section>
+<section>
+    <h1>Recent Comments</h1>
+    <ul class="ds-recent-comments" data-num-items="10" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="0" data-excerpt-length="18"></ul>
+    
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Veracruz -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1927408f733bc1f82c711c8aece7a832' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- mathjax config similar to math.stackexchange -->
+<!--
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+                       jax: ["input/TeX", "output/HTML-CSS"],
+                       tex2jax: {
+                       inlineMath: [ ['$', '$'] ],
+                       displayMath: [ ['$$', '$$']],
+                       processEscapes: true,
+                       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                       },
+                       messageStyle: "none",
+                       "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+                       });
+    </script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+-->
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
