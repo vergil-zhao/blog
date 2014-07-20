@@ -17,6 +17,12 @@ categories:
 在 *pop* 中有三种是直接应用于view和layer,分别是 `POPBasicAnimation` `POPSpringAnimation` `POPDecayAnimation`，分别对应，基本动画、弹性动画、衰减动画。有一个非常好的示例程序，github上的 [poping](https://github.com/schneiderandre/popping) 库。
 在CocoaChina上有一篇好的文章 [Facebook Pop 使用指南](http://www.cocoachina.com/applenews/devnews/2014/0527/8565.html)。
 
+关于在导入库的时候，使用cocoapods是很方便的，但是如果使用复制的方式导入的话，则会遇到找不到头文件的问题，这里使用正则表达式把所有的头文件引用都替换。
+
+`Find -> Find and Replace in Project`
+
+然后左边就会出现替换的对话，然后在左边栏上部选择 `Regular Expression`，接下来查找框中输入 `<POP/([a-zA-Z.]+)>`，替换框中输入 `"$1"`，然后preview，确定替换替换正确，然后确定即可编译成功。
+
 这里说一点需要注意的地方，根据动画的类型不同，这三个属性 `velocity` `fromValue` `toValue` 必须是同一类型，例如
 
 ```objectivec
@@ -29,4 +35,3 @@ view.backgroundColor = [UIColor blueColor];
 [self.view addSubview:view];
 [view pop_addAnimation:animation forKey:@"decay"];
 ```
-
