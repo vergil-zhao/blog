@@ -108,6 +108,12 @@
 <p>在 <em>pop</em> 中有三种是直接应用于view和layer,分别是 <code>POPBasicAnimation</code> <code>POPSpringAnimation</code> <code>POPDecayAnimation</code>，分别对应，基本动画、弹性动画、衰减动画。有一个非常好的示例程序，github上的 <a href="https://github.com/schneiderandre/popping">poping</a> 库。
 在CocoaChina上有一篇好的文章 <a href="http://www.cocoachina.com/applenews/devnews/2014/0527/8565.html">Facebook Pop 使用指南</a>。</p>
 
+<p>关于在导入库的时候，使用cocoapods是很方便的，但是如果使用复制的方式导入的话，则会遇到找不到头文件的问题，这里使用正则表达式把所有的头文件引用都替换。</p>
+
+<p><code>Find -&gt; Find and Replace in Project</code></p>
+
+<p>然后左边就会出现替换的对话，然后在左边栏上部选择 <code>Regular Expression</code>，接下来查找框中输入 <code>&lt;POP/([a-zA-Z.]+)&gt;</code>，替换框中输入 <code>"$1"</code>，然后preview，确定替换替换正确，然后确定即可编译成功。</p>
+
 <p>这里说一点需要注意的地方，根据动画的类型不同，这三个属性 <code>velocity</code> <code>fromValue</code> <code>toValue</code> 必须是同一类型，例如</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -127,8 +133,6 @@
 </span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">addSubview</span><span class="o">:</span><span class="n">view</span><span class="p">];</span>
 </span><span class='line'><span class="p">[</span><span class="n">view</span> <span class="n">pop_addAnimation</span><span class="o">:</span><span class="n">animation</span> <span class="n">forKey</span><span class="o">:</span><span class="s">@&quot;decay&quot;</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 </div>
 
