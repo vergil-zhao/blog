@@ -4,7 +4,7 @@
   <title><![CDATA[Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-07-20T09:15:05+08:00</updated>
+  <updated>2014-08-14T18:51:42+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -484,17 +484,13 @@
 </table>
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h2>AFNetworking</h2>
 
 <p>这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>导入库</h3>
 
@@ -502,8 +498,7 @@
 
 <p>只要将下载之后的目录下的 <code>AFNetworking</code> 和 <code>UIKit+AFNetworking</code> 两个文件夹导入到工程即可，并且不需要添加其他框架。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>GET请求并解析JSON</h3>
 
@@ -534,10 +529,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>通用请求</h3>
 
@@ -613,17 +605,13 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h2>ASIHTTPRequest</h2>
 
 <p>这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>导入库</h3>
 
@@ -631,8 +619,7 @@
 
 <p>下载库之后，将目录下的 <code>Classes</code> 和 <code>External</code> 文件夹导入到项目中，这并不是完整的导入，它的单元测试模块的一些文件并不包含在这个目录中，需要用 <em>ruby</em> 相关的命令来导入。这里只需要删除 <code>Classes</code> 目录下的 <code>Test</code> 删除即可。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>项目设置</h3>
 
@@ -652,8 +639,7 @@
 
 <p>另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。</p>
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>数据请求</h3>
 
@@ -694,10 +680,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br />
-
+<p><br /><br /></p>
 
 <h3>文件下载缓存</h3>
 
@@ -753,13 +736,11 @@
 
 <hr />
 
-<br /><br />
-
+<p><br /><br /></p>
 
 <p>以上就是两个库的基本用法，还有一些上传数据，身份验证等等点击下面的参考资料中的链接查看。</p>
 
-<br /><br /><br /><br />
-
+<p><br /><br /><br /><br /></p>
 
 <h4>参考资料</h4>
 
@@ -790,10 +771,7 @@
 <!-- more -->
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">申请一个 <em>GitHub</em> 账号</font></h3>
 
@@ -801,8 +779,7 @@
 
 <p>首先需要一个 <em>GitHub</em> 的账号，这个Coder通常都有，进入 <em><a href="http://github.com/">Github</a></em> ，首页就可以快速的注册一个账号。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">建立一个新的仓库(Repository)</font></h3>
 
@@ -810,8 +787,7 @@
 
 <p>登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是<code>your_username.github.io</code>，建立时不用初始化。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">安装 <em>Octopress</em> 以及所需依赖</font></h3>
 
@@ -857,10 +833,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">配置并部署 Octopress</font></h3>
 
@@ -919,8 +892,7 @@
 
 <p>关于博客的设置一般在 <code>_config.yml</code> 文件中，具体内容参照官方说明 <a href="http://octopress.org/docs/configuring">Configure your blog</a>。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">开始撰写博客</font></h3>
 
@@ -993,8 +965,7 @@
 
 <p>完整参数参考 <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a>。</p>
 
-<br /><br /><br />
-
+<p><br /><br /><br /></p>
 
 <h3><font color="330000">过程中的一些问题</font></h3>
 
@@ -1036,19 +1007,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
+<p><br />
 <br />
-
-
 <br />
-
-
-<br />
-
-
-<br />
-
+<br /></p>
 
 <h4>参考资料</h4>
 
@@ -1058,6 +1020,524 @@
 <li><a href="http://octopress.org/">Octopress 官网</a></li>
 </ol>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[U8800pro MIUIv5 深度OS 及 百度云rom 简单评测]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/08/13/u8800pro-rom/"/>
+    <updated>2013-08-13T12:04:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/08/13/u8800pro-rom</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<p>目前这三款系统都有U8800pro的版本，深度os是官方支持，其他的是第三方维护的
+本次重点是MIUIv5</p>
+
+<p><b>刷机需谨慎 资料常备份</b></p>
+
+<!-- more -->
+
+
+<h2>MIUIv5 <br /></h2>
+
+<p>【版本】3.5.24 (ATX Team) <br />
+【刷机】注意没刷过4.0的机子，也就是底包是2.3的要去刷官方的B928，这里是个麻烦的地方，要先刷回原始的2.3就是B572，然后在按照官方的三部，更新至B928，之后粉屏会被锁，在刷入解锁update.app，替换recovery至6.0.1.2，之后再刷入MIUI的刷机包。另外这个系统的通话有些问题，声音小有电流声有回声，这个要再替换底包，B927的amss.mbn，不过只能解决声音小的问题，如果很在意这个事儿的就不要刷这个系统了</p>
+
+<p><a href="http://bbs.anzhi.com/thread-6946594-1-1.html">H大 MIUIv5 for U8800pro</a></p>
+
+<p><a href="http://android.tgbus.com/Android/yizhi/201211/455988.shtml">粉屏解锁</a></p>
+
+<p><a href="http://consumer.huawei.com/cn/support/downloads/detail/index.htm?id=15223">官方B928</a></p>
+
+<p><a href="http://www.fengbao.com/huawei_rom/huawei_U8800pro_rom/2012/0322/143481.html">B572 卡刷包</a></p>
+
+<p>ps:上面这个连接的下载貌似有问题，如果有需要可以直接跟我要</p>
+
+<p><a href="http://dl.dbank.com/c02o28qw0x#">B927底包</a></p>
+
+<p>【评论】第三方相机不能用，内存占用还是挺多的，卡顿还是挺多的，但是触感流畅，用过就明白了，比较稳定，可长期使用
+PS1：想常驻内存的方法是长按home键，把图标下拉就是加锁，这样没那么容易被kill掉
+PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
+
+<p>【补充】 发现一个问题，联通3gnet接入点不能上网，3gwap虽然能上但是还有有些应用会出问题，下面的深度os也有很多问题，目前官方只有4.0的B928，所以这些4.1的系统都不稳定，在出来更新的固件之前，建议还是用回2.3</p>
+
+<h2>深度OS for U8800pro</h2>
+
+<p>【版本】130719 <a href="http://www.shenduos.com/">深度OS</a> <br />
+【刷机】如果刷机不成功，参照MIUIv5的刷机 <br />
+【评论】有个大bug，会不断提示 sd卡已移除 或者 正在准备 或者 受损，很多人有这个问题，没有找到解决办法，有解决办法的请联系我，这个系统用起来非常流畅，这个解决不了所以只好放弃</p>
+
+<h2>百度云rom</h2>
+
+<p>【版本】公测版28 <a href="http://bbs.rom.baidu.com/download.php?phoneid=17">百度云rom</a> <br />
+【刷机】如果刷机不成功，参照MIUIv5的刷机 <br />
+【评论】不流畅，各方面都不如上两款，不建议刷</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置)]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/05/31/ubuntu-13-dot-04-some-option/"/>
+    <updated>2013-05-31T00:08:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/05/31/ubuntu-13-dot-04-some-option</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+<p><br /></p>
+
+<h3>grub的背景设置</h3>
+
+<hr />
+
+<p>root权限下修改<code>/boot/grub.d/05_debian_theme</code><br />
+在ubuntu 13.04下的这个文件中有一行是
+<code>for background in .jpg ...    ... do</code> <br />
+中间还有很多格式我省略掉了 这行可以用这种格式添加你的图片目录<code>{/home/xxx/}</code><br />
+之后<code>sudo update-grub</code>就ok</p>
+
+<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了
+<br /><br /></p>
+
+<h3>硬盘分区自动挂载</h3>
+
+<hr />
+
+<p>去修改一个文件就ok <br />
+<code>/etc/fstab</code> <br />
+这个文件的格式如下：</p>
+
+<table>
+    <th>设备</th>
+    <th>挂载位置</th>
+    <th>分区格式</th>
+    <th>挂载选项</th>
+    <th>dump(备份)</th>
+    <th>fsck(磁盘检查)</th>
+    <tr>
+        <td>/dev/sda1</td>
+        <td>/media/c</td>
+        <td>ntds</td>
+        <td>defaults</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+
+<p>上面这个例子就是自动挂载的例子，在分区管理器(ubuntu自带)中可以查看你的磁盘对应的标签<code>sda1</code>还是<code>sda2</code>还是其他的 <br />
+挂载位置可以自选，一般在<code>/media/</code>下 <br />
+挂载选项有7个，一般用不到，<code>defaults</code>就ok，剩下两项一般0就可以</p>
+
+<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备
+<br /><br /></p>
+
+<h3>网络连接的一个问题</h3>
+
+<hr />
+
+<p>关于手动设置了ip等之后重启系统会自动新建一个连接的问题，自己新建一个连接，手动设置好ip，在限制到接口那个选项要选任意，默认是<code>eth0</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 下通过校园网认证的办法]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/05/26/ubuntu-collage-network-authenticate/"/>
+    <updated>2013-05-26T04:13:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/05/26/ubuntu-collage-network-authenticate</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+<p><br /></p>
+
+<h3>概述</h3>
+
+<hr />
+
+<p>本身有很多种通过认证的办法：</p>
+
+<ol>
+<li>学校有提供 linux 版本的认证程序</li>
+<li>有相兼容的认证程序, 像是 <em>mentohust</em>, <em>drcom</em> 等等</li>
+<li>可以用 <em>wine</em> 运行的认证程序</li>
+<li>通过虚拟机</li>
+</ol>
+
+
+<p>对于第二种办法，因地而异，百度一些认证拨号程序试一试，最常见的就是 <em>mentohust</em> 、<em>drcom</em></p>
+
+<p>估计可以用 <em>wine</em> 运行的认证比较少，毕竟需要底层硬件操作</p>
+
+<p>本次操作的环境是 <em>ubuntu 13.04</em></p>
+
+<p><br /><br /></p>
+
+<h3>解决办法</h3>
+
+<hr />
+
+<p>这里大致的说一下第四种办法：</p>
+
+<h4>一、首先安装虚拟机，<em>virtual box</em> 、<em>vmware</em> 或者其他的都可以 <br /><br /></h4>
+
+<h4>二、<em>virtual box</em> 的安装直接在软件中心就有，关于 <em>vmware</em> 安装可能会遇到一些问题：</h4>
+
+<ol>
+<li>尽量从官网下载最新版本的 <em>vmware workstation for linux</em> ， 我这里版本是<code>9.0.2</code>，非官方的版本可能会出现一个找不到 <code>kernel-header</code> 的错误</li>
+<li>下载之后的文件是 <code>bundle</code> 格式的，将下载好的文件放到 linux 下的分区，桌面即可，将属性里面的可执行选项打钩，或者命令 <code>sudo chmod +x vmware.bundle</code> ，然后在终端里直接运行</li>
+<li>关于序列号，度娘灰常清楚，不过会出现点输入序列号没有反应的情况，终端下用命令：</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo /usr/lib/vmware/bin/vmware-vmx --new-sn JV2ZX-8R10P-MZV89-E98NK-9A8LM
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>   这个序列号 <code>9.0.2</code> 版本是有效的，无效请百度</p>
+
+<h4>三、我这里用 <em>vmware</em> ，新建一个虚拟机，安装一个xp，这个步骤和 <em>windows</em> 下的使用方法是一样的，百度有很多的介绍<br /><br /></h4>
+
+<h4>四、在 xp 里安装认证<br /><br /></h4>
+
+<h4>五、接下来是重点，用双网卡来完成真机的代理：</h4>
+
+<ol>
+<li>在 xp 里的网络连接里设置好本地连接，根据不同的校园网环境设置</li>
+<li>在 <em>vmware</em> 的虚拟机设置里，添加一个新的网卡硬件，并且选择 <code>host-only</code></li>
+<li>回到 xp 的网络连接，出现一个新的本地连接，属性里的 IP 设置为自动获取</li>
+<li>在 xp 里下载安装 <em>ccproxy 2010</em> ，直接打开默认设置就ok</li>
+<li>回到真机，现在可以直接通过代理来上网了，代理的 ip 是 本地连接2 的 ip 地址，<em>ccproxy</em> 如果是默认设置的话端口是 808</li>
+</ol>
+
+
+<h4>六、一些其他问题：</h4>
+
+<ol>
+<li>关于是否能在虚拟机内认证后直接在真机上网，这个跟认证方式有关，有说可以通过在真机的连接设置里将克隆 MAC 填写与虚拟机内的连接一致即可，不过在我这里的环境下无效，无论 <em>vmware</em> 连接设置为 <code>NAT</code> 还是 <code>Bridge</code>。</li>
+<li><em>ubuntu</em> 下全局代理的问题，我尝试过 <code>export http_proxy=http://address:port</code> 无效，尝试过在 xp 里设置 vpn，从外面连接进去，没有成功，可以连接，不能上网，有时候也会连不上。</li>
+<li>如果没有成功的设置好全局代理的话，终端环境下不能连接 internet，其他的未知</li>
+</ol>
+
+
+<hr />
+
+<p>至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nokia 5230]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/01/16/nokia-5230/"/>
+    <updated>2013-01-16T22:28:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/01/16/nokia-5230</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<p><br /></p>
+
+<p>买来的 5230 经常会出现乱扣费和收不到 10086 的信息的状况，推测系统是无良商家给刷的坑爹自制系统，不能忍了准备刷机</p>
+
+<!-- more -->
+
+
+<p>一开始 <code>*#0000#</code> 的信息是 <code>rm-588</code>，刷了几次都不成功，一直在找问题，<em>JAF</em> 和 <em>凤凰刷机</em> 都试过了，也换了好多系统，都无效</p>
+
+<p>后来才知道，那无良商家刷的系统是 <code>rm-588</code> 实际应该是<code>rm-593</code>，这让别人买回来的港货就成这样了</p>
+
+<p>顺便说一下，要刷机应做的准备，很重要，不然会手忙脚乱刷成砖</p>
+
+<ol>
+<li>拨号 <code>*#0000#</code> 看清楚型号、系统版本、rm号</li>
+<li>工具 <em>JAF</em> (刷机)、<em>navifirm</em> (系统下载，当然也可以直接去搜索对应的自制系统)</li>
+</ol>
+
+
+<p>具体的刷机过程, 可百度、google , 很多教程很详细</p>
+
+<p>如果说没记到版本就刷了机变砖了的话，那就只好找对应rm的系统最高版本了，或者不嫌麻烦的话一个一个试也可以，至于没记到rm号，也是只能一个一个试了。</p>
+
+<p>同样是 <code>rm-588</code> 刷了机变砖的话，可以尝试刷 <code>rm-588</code> 的最高版本或者去下载 <code>rm-593</code> 的系统试一试</p>
+
+<p>另外官方的 <code>rm-593</code> 系统貌似没有中文的，可以百度到一个自制的 <code>rm-593</code> 中文系统</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kubuntu终端root用户下出现cannot Connect to X Server 和 Unable to Open DISPLAY 的解决办法]]></title>
+    <link href="http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem/"/>
+    <updated>2012-07-19T15:11:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<p><br /></p>
+
+<p>在网上查找关于解决这个问题的资料很久，上次在kubuntu 11.10中只需要在添加access的名称即可，但是这次在12.04中却不能解决问题。</p>
+
+<!-- more -->
+
+
+<p><img src="http://Veracruz.github.io/images/post_image/old_blog/kubuntu.png"></p>
+
+<p>目前我和试过的三种可行办法如下：</p>
+
+<p>1.首先假设用户名是 <code>username</code>, 在获得 root 用户权限之前先输入以下命令</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span>:0.0
+</span><span class='line'>xhost +username
+</span><span class='line'>xhost +root
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这种办法在 <code>11.10</code> 下顺利解决问题</p>
+
+<p>2.网上看到有不少地方在转载同一个解决办法, 先安装 <em>vncserver</em> 用 <code>apt-get</code> 安装即可。然后输入命令 <code>vncserver</code> 然后会有提示, 其中会有例如 <code>localhost:1</code> 的字样, 其中 <code>localhost</code>  是你在安装 <em>kubuntu</em> 时设定的计算机的名字, 之后输入命令</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span>localhost:1
+</span><span class='line'>xhost +
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就会有提示关闭了验证控制，任何客户都可以访问 <br />
+但是在我试图启动 <em>kate</em> 时，出现一系列错误，不知道在其他机子上是否有效。</p>
+
+<p>3.下面这种办法在我的 <code>12.04</code> 上解决了问题，不过应该算是一种替代解决办法，并没有解决 <em>cannot connect to X server</em> 和 <em>unable to open display</em> 的问题。</p>
+
+<p>首先 <code>sudo -i</code> 获得root权限, 然后利用 <code>sed</code> 修改 <code>/etc/kde4/kdm/kdmrc</code> 文件，目的是可是以root身份登录桌面, 命令如下</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sed -e <span class="s1">&#39;s/AllowRootLogin=false/AllowRootLogin=true/&#39;</span> -i /etc/kde4/kdm/kdmrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后设置 root 密码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo passwd root
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后注销用 root 登录即可，这样以最高权限使用系统。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[U8800pro MIUI]]></title>
+    <link href="http://Veracruz.github.io/blog/2012/05/10/u8800pro-miui/"/>
+    <updated>2012-05-10T21:47:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2012/05/10/u8800pro-miui</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+<p><br /></p>
+
+<p>【手机信息】<br />
+品牌：华为<br />
+型号：U8800+/U8800pro<br />
+原始系统：官方Android 2.3.5<br />
+主频：1 GHz<br />
+运行内存：384 MB<br />
+内部存储：0.98 GB<br />
+内置SD卡：1.56 GB<br /></p>
+
+<p>【地址神马的】
+这几天刷了几个U8800pro上的MIUI系统，主要是M大的和R大的系统，下面给出网址</p>
+
+<p><a href="http://bbs.anzhi.com/thread-5130931-1-1.html">MIUIv4  M大5月5日的系统</a><br />
+<a href="http://bbs.anzhi.com/forum.php?mod=viewthread&amp;tid=5108757">MIUIv4  M大4月27日的系统</a><br />
+<a href="http://bbs.mumayi.com/thread-479045-1-1.html">MIUI 2.3.7 R大的</a><br />
+<a href="http://bbs.mumayi.com/thread-453560-1-1.html">R大的另一个2.3.7r</a><br />
+<a href="http://bbs.anzhi.com/forum.php?mod=viewthread&amp;tid=5008328&amp;extra=page%3D1%26filter%3Dtypeid%26typeid%3D4886%26typeid%3D4886">G大MIUIv4</a><br />
+<a href="http://bbs.anzhi.com/forum.php?mod=viewthread&amp;tid=5059431&amp;extra=page%3D1%26filter%3Dtypeid%26typeid%3D4886%26typeid%3D4886">小樱 ICS4.0</a></p>
+
+<p>都是论坛里的，要下载你懂得，支持一下作者</p>
+
+<p>另外刷机用的recovery用这个</p>
+
+<p><a href="http://www.angeeks.com/thread-1754552-1-1.html">http://www.angeeks.com/thread-1754552-1-1.html</a></p>
+
+<p>其他的会失败，尤其是recovery-v6&hellip;我试过的系统全部失败&hellip;</p>
+
+<p>推荐三个系统R大 2.3.7r，G大MIUIv4，小樱ICS4.0 <br />
+ 以下情况仅供参考，大致描述流畅度、系统资源、音效等方面</p>
+
+<p>【概述】<br />
+M大的系统是v4，R大的貌似是2.3<br />
+两个版本的都差不多，但是具体系统功能有些差别，但是只是日常使用可能都用不着<br />
+其他的还有，M大的没有开关屏电视机效果，R大的开关屏都有，4.0的菜单风格可能更吸引人，各有各的好吧<br />
+另外，开关屏效果去改framework-res貌似也能搞定<br />
+之所以放上之前版本M大系统，是因为5月那个刷上去以后相机不能用了</p>
+
+<p>【吐自己的槽】<br />
+流畅度方面，这几个系统都比原厂出来的系统流畅许多，软解能力有提升，触摸反应快很多，让我瞬间觉得我这国产中档手机高档起来了</p>
+
+<p>以下挑毛病(作为一个菜不太好意思，不过不好意思也得挑)<br />
+不过都说MIUI的触摸效果是相当带感的了<br />
+下面主要介绍M大4.27的系统，以这个为对比介绍其他的系统</p>
+
+<hr />
+
+<h3>M大4.27的系统</h3>
+
+<p>【截图神马的】<br />
+先show一下图</p>
+
+<p><img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro1.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro2.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro3.png"></p>
+
+<p>【优点(华丽)】<br />
+华丽的4.0和MIUI界面<br />
+华丽的应用<br />
+流畅的特效<br />
+相对于官方性能大幅提升<br />
+还有N多优点，各位看官用了便知<br /></p>
+
+<p>【那个内存】<br />
+内存神马的开几个程序，一会儿就会用的差不多，系统自身对内存的管理不太给力啊</p>
+
+<p>【内置SD卡】<br />
+这几个系统都有个我比较关注的重要问题，内置SD卡的问题
+R大的和最后一个系统在X5setting里就是华为图标的那个里可以改内外部存储，但是不能同时使用，只能把/sdcard挂载到一个存储器上，不过用RE管理器和ES文件管理器都可以访问，而M大的则可以挂载两个存储器，但是刚刷完了其他应用程序还是不能访问，有个笨解决办法，装上华为音乐扫描一遍，然后不管是音乐还是图片都可以被应用程序扫描到了，至于是为啥，我这个菜很是费解&hellip;(表面上是挂载数量的问题吧，官方的就可以挂两个)</p>
+
+<p>【四个触摸键】<br />
+自己调节亮度的时候不会亮&hellip;改自动就会亮了，不过觉得比原始系统的好，原来大概2、3秒就会灭，灭的太快了&hellip;
+还有个缺点就是长按菜单，不能呼出输入法&hellip;</p>
+
+<p>【关于放大镜】<br />
+就是最后的搜索键，改成了米键，短按可以改，长按貌似不能诶<br />
+没有本地搜索了&hellip;那个搜索不能用&hellip;<br />
+另外点亮屏幕的时候有延迟了<br /></p>
+
+<p>【音效和那个DSP管理器】<br />
+最大的问题是，在播放音乐以后再插入耳机不会改到耳机播放，依然外放&hellip;这个有点纠结啊<br />
+然后在你拔掉耳机之后，外放就不能用了(这状况&hellip;)，再插入耳机DSP的低音增强也没效果了<br />
+音效是很好的，但是那个DSP超级容易便当的，改哪个选项都有可能便当，现在一插耳机就便当，但是那个低音增强效果是不错<br />
+你不能把它卸掉，音乐神马的都会便当的&hellip;只改低音增强还可以，其他的不能改&hellip;<br />
+另外，铃声音量会比较小<br /></p>
+
+<p>【通讯录啊】<br />
+有时候也会便当&hellip;</p>
+
+<p>【发热量】<br />
+略大略大，不玩游戏，qq，飞信，和一些一般操作，都会使温度上升到38度，当然也就费电了</p>
+
+<p>【自己安装的应用】<br />
+如图</p>
+
+<p><img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro4.png"></p>
+
+<p>之前用悬浮窗，可是广告实在太多了，悬浮窗相当专业，估计作者付出的很多吧。<br />
+现在换网速监控1.2，暂时没有广告，不过有个问题，貌似网速监控一段时间后回导致不能上网&hellip;擦&hellip;<br />
+另外，这个系统的浏览器不是很好使，最后那个系统的浏览器会比较好用<br /></p>
+
+<p>【总结】<br />
+其实不太好使【偷偷的说&hellip;</p>
+
+<hr />
+
+<h3>R大系统 2.4.13r</h3>
+
+<p>(关于三类系统<a href="http://bbs.mumayi.com/thread-574877-1-1.html">http://bbs.mumayi.com/thread-574877-1-1.html</a>)</p>
+
+<p>【优点(性能)】<br />
+这个主要是在性能方面，以下引用原话<br />
+“拥有MIUI所有的功能和特有软件，界面无显示问题，3D性能强，并与主题机制可兼容”<br /></p>
+
+<p>【华丽】<br />
+关于华丽度，两个差不多，但是4.0的感觉可能更清新，切换好看一些</p>
+
+<p>【DSP】<br />
+木有上述DSP便当问题</p>
+
+<p>【GPS】<br />
+用google地图的时候不能用啊，改了gps.conf也不能用，supl换了n个还是不能用<br />
+Go天气报错，微博没有报错<br />
+百度地图可以定位，方向在调校以后也能使用了，平衡仪正常</p>
+
+<p>【温度】<br />
+也会发热，38度，以下引用原话<br />
+“机油反馈发热比较严重，我自己也感觉到了，不过也是相对而言，大家可以自己感受下。”</p>
+
+<p>【其他】<br />
+费电，出厂系统一整天聊qq也不会没电，这个一上午就没有了 <br />
+自带音乐播放器有bug<br />
+用一段时间会出现不能正常上移动网的情况，联通的就没问题<br />
+另外，有自动重启现象</p>
+
+<p>【总嘞个结】<br />
+其实和下面的差别不大</p>
+
+<p>R大系统2.3.7r</p>
+
+<p>【优点(完善)】<br />
+R大推荐，以下原话<br />
+“当然，就我个人推荐的话，我是推荐第一种，也就是我之前的参赛版，毕竟我不玩大型3D游戏。这一版我自己用的时间也是最长的，各方面非常完善。”</p>
+
+<p>【流畅度】<br />
+比第三类流畅度方面差了一些，当然这个就是性能方面的缺点，R大有解释</p>
+
+<p>【放图】<br />
+<b>默认主题</b></p>
+
+<p><img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro5.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro6.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro7.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro8.png"></p>
+
+<p><b>Black Ice主题</b></p>
+
+<p><img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro9.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro10.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro11.png">
+<img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro12.png"></p>
+
+<p>【发热神马的】<br />
+还是会的</p>
+
+<p>【总结】<br />
+要是不怎么玩大游戏，这算是个最好的选择吧</p>
+
+<hr />
+
+<h3>G大的MIUIv4</h3>
+
+<p>【优点(较少bug的MIUIv4)】<br />
+相对于M大的MIUIv4 DSP的bug没有了 其实就是DSP没有了 GPS和指南针也可以正常使用 google地图貌似还是不行<br />
+其他优点不再赘述<br />
+图就不放了，和M大的v4一样<br /></p>
+
+<p>【额】<br />
+DSP没有了让人很纠结，不过音效还是可以的<br />
+Black Town的主题不能用有点遗憾了，内存消耗的也快<br />
+图库自带编辑的人脸两个功能不能用，点了就便当</p>
+
+<p>【总结】<br />
+喜欢MIUIv4的话，这个相当不错</p>
+
+<hr />
+
+<h3>小樱ICS4.0</h3>
+
+<p>【优点(比较完善的4.0)】<br />
+虽然没有DSP但是Play音乐的音效还是可以替代一下，百度地图没有出来方向<br />
+对于ICS4.0的黑蓝系风格，我个人觉得还是相当有感觉<br />
+不过就ICS4.0的主题，MIUI主题也是可以的，用Black Ice或者Concepto ICS 都可以</p>
+
+<p>【费电】<br />
+感觉挺费电的，看着电量往下滑</p>
+
+<p>【总结】<br />
+喜欢纯4.0的话，这个电量神马的都无视之</p>
 ]]></content>
   </entry>
   

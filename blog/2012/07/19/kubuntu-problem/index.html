@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>关于提升 Octopress 的加载速度 - Code in Technicolor</title>
+  <title>Kubuntu终端root用户下出现cannot Connect to X Server 和 Unable to Open DISPLAY 的解决办法 - Code in Technicolor</title>
   <meta name="author" content="Veracruz">
 
   
-  <meta name="description" content="在 /source/includes/custom/head 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。
-">
+  <meta name="description" content="这是一篇从旧博客迁移来的文章 在网上查找关于解决这个问题的资料很久，上次在kubuntu 11.10中只需要在添加access的名称即可，但是这次在12.04中却不能解决问题。 目前我和试过的三种可行办法如下： 1.首先假设用户名是 username, 在获得 root 用户权限之前先输入以下命令 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Veracruz.github.io/blog/2014/07/18/octopress-simprove-loading-rate">
+  <link rel="canonical" href="http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Code in Technicolor" type="application/atom+xml">
@@ -71,7 +70,7 @@
   
   <header>
     
-      <h1 class="entry-title">关于提升 Octopress 的加载速度</h1>
+      <h1 class="entry-title">Kubuntu终端root用户下出现cannot Connect to X Server 和 Unable to Open DISPLAY 的解决办法</h1>
     
     
       <p class="meta">
@@ -87,7 +86,7 @@
   
 
 
-<time datetime="2014-07-18T15:46:47+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+<time datetime="2012-07-19T15:11:00+08:00" pubdate data-updated="true">Jul 19<sup>th</sup>, 2012</time>
         
         
         | <a href="#comments">Comments</a>
@@ -97,7 +96,61 @@
   </header>
 
 
-<div class="entry-content"><p>在 <code>/source/includes/custom/head</code> 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。</p>
+<div class="entry-content"><p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<p><br /></p>
+
+<p>在网上查找关于解决这个问题的资料很久，上次在kubuntu 11.10中只需要在添加access的名称即可，但是这次在12.04中却不能解决问题。</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post_image/old_blog/kubuntu.png"></p>
+
+<p>目前我和试过的三种可行办法如下：</p>
+
+<p>1.首先假设用户名是 <code>username</code>, 在获得 root 用户权限之前先输入以下命令</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span>:0.0
+</span><span class='line'>xhost +username
+</span><span class='line'>xhost +root
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这种办法在 <code>11.10</code> 下顺利解决问题</p>
+
+<p>2.网上看到有不少地方在转载同一个解决办法, 先安装 <em>vncserver</em> 用 <code>apt-get</code> 安装即可。然后输入命令 <code>vncserver</code> 然后会有提示, 其中会有例如 <code>localhost:1</code> 的字样, 其中 <code>localhost</code>  是你在安装 <em>kubuntu</em> 时设定的计算机的名字, 之后输入命令</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span>localhost:1
+</span><span class='line'>xhost +
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就会有提示关闭了验证控制，任何客户都可以访问 <br />
+但是在我试图启动 <em>kate</em> 时，出现一系列错误，不知道在其他机子上是否有效。</p>
+
+<p>3.下面这种办法在我的 <code>12.04</code> 上解决了问题，不过应该算是一种替代解决办法，并没有解决 <em>cannot connect to X server</em> 和 <em>unable to open display</em> 的问题。</p>
+
+<p>首先 <code>sudo -i</code> 获得root权限, 然后利用 <code>sed</code> 修改 <code>/etc/kde4/kdm/kdmrc</code> 文件，目的是可是以root身份登录桌面, 命令如下</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sed -e <span class="s1">&#39;s/AllowRootLogin=false/AllowRootLogin=true/&#39;</span> -i /etc/kde4/kdm/kdmrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后设置 root 密码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo passwd root
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后注销用 root 登录即可，这样以最高权限使用系统。</p>
 </div>
 
 
@@ -120,12 +173,12 @@
   
 
 
-<time datetime="2014-07-18T15:46:47+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+<time datetime="2012-07-19T15:11:00+08:00" pubdate data-updated="true">Jul 19<sup>th</sup>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog-build-tech/'>blog_build_tech</a>
+    <a class='category' href='/blog/categories/move-from-old-blog/'>move_from_old_blog</a>
   
 </span>
 
@@ -141,8 +194,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/07/18/use-facebookpop/" title="Previous Post: 使用 Facebook 的 pop 开源动画库做顺畅的2D动画">&laquo; 使用 Facebook 的 pop 开源动画库做顺畅的2D动画</a>
+        <a class="basic-alignment left" href="/blog/2012/05/10/u8800pro-miui/" title="Previous Post: U8800pro MIUI">&laquo; U8800pro MIUI</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/01/16/nokia-5230/" title="Next Post: Nokia 5230">Nokia 5230 &raquo;</a>
       
     </p>
   </footer>

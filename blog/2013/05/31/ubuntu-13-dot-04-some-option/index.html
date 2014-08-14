@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>关于提升 Octopress 的加载速度 - Code in Technicolor</title>
+  <title>Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置) - Code in Technicolor</title>
   <meta name="author" content="Veracruz">
 
   
-  <meta name="description" content="在 /source/includes/custom/head 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。
-">
+  <meta name="description" content="这是一篇从旧博客迁移来的文章 grub的背景设置 root权限下修改/boot/grub.d/05_debian_theme
+在ubuntu 13.04下的这个文件中有一行是
+for background in .jpg ... ... do 中间还有很多格式我省略掉了 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Veracruz.github.io/blog/2014/07/18/octopress-simprove-loading-rate">
+  <link rel="canonical" href="http://Veracruz.github.io/blog/2013/05/31/ubuntu-13-dot-04-some-option">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Code in Technicolor" type="application/atom+xml">
@@ -71,7 +72,7 @@
   
   <header>
     
-      <h1 class="entry-title">关于提升 Octopress 的加载速度</h1>
+      <h1 class="entry-title">Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置)</h1>
     
     
       <p class="meta">
@@ -87,7 +88,7 @@
   
 
 
-<time datetime="2014-07-18T15:46:47+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+<time datetime="2013-05-31T00:08:00+08:00" pubdate data-updated="true">May 31<sup>st</sup>, 2013</time>
         
         
         | <a href="#comments">Comments</a>
@@ -97,7 +98,64 @@
   </header>
 
 
-<div class="entry-content"><p>在 <code>/source/includes/custom/head</code> 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。</p>
+<div class="entry-content"><p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+<p><br /></p>
+
+<h3>grub的背景设置</h3>
+
+<hr />
+
+<p>root权限下修改<code>/boot/grub.d/05_debian_theme</code><br />
+在ubuntu 13.04下的这个文件中有一行是
+<code>for background in .jpg ...    ... do</code> <br />
+中间还有很多格式我省略掉了 这行可以用这种格式添加你的图片目录<code>{/home/xxx/}</code><br />
+之后<code>sudo update-grub</code>就ok</p>
+
+<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了
+<br /><br /></p>
+
+<h3>硬盘分区自动挂载</h3>
+
+<hr />
+
+<p>去修改一个文件就ok <br />
+<code>/etc/fstab</code> <br />
+这个文件的格式如下：</p>
+
+<table>
+    <th>设备</th>
+    <th>挂载位置</th>
+    <th>分区格式</th>
+    <th>挂载选项</th>
+    <th>dump(备份)</th>
+    <th>fsck(磁盘检查)</th>
+    <tr>
+        <td>/dev/sda1</td>
+        <td>/media/c</td>
+        <td>ntds</td>
+        <td>defaults</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+
+<p>上面这个例子就是自动挂载的例子，在分区管理器(ubuntu自带)中可以查看你的磁盘对应的标签<code>sda1</code>还是<code>sda2</code>还是其他的 <br />
+挂载位置可以自选，一般在<code>/media/</code>下 <br />
+挂载选项有7个，一般用不到，<code>defaults</code>就ok，剩下两项一般0就可以</p>
+
+<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备
+<br /><br /></p>
+
+<h3>网络连接的一个问题</h3>
+
+<hr />
+
+<p>关于手动设置了ip等之后重启系统会自动新建一个连接的问题，自己新建一个连接，手动设置好ip，在限制到接口那个选项要选任意，默认是<code>eth0</code></p>
 </div>
 
 
@@ -120,12 +178,12 @@
   
 
 
-<time datetime="2014-07-18T15:46:47+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+<time datetime="2013-05-31T00:08:00+08:00" pubdate data-updated="true">May 31<sup>st</sup>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog-build-tech/'>blog_build_tech</a>
+    <a class='category' href='/blog/categories/move-from-old-blog/'>move_from_old_blog</a>
   
 </span>
 
@@ -141,8 +199,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/07/18/use-facebookpop/" title="Previous Post: 使用 Facebook 的 pop 开源动画库做顺畅的2D动画">&laquo; 使用 Facebook 的 pop 开源动画库做顺畅的2D动画</a>
+        <a class="basic-alignment left" href="/blog/2013/05/26/ubuntu-collage-network-authenticate/" title="Previous Post: Ubuntu 下通过校园网认证的办法">&laquo; Ubuntu 下通过校园网认证的办法</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/08/13/u8800pro-rom/" title="Next Post: U8800pro MIUIv5 深度OS 及 百度云rom 简单评测">U8800pro MIUIv5 深度OS 及 百度云rom 简单评测 &raquo;</a>
       
     </p>
   </footer>

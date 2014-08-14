@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>关于提升 Octopress 的加载速度 - Code in Technicolor</title>
+  <title>Ubuntu 下通过校园网认证的办法 - Code in Technicolor</title>
   <meta name="author" content="Veracruz">
 
   
-  <meta name="description" content="在 /source/includes/custom/head 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。
-">
+  <meta name="description" content="这是一篇从旧博客迁移来的文章 概述 本身有很多种通过认证的办法： 学校有提供 linux 版本的认证程序
+有相兼容的认证程序, 像是 mentohust, drcom 等等
+可以用 wine 运行的认证程序
+通过虚拟机 对于第二种办法，因地而异，百度一些认证拨号程序试一试，最常见的就是 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Veracruz.github.io/blog/2014/07/18/octopress-simprove-loading-rate">
+  <link rel="canonical" href="http://Veracruz.github.io/blog/2013/05/26/ubuntu-collage-network-authenticate">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Code in Technicolor" type="application/atom+xml">
@@ -71,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">关于提升 Octopress 的加载速度</h1>
+      <h1 class="entry-title">Ubuntu 下通过校园网认证的办法</h1>
     
     
       <p class="meta">
@@ -87,7 +89,7 @@
   
 
 
-<time datetime="2014-07-18T15:46:47+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+<time datetime="2013-05-26T04:13:00+08:00" pubdate data-updated="true">May 26<sup>th</sup>, 2013</time>
         
         
         | <a href="#comments">Comments</a>
@@ -97,7 +99,86 @@
   </header>
 
 
-<div class="entry-content"><p>在 <code>/source/includes/custom/head</code> 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。</p>
+<div class="entry-content"><p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+<p><br /></p>
+
+<h3>概述</h3>
+
+<hr />
+
+<p>本身有很多种通过认证的办法：</p>
+
+<ol>
+<li>学校有提供 linux 版本的认证程序</li>
+<li>有相兼容的认证程序, 像是 <em>mentohust</em>, <em>drcom</em> 等等</li>
+<li>可以用 <em>wine</em> 运行的认证程序</li>
+<li>通过虚拟机</li>
+</ol>
+
+
+<p>对于第二种办法，因地而异，百度一些认证拨号程序试一试，最常见的就是 <em>mentohust</em> 、<em>drcom</em></p>
+
+<p>估计可以用 <em>wine</em> 运行的认证比较少，毕竟需要底层硬件操作</p>
+
+<p>本次操作的环境是 <em>ubuntu 13.04</em></p>
+
+<p><br /><br /></p>
+
+<h3>解决办法</h3>
+
+<hr />
+
+<p>这里大致的说一下第四种办法：</p>
+
+<h4>一、首先安装虚拟机，<em>virtual box</em> 、<em>vmware</em> 或者其他的都可以 <br /><br /></h4>
+
+<h4>二、<em>virtual box</em> 的安装直接在软件中心就有，关于 <em>vmware</em> 安装可能会遇到一些问题：</h4>
+
+<ol>
+<li>尽量从官网下载最新版本的 <em>vmware workstation for linux</em> ， 我这里版本是<code>9.0.2</code>，非官方的版本可能会出现一个找不到 <code>kernel-header</code> 的错误</li>
+<li>下载之后的文件是 <code>bundle</code> 格式的，将下载好的文件放到 linux 下的分区，桌面即可，将属性里面的可执行选项打钩，或者命令 <code>sudo chmod +x vmware.bundle</code> ，然后在终端里直接运行</li>
+<li>关于序列号，度娘灰常清楚，不过会出现点输入序列号没有反应的情况，终端下用命令：</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo /usr/lib/vmware/bin/vmware-vmx --new-sn JV2ZX-8R10P-MZV89-E98NK-9A8LM
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>   这个序列号 <code>9.0.2</code> 版本是有效的，无效请百度</p>
+
+<h4>三、我这里用 <em>vmware</em> ，新建一个虚拟机，安装一个xp，这个步骤和 <em>windows</em> 下的使用方法是一样的，百度有很多的介绍<br /><br /></h4>
+
+<h4>四、在 xp 里安装认证<br /><br /></h4>
+
+<h4>五、接下来是重点，用双网卡来完成真机的代理：</h4>
+
+<ol>
+<li>在 xp 里的网络连接里设置好本地连接，根据不同的校园网环境设置</li>
+<li>在 <em>vmware</em> 的虚拟机设置里，添加一个新的网卡硬件，并且选择 <code>host-only</code></li>
+<li>回到 xp 的网络连接，出现一个新的本地连接，属性里的 IP 设置为自动获取</li>
+<li>在 xp 里下载安装 <em>ccproxy 2010</em> ，直接打开默认设置就ok</li>
+<li>回到真机，现在可以直接通过代理来上网了，代理的 ip 是 本地连接2 的 ip 地址，<em>ccproxy</em> 如果是默认设置的话端口是 808</li>
+</ol>
+
+
+<h4>六、一些其他问题：</h4>
+
+<ol>
+<li>关于是否能在虚拟机内认证后直接在真机上网，这个跟认证方式有关，有说可以通过在真机的连接设置里将克隆 MAC 填写与虚拟机内的连接一致即可，不过在我这里的环境下无效，无论 <em>vmware</em> 连接设置为 <code>NAT</code> 还是 <code>Bridge</code>。</li>
+<li><em>ubuntu</em> 下全局代理的问题，我尝试过 <code>export http_proxy=http://address:port</code> 无效，尝试过在 xp 里设置 vpn，从外面连接进去，没有成功，可以连接，不能上网，有时候也会连不上。</li>
+<li>如果没有成功的设置好全局代理的话，终端环境下不能连接 internet，其他的未知</li>
+</ol>
+
+
+<hr />
+
+<p>至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
 </div>
 
 
@@ -120,12 +201,12 @@
   
 
 
-<time datetime="2014-07-18T15:46:47+08:00" pubdate data-updated="true">Jul 18<sup>th</sup>, 2014</time>
+<time datetime="2013-05-26T04:13:00+08:00" pubdate data-updated="true">May 26<sup>th</sup>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/blog-build-tech/'>blog_build_tech</a>
+    <a class='category' href='/blog/categories/move-from-old-blog/'>move_from_old_blog</a>
   
 </span>
 
@@ -141,8 +222,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/07/18/use-facebookpop/" title="Previous Post: 使用 Facebook 的 pop 开源动画库做顺畅的2D动画">&laquo; 使用 Facebook 的 pop 开源动画库做顺畅的2D动画</a>
+        <a class="basic-alignment left" href="/blog/2013/01/16/nokia-5230/" title="Previous Post: Nokia 5230">&laquo; Nokia 5230</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/05/31/ubuntu-13-dot-04-some-option/" title="Next Post: Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置)">Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置) &raquo;</a>
       
     </p>
   </footer>
