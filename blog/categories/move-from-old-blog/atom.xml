@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Move_from_old_blog | Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/blog/categories/move-from-old-blog/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-08-14T18:51:42+08:00</updated>
+  <updated>2014-09-23T17:41:38+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -75,7 +75,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 <!-- more -->
 
 
-<p><br /></p>
+<br />
+
 
 <h3>grub的背景设置</h3>
 
@@ -87,8 +88,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 中间还有很多格式我省略掉了 这行可以用这种格式添加你的图片目录<code>{/home/xxx/}</code><br />
 之后<code>sudo update-grub</code>就ok</p>
 
-<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了
-<br /><br /></p>
+<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了</p>
+
+<br /><br />
+
 
 <h3>硬盘分区自动挂载</h3>
 
@@ -120,8 +123,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 挂载位置可以自选，一般在<code>/media/</code>下 <br />
 挂载选项有7个，一般用不到，<code>defaults</code>就ok，剩下两项一般0就可以</p>
 
-<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备
-<br /><br /></p>
+<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备</p>
+
+<br /><br />
+
 
 <h3>网络连接的一个问题</h3>
 
@@ -141,7 +146,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 <!-- more -->
 
 
-<p><br /></p>
+
+
+<br />
+
 
 <h3>概述</h3>
 
@@ -163,7 +171,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 
 <p>本次操作的环境是 <em>ubuntu 13.04</em></p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>解决办法</h3>
 
@@ -182,8 +191,9 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 </ol>
 
 
-<pre><code class="bash">sudo /usr/lib/vmware/bin/vmware-vmx --new-sn JV2ZX-8R10P-MZV89-E98NK-9A8LM
-</code></pre>
+<p><code>bash
+sudo /usr/lib/vmware/bin/vmware-vmx --new-sn JV2ZX-8R10P-MZV89-E98NK-9A8LM
+</code></p>
 
 <p>   这个序列号 <code>9.0.2</code> 版本是有效的，无效请百度</p>
 
@@ -211,9 +221,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 </ol>
 
 
-<hr />
-
-<p>至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
+<p>===
+至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
 ]]></content>
   </entry>
   
@@ -224,7 +233,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
     <id>http://Veracruz.github.io/blog/2013/01/16/nokia-5230</id>
     <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
 
-<p><br /></p>
+<br />
+
 
 <p>买来的 5230 经常会出现乱扣费和收不到 10086 的信息的状况，推测系统是无良商家给刷的坑爹自制系统，不能忍了准备刷机</p>
 
@@ -260,7 +270,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
     <id>http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem</id>
     <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
 
-<p><br /></p>
+<br />
+
 
 <p>在网上查找关于解决这个问题的资料很久，上次在kubuntu 11.10中只需要在添加access的名称即可，但是这次在12.04中却不能解决问题。</p>
 
@@ -273,18 +284,20 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 
 <p>1.首先假设用户名是 <code>username</code>, 在获得 root 用户权限之前先输入以下命令</p>
 
-<pre><code class="bash">export DISPLAY=:0.0
+<p><code>bash
+export DISPLAY=:0.0
 xhost +username
 xhost +root
-</code></pre>
+</code></p>
 
 <p>这种办法在 <code>11.10</code> 下顺利解决问题</p>
 
 <p>2.网上看到有不少地方在转载同一个解决办法, 先安装 <em>vncserver</em> 用 <code>apt-get</code> 安装即可。然后输入命令 <code>vncserver</code> 然后会有提示, 其中会有例如 <code>localhost:1</code> 的字样, 其中 <code>localhost</code>  是你在安装 <em>kubuntu</em> 时设定的计算机的名字, 之后输入命令</p>
 
-<pre><code class="bash">export DISPLAY=localhost:1
+<p><code>bash
+export DISPLAY=localhost:1
 xhost +
-</code></pre>
+</code></p>
 
 <p>就会有提示关闭了验证控制，任何客户都可以访问 <br />
 但是在我试图启动 <em>kate</em> 时，出现一系列错误，不知道在其他机子上是否有效。</p>
@@ -293,13 +306,15 @@ xhost +
 
 <p>首先 <code>sudo -i</code> 获得root权限, 然后利用 <code>sed</code> 修改 <code>/etc/kde4/kdm/kdmrc</code> 文件，目的是可是以root身份登录桌面, 命令如下</p>
 
-<pre><code class="bash">sed -e 's/AllowRootLogin=false/AllowRootLogin=true/' -i /etc/kde4/kdm/kdmrc
-</code></pre>
+<p><code>bash
+sed -e 's/AllowRootLogin=false/AllowRootLogin=true/' -i /etc/kde4/kdm/kdmrc
+</code></p>
 
 <p>然后设置 root 密码</p>
 
-<pre><code class="bash">sudo passwd root
-</code></pre>
+<p><code>bash
+sudo passwd root
+</code></p>
 
 <p>之后注销用 root 登录即可，这样以最高权限使用系统。</p>
 ]]></content>

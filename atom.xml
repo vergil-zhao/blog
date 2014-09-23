@@ -4,7 +4,7 @@
   <title><![CDATA[Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-08-14T18:51:42+08:00</updated>
+  <updated>2014-09-23T17:41:38+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -484,13 +484,17 @@
 </table>
 
 
-<p><br /><br /><br /></p>
+
+
+<br /><br /><br />
+
 
 <h2>AFNetworking</h2>
 
 <p>这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>导入库</h3>
 
@@ -498,7 +502,8 @@
 
 <p>只要将下载之后的目录下的 <code>AFNetworking</code> 和 <code>UIKit+AFNetworking</code> 两个文件夹导入到工程即可，并且不需要添加其他框架。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>GET请求并解析JSON</h3>
 
@@ -529,7 +534,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><br /><br /></p>
+
+
+<br /><br />
+
 
 <h3>通用请求</h3>
 
@@ -605,13 +613,17 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><br /><br /><br /></p>
+
+
+<br /><br /><br />
+
 
 <h2>ASIHTTPRequest</h2>
 
 <p>这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>导入库</h3>
 
@@ -619,7 +631,8 @@
 
 <p>下载库之后，将目录下的 <code>Classes</code> 和 <code>External</code> 文件夹导入到项目中，这并不是完整的导入，它的单元测试模块的一些文件并不包含在这个目录中，需要用 <em>ruby</em> 相关的命令来导入。这里只需要删除 <code>Classes</code> 目录下的 <code>Test</code> 删除即可。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>项目设置</h3>
 
@@ -639,7 +652,8 @@
 
 <p>另外在64位的iOS系统下会有很多类型警告，按照推荐的修改即可。</p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>数据请求</h3>
 
@@ -680,7 +694,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><br /><br /></p>
+
+
+<br /><br />
+
 
 <h3>文件下载缓存</h3>
 
@@ -736,11 +753,13 @@
 
 <hr />
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <p>以上就是两个库的基本用法，还有一些上传数据，身份验证等等点击下面的参考资料中的链接查看。</p>
 
-<p><br /><br /><br /><br /></p>
+<br /><br /><br /><br />
+
 
 <h4>参考资料</h4>
 
@@ -771,7 +790,10 @@
 <!-- more -->
 
 
-<p><br /><br /><br /></p>
+
+
+<br /><br /><br />
+
 
 <h3><font color="330000">申请一个 <em>GitHub</em> 账号</font></h3>
 
@@ -779,7 +801,8 @@
 
 <p>首先需要一个 <em>GitHub</em> 的账号，这个Coder通常都有，进入 <em><a href="http://github.com/">Github</a></em> ，首页就可以快速的注册一个账号。</p>
 
-<p><br /><br /><br /></p>
+<br /><br /><br />
+
 
 <h3><font color="330000">建立一个新的仓库(Repository)</font></h3>
 
@@ -787,7 +810,8 @@
 
 <p>登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是<code>your_username.github.io</code>，建立时不用初始化。</p>
 
-<p><br /><br /><br /></p>
+<br /><br /><br />
+
 
 <h3><font color="330000">安装 <em>Octopress</em> 以及所需依赖</font></h3>
 
@@ -833,7 +857,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><br /><br /><br /></p>
+
+
+<br /><br /><br />
+
 
 <h3><font color="330000">配置并部署 Octopress</font></h3>
 
@@ -892,7 +919,8 @@
 
 <p>关于博客的设置一般在 <code>_config.yml</code> 文件中，具体内容参照官方说明 <a href="http://octopress.org/docs/configuring">Configure your blog</a>。</p>
 
-<p><br /><br /><br /></p>
+<br /><br /><br />
+
 
 <h3><font color="330000">开始撰写博客</font></h3>
 
@@ -965,7 +993,8 @@
 
 <p>完整参数参考 <a href="http://octopress.org/docs/blogging/code/">Sharing Code Snippets</a>。</p>
 
-<p><br /><br /><br /></p>
+<br /><br /><br />
+
 
 <h3><font color="330000">过程中的一些问题</font></h3>
 
@@ -1007,10 +1036,19 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><br />
+
+
 <br />
+
+
 <br />
-<br /></p>
+
+
+<br />
+
+
+<br />
+
 
 <h4>参考资料</h4>
 
@@ -1085,7 +1123,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 <!-- more -->
 
 
-<p><br /></p>
+<br />
+
 
 <h3>grub的背景设置</h3>
 
@@ -1097,8 +1136,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 中间还有很多格式我省略掉了 这行可以用这种格式添加你的图片目录<code>{/home/xxx/}</code><br />
 之后<code>sudo update-grub</code>就ok</p>
 
-<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了
-<br /><br /></p>
+<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了</p>
+
+<br /><br />
+
 
 <h3>硬盘分区自动挂载</h3>
 
@@ -1130,8 +1171,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 挂载位置可以自选，一般在<code>/media/</code>下 <br />
 挂载选项有7个，一般用不到，<code>defaults</code>就ok，剩下两项一般0就可以</p>
 
-<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备
-<br /><br /></p>
+<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备</p>
+
+<br /><br />
+
 
 <h3>网络连接的一个问题</h3>
 
@@ -1151,7 +1194,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 <!-- more -->
 
 
-<p><br /></p>
+
+
+<br />
+
 
 <h3>概述</h3>
 
@@ -1173,7 +1219,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 
 <p>本次操作的环境是 <em>ubuntu 13.04</em></p>
 
-<p><br /><br /></p>
+<br /><br />
+
 
 <h3>解决办法</h3>
 
@@ -1223,9 +1270,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 </ol>
 
 
-<hr />
-
-<p>至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
+<p>===
+至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
 ]]></content>
   </entry>
   
@@ -1236,7 +1282,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
     <id>http://Veracruz.github.io/blog/2013/01/16/nokia-5230</id>
     <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
 
-<p><br /></p>
+<br />
+
 
 <p>买来的 5230 经常会出现乱扣费和收不到 10086 的信息的状况，推测系统是无良商家给刷的坑爹自制系统，不能忍了准备刷机</p>
 
@@ -1272,7 +1319,8 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
     <id>http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem</id>
     <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
 
-<p><br /></p>
+<br />
+
 
 <p>在网上查找关于解决这个问题的资料很久，上次在kubuntu 11.10中只需要在添加access的名称即可，但是这次在12.04中却不能解决问题。</p>
 
@@ -1338,7 +1386,10 @@ PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
 <!-- more -->
 
 
-<p><br /></p>
+
+
+<br />
+
 
 <p>【手机信息】<br />
 品牌：华为<br />
@@ -1489,7 +1540,7 @@ R大推荐，以下原话<br />
 <p>【放图】<br />
 <b>默认主题</b></p>
 
-<p><img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro5.png">
+<p><img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro5.jpg">
 <img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro6.png">
 <img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro7.png">
 <img src="http://Veracruz.github.io/images/post_image/old_blog/u8800pro8.png"></p>
