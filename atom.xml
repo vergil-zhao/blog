@@ -4,7 +4,7 @@
   <title><![CDATA[Code in Technicolor]]></title>
   <link href="http://Veracruz.github.io/atom.xml" rel="self"/>
   <link href="http://Veracruz.github.io/"/>
-  <updated>2014-09-23T17:41:38+08:00</updated>
+  <updated>2014-09-24T10:24:03+08:00</updated>
   <id>http://Veracruz.github.io/</id>
   <author>
     <name><![CDATA[Veracruz]]></name>
@@ -18,7 +18,9 @@
     <link href="http://Veracruz.github.io/blog/2014/07/18/octopress-simprove-loading-rate/"/>
     <updated>2014-07-18T15:46:47+08:00</updated>
     <id>http://Veracruz.github.io/blog/2014/07/18/octopress-simprove-loading-rate</id>
-    <content type="html"><![CDATA[<p>在 <code>/source/includes/custom/head</code> 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。</p>
+    <content type="html"><![CDATA[<p>在 <code>/source/_includes/custom/head.html</code> 注释掉两句下载Google font的link标签，另外就是尽量不要使用站外的资源，可以查看各个文件中引用外部的资源的语句，在国内可以大幅度提高加载速度。</p>
+
+<p>另外在 <code>/source/_includes/head.html</code> 中还有坑爹的用 Google 的 jquery cdn，明明本地有，所以果断改为本地的 <code>/javascripts/libs/jquery.min.js</code> 即可。</p>
 ]]></content>
   </entry>
   
