@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Move_from_old_blog | Code in Technicolor]]></title>
+  <link href="http://Veracruz.github.io/blog/categories/move-from-old-blog/atom.xml" rel="self"/>
+  <link href="http://Veracruz.github.io/"/>
+  <updated>2014-09-24T10:24:03+08:00</updated>
+  <id>http://Veracruz.github.io/</id>
+  <author>
+    <name><![CDATA[Veracruz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[U8800pro MIUIv5 深度OS 及 百度云rom 简单评测]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/08/13/u8800pro-rom/"/>
+    <updated>2013-08-13T12:04:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/08/13/u8800pro-rom</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<p>目前这三款系统都有U8800pro的版本，深度os是官方支持，其他的是第三方维护的
+本次重点是MIUIv5</p>
+
+<p><b>刷机需谨慎 资料常备份</b></p>
+
+<!-- more -->
+
+
+<h2>MIUIv5 <br /></h2>
+
+<p>【版本】3.5.24 (ATX Team) <br />
+【刷机】注意没刷过4.0的机子，也就是底包是2.3的要去刷官方的B928，这里是个麻烦的地方，要先刷回原始的2.3就是B572，然后在按照官方的三部，更新至B928，之后粉屏会被锁，在刷入解锁update.app，替换recovery至6.0.1.2，之后再刷入MIUI的刷机包。另外这个系统的通话有些问题，声音小有电流声有回声，这个要再替换底包，B927的amss.mbn，不过只能解决声音小的问题，如果很在意这个事儿的就不要刷这个系统了</p>
+
+<p><a href="http://bbs.anzhi.com/thread-6946594-1-1.html">H大 MIUIv5 for U8800pro</a></p>
+
+<p><a href="http://android.tgbus.com/Android/yizhi/201211/455988.shtml">粉屏解锁</a></p>
+
+<p><a href="http://consumer.huawei.com/cn/support/downloads/detail/index.htm?id=15223">官方B928</a></p>
+
+<p><a href="http://www.fengbao.com/huawei_rom/huawei_U8800pro_rom/2012/0322/143481.html">B572 卡刷包</a></p>
+
+<p>ps:上面这个连接的下载貌似有问题，如果有需要可以直接跟我要</p>
+
+<p><a href="http://dl.dbank.com/c02o28qw0x#">B927底包</a></p>
+
+<p>【评论】第三方相机不能用，内存占用还是挺多的，卡顿还是挺多的，但是触感流畅，用过就明白了，比较稳定，可长期使用
+PS1：想常驻内存的方法是长按home键，把图标下拉就是加锁，这样没那么容易被kill掉
+PS2：root权限貌似有点问题，用 360一键root 再root的一次</p>
+
+<p>【补充】 发现一个问题，联通3gnet接入点不能上网，3gwap虽然能上但是还有有些应用会出问题，下面的深度os也有很多问题，目前官方只有4.0的B928，所以这些4.1的系统都不稳定，在出来更新的固件之前，建议还是用回2.3</p>
+
+<h2>深度OS for U8800pro</h2>
+
+<p>【版本】130719 <a href="http://www.shenduos.com/">深度OS</a> <br />
+【刷机】如果刷机不成功，参照MIUIv5的刷机 <br />
+【评论】有个大bug，会不断提示 sd卡已移除 或者 正在准备 或者 受损，很多人有这个问题，没有找到解决办法，有解决办法的请联系我，这个系统用起来非常流畅，这个解决不了所以只好放弃</p>
+
+<h2>百度云rom</h2>
+
+<p>【版本】公测版28 <a href="http://bbs.rom.baidu.com/download.php?phoneid=17">百度云rom</a> <br />
+【刷机】如果刷机不成功，参照MIUIv5的刷机 <br />
+【评论】不流畅，各方面都不如上两款，不建议刷</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置)]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/05/31/ubuntu-13-dot-04-some-option/"/>
+    <updated>2013-05-31T00:08:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/05/31/ubuntu-13-dot-04-some-option</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+<br />
+
+
+<h3>grub的背景设置</h3>
+
+<hr />
+
+<p>root权限下修改<code>/boot/grub.d/05_debian_theme</code><br />
+在ubuntu 13.04下的这个文件中有一行是
+<code>for background in .jpg ...    ... do</code> <br />
+中间还有很多格式我省略掉了 这行可以用这种格式添加你的图片目录<code>{/home/xxx/}</code><br />
+之后<code>sudo update-grub</code>就ok</p>
+
+<p>注：前面都是废话:p，它上面有一句注释，直接把图片放到<code>/boot/grub/</code>下然后<code>sudo update-grub</code>就ok了</p>
+
+<br /><br />
+
+
+<h3>硬盘分区自动挂载</h3>
+
+<hr />
+
+<p>去修改一个文件就ok <br />
+<code>/etc/fstab</code> <br />
+这个文件的格式如下：</p>
+
+<table>
+    <th>设备</th>
+    <th>挂载位置</th>
+    <th>分区格式</th>
+    <th>挂载选项</th>
+    <th>dump(备份)</th>
+    <th>fsck(磁盘检查)</th>
+    <tr>
+        <td>/dev/sda1</td>
+        <td>/media/c</td>
+        <td>ntds</td>
+        <td>defaults</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+</table>
+
+
+<p>上面这个例子就是自动挂载的例子，在分区管理器(ubuntu自带)中可以查看你的磁盘对应的标签<code>sda1</code>还是<code>sda2</code>还是其他的 <br />
+挂载位置可以自选，一般在<code>/media/</code>下 <br />
+挂载选项有7个，一般用不到，<code>defaults</code>就ok，剩下两项一般0就可以</p>
+
+<p>另外：如果因为修改了fstab而导致不能开机的话，要用 <em>ubuntu liveCD</em> 进去之后修改原来系统的<code>fstab</code>，提前做好准备</p>
+
+<br /><br />
+
+
+<h3>网络连接的一个问题</h3>
+
+<hr />
+
+<p>关于手动设置了ip等之后重启系统会自动新建一个连接的问题，自己新建一个连接，手动设置好ip，在限制到接口那个选项要选任意，默认是<code>eth0</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 下通过校园网认证的办法]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/05/26/ubuntu-collage-network-authenticate/"/>
+    <updated>2013-05-26T04:13:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/05/26/ubuntu-collage-network-authenticate</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<!-- more -->
+
+
+
+
+<br />
+
+
+<h3>概述</h3>
+
+<hr />
+
+<p>本身有很多种通过认证的办法：</p>
+
+<ol>
+<li>学校有提供 linux 版本的认证程序</li>
+<li>有相兼容的认证程序, 像是 <em>mentohust</em>, <em>drcom</em> 等等</li>
+<li>可以用 <em>wine</em> 运行的认证程序</li>
+<li>通过虚拟机</li>
+</ol>
+
+
+<p>对于第二种办法，因地而异，百度一些认证拨号程序试一试，最常见的就是 <em>mentohust</em> 、<em>drcom</em></p>
+
+<p>估计可以用 <em>wine</em> 运行的认证比较少，毕竟需要底层硬件操作</p>
+
+<p>本次操作的环境是 <em>ubuntu 13.04</em></p>
+
+<br /><br />
+
+
+<h3>解决办法</h3>
+
+<hr />
+
+<p>这里大致的说一下第四种办法：</p>
+
+<h4>一、首先安装虚拟机，<em>virtual box</em> 、<em>vmware</em> 或者其他的都可以 <br /><br /></h4>
+
+<h4>二、<em>virtual box</em> 的安装直接在软件中心就有，关于 <em>vmware</em> 安装可能会遇到一些问题：</h4>
+
+<ol>
+<li>尽量从官网下载最新版本的 <em>vmware workstation for linux</em> ， 我这里版本是<code>9.0.2</code>，非官方的版本可能会出现一个找不到 <code>kernel-header</code> 的错误</li>
+<li>下载之后的文件是 <code>bundle</code> 格式的，将下载好的文件放到 linux 下的分区，桌面即可，将属性里面的可执行选项打钩，或者命令 <code>sudo chmod +x vmware.bundle</code> ，然后在终端里直接运行</li>
+<li>关于序列号，度娘灰常清楚，不过会出现点输入序列号没有反应的情况，终端下用命令：</li>
+</ol>
+
+
+<p><code>bash
+sudo /usr/lib/vmware/bin/vmware-vmx --new-sn JV2ZX-8R10P-MZV89-E98NK-9A8LM
+</code></p>
+
+<p>   这个序列号 <code>9.0.2</code> 版本是有效的，无效请百度</p>
+
+<h4>三、我这里用 <em>vmware</em> ，新建一个虚拟机，安装一个xp，这个步骤和 <em>windows</em> 下的使用方法是一样的，百度有很多的介绍<br /><br /></h4>
+
+<h4>四、在 xp 里安装认证<br /><br /></h4>
+
+<h4>五、接下来是重点，用双网卡来完成真机的代理：</h4>
+
+<ol>
+<li>在 xp 里的网络连接里设置好本地连接，根据不同的校园网环境设置</li>
+<li>在 <em>vmware</em> 的虚拟机设置里，添加一个新的网卡硬件，并且选择 <code>host-only</code></li>
+<li>回到 xp 的网络连接，出现一个新的本地连接，属性里的 IP 设置为自动获取</li>
+<li>在 xp 里下载安装 <em>ccproxy 2010</em> ，直接打开默认设置就ok</li>
+<li>回到真机，现在可以直接通过代理来上网了，代理的 ip 是 本地连接2 的 ip 地址，<em>ccproxy</em> 如果是默认设置的话端口是 808</li>
+</ol>
+
+
+<h4>六、一些其他问题：</h4>
+
+<ol>
+<li>关于是否能在虚拟机内认证后直接在真机上网，这个跟认证方式有关，有说可以通过在真机的连接设置里将克隆 MAC 填写与虚拟机内的连接一致即可，不过在我这里的环境下无效，无论 <em>vmware</em> 连接设置为 <code>NAT</code> 还是 <code>Bridge</code>。</li>
+<li><em>ubuntu</em> 下全局代理的问题，我尝试过 <code>export http_proxy=http://address:port</code> 无效，尝试过在 xp 里设置 vpn，从外面连接进去，没有成功，可以连接，不能上网，有时候也会连不上。</li>
+<li>如果没有成功的设置好全局代理的话，终端环境下不能连接 internet，其他的未知</li>
+</ol>
+
+
+<p>===
+至此已经可以连接到外网了，但是第四种办法是最无奈的办法，前两种办法能成功最好</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nokia 5230]]></title>
+    <link href="http://Veracruz.github.io/blog/2013/01/16/nokia-5230/"/>
+    <updated>2013-01-16T22:28:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2013/01/16/nokia-5230</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<br />
+
+
+<p>买来的 5230 经常会出现乱扣费和收不到 10086 的信息的状况，推测系统是无良商家给刷的坑爹自制系统，不能忍了准备刷机</p>
+
+<!-- more -->
+
+
+<p>一开始 <code>*#0000#</code> 的信息是 <code>rm-588</code>，刷了几次都不成功，一直在找问题，<em>JAF</em> 和 <em>凤凰刷机</em> 都试过了，也换了好多系统，都无效</p>
+
+<p>后来才知道，那无良商家刷的系统是 <code>rm-588</code> 实际应该是<code>rm-593</code>，这让别人买回来的港货就成这样了</p>
+
+<p>顺便说一下，要刷机应做的准备，很重要，不然会手忙脚乱刷成砖</p>
+
+<ol>
+<li>拨号 <code>*#0000#</code> 看清楚型号、系统版本、rm号</li>
+<li>工具 <em>JAF</em> (刷机)、<em>navifirm</em> (系统下载，当然也可以直接去搜索对应的自制系统)</li>
+</ol>
+
+
+<p>具体的刷机过程, 可百度、google , 很多教程很详细</p>
+
+<p>如果说没记到版本就刷了机变砖了的话，那就只好找对应rm的系统最高版本了，或者不嫌麻烦的话一个一个试也可以，至于没记到rm号，也是只能一个一个试了。</p>
+
+<p>同样是 <code>rm-588</code> 刷了机变砖的话，可以尝试刷 <code>rm-588</code> 的最高版本或者去下载 <code>rm-593</code> 的系统试一试</p>
+
+<p>另外官方的 <code>rm-593</code> 系统貌似没有中文的，可以百度到一个自制的 <code>rm-593</code> 中文系统</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kubuntu终端root用户下出现cannot Connect to X Server 和 Unable to Open DISPLAY 的解决办法]]></title>
+    <link href="http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem/"/>
+    <updated>2012-07-19T15:11:00+08:00</updated>
+    <id>http://Veracruz.github.io/blog/2012/07/19/kubuntu-problem</id>
+    <content type="html"><![CDATA[<p><em><font color = "gray">这是一篇从旧博客迁移来的文章</font></em></p>
+
+<br />
+
+
+<p>在网上查找关于解决这个问题的资料很久，上次在kubuntu 11.10中只需要在添加access的名称即可，但是这次在12.04中却不能解决问题。</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post_image/old_blog/kubuntu.png"></p>
+
+<p>目前我和试过的三种可行办法如下：</p>
+
+<p>1.首先假设用户名是 <code>username</code>, 在获得 root 用户权限之前先输入以下命令</p>
+
+<p><code>bash
+export DISPLAY=:0.0
+xhost +username
+xhost +root
+</code></p>
+
+<p>这种办法在 <code>11.10</code> 下顺利解决问题</p>
+
+<p>2.网上看到有不少地方在转载同一个解决办法, 先安装 <em>vncserver</em> 用 <code>apt-get</code> 安装即可。然后输入命令 <code>vncserver</code> 然后会有提示, 其中会有例如 <code>localhost:1</code> 的字样, 其中 <code>localhost</code>  是你在安装 <em>kubuntu</em> 时设定的计算机的名字, 之后输入命令</p>
+
+<p><code>bash
+export DISPLAY=localhost:1
+xhost +
+</code></p>
+
+<p>就会有提示关闭了验证控制，任何客户都可以访问 <br />
+但是在我试图启动 <em>kate</em> 时，出现一系列错误，不知道在其他机子上是否有效。</p>
+
+<p>3.下面这种办法在我的 <code>12.04</code> 上解决了问题，不过应该算是一种替代解决办法，并没有解决 <em>cannot connect to X server</em> 和 <em>unable to open display</em> 的问题。</p>
+
+<p>首先 <code>sudo -i</code> 获得root权限, 然后利用 <code>sed</code> 修改 <code>/etc/kde4/kdm/kdmrc</code> 文件，目的是可是以root身份登录桌面, 命令如下</p>
+
+<p><code>bash
+sed -e 's/AllowRootLogin=false/AllowRootLogin=true/' -i /etc/kde4/kdm/kdmrc
+</code></p>
+
+<p>然后设置 root 密码</p>
+
+<p><code>bash
+sudo passwd root
+</code></p>
+
+<p>之后注销用 root 登录即可，这样以最高权限使用系统。</p>
+]]></content>
+  </entry>
+  
+</feed>
