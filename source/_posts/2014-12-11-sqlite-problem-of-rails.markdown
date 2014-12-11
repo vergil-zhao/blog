@@ -27,7 +27,7 @@ ERROR: Error installing sqlite3:
 
 截图如下
 
-<img src="../images/post_image/2014_12/sqlite3_problem_of_rails.jpg">
+{% img /images/post_image/2014_12/sqlite3_problem_of_rails.jpg %}
 
 然后尝试了一些解决办法, 以及万能的 *Stack Overflow*, 但是没有解决到. 而实际上问题很简单, 错误提示中的 `port install sqlite3 +universal` 就能搞定.
 
