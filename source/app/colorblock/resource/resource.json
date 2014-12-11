@@ -1,11 +1,16 @@
 {
 "resources":
 	[
-	    {"name":"share","type":"image","url":"assets/share.png"}
+	    {"name":"share","type":"image","url":"assets/share.png"},
+	  {"name":"guide","type":"image","url":"assets/guide.png"},
+	  {"name":"get","type":"image","url":"assets/get.png"},
+	  {"name":"share_button","type":"image","url":"assets/share_button.png"},
+	  {"name":"restart","type":"image","url":"assets/restart.png"}
+
 	],
 
 "groups":
 	[
-        {"name":"preload","keys":"share"}
+        {"name":"preload","keys":"share,guide,get,share_button,restart"}
 	]
 }
