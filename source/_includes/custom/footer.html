@@ -5,6 +5,17 @@
 <script type="text/javascript">
     var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
     document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1927408f733bc1f82c711c8aece7a832' type='text/javascript'%3E%3C/script%3E"));
+
+    var codeblock = document.getElementsByClassName("code");
+    console.log(codeblock);
+
+
+    var highlight_lines = document.getElementsByClassName("highlight_line");
+    for (var i = 0; i < highlight_lines.length; i++) {
+        highlight_lines[i].style.paddingRight = "2000px";
+        // highlight_lines[i].style.width = "100%";
+        highlight_lines[i].style.backgroundColor = "rgba(80,80,80,0.5)";
+    }
 </script>
 <!-- mathjax config similar to math.stackexchange -->
 <!--

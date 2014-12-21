@@ -4,31 +4,17 @@ module BacktickCodeBlock
   include HighlightCode
   AllOptions = /([^\s]+)\s+(.+?)\s+(https?:\/\/\S+|\/\S+)\s*(.+)?/i
   LangCaption = /([^\s]+)\s*(.+)?/i
-
-  # hightlight specific line option grep
-  MarkOptions = /([^\s]+)\s+mark:\s?([\s0-9,-]*)/i
-
   def render_code_block(input)
     @options = nil
     @caption = nil
     @lang = nil
     @url = nil
     @title = nil
-
     input.gsub(/^`{3} *([^\n]+)?\n(.+?)\n`{3}/m) do
       @options = $1 || ''
       str = $2
 
-      # mark line number origin string
-      @mark = nil
-
-      if @options =~ MarkOptions
-        @lang = $1
-
-        # get origin line number string, Example: "1, 2-5" means highlight line 1 and 2,3,4,5
-        @mark = $2
-
-      elsif @options =~ AllOptions
+      if @options =~ AllOptions
         @lang = $1
         @caption = "<figcaption><span>#{$2}</span><a href='#{$3}'>#{$4 || 'link'}</a></figcaption>"
       elsif @options =~ LangCaption
@@ -47,9 +33,6 @@ module BacktickCodeBlock
           raw = "``` #{@options.sub('-raw', '')}\n"
           raw += str
           raw += "\n```\n"
-        elsif !@mark.nil?
-          code = highlight(str, @lang, @mark)
-          "<figure class='code'>#{@caption}#{code}</figure>"
         else
           code = highlight(str, @lang)
           "<figure class='code'>#{@caption}#{code}</figure>"

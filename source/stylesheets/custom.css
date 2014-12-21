@@ -1,0 +1,7 @@
+/* 文章里面的警告框 */
+.post_warn {
+	border-radius: 10px;
+	background-color: #e43737;
+	padding: 20px;
+	color: white;
+}	
