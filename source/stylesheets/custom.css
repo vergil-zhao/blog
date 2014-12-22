@@ -4,4 +4,11 @@
 	background-color: #e43737;
 	padding: 20px;
 	color: white;
-}	
+}
+
+.post_attention {
+	border-radius: 10px;
+	background-color: #ffbb00;
+	padding: 20px;
+	color: white;
+}

@@ -87,12 +87,13 @@ so~，we need search engine. Then I got a nice guide article:
 </table>
 <br />
 
+
 变更的地方已高亮
 
 配置文件中的最后几行，要在安装完 `mail-stack-delivery` 包之后才会出现
 
 
-``` cf3 mark: 9, 21-25, 34, 41, 54, 56-61
+```cf3 mark: 9, 21-25, 34, 41, 54, 56-61
 # See /usr/share/postfix/main.cf.dist for a commented, more complete version
  
  
