@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     RedCloth (4.2.9)
     blankslate (2.1.2.4)
@@ -102,3 +102,6 @@ DEPENDENCIES
   sass-globbing (~> 1.0.0)
   sinatra (~> 1.4.2)
   stringex (~> 1.4.0)
+
+BUNDLED WITH
+   1.10.5

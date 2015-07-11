@@ -51,6 +51,16 @@ rbenv rehash	              #没有安装rbenv，这句可省
 bundle install
 ```
 
+执行上面最后一句的时候可能会收到类似的错误
+``` bash
+Gem::RemoteFetcher::FetchError: Errno::ECONNRESET: Connection reset by peer - SSL_connect (https://rubygems.org/gems/chunky_png-1.3.1.gem)
+An error occurred while installing chunky_png (1.3.1), and Bundler cannot continue.
+Make sure that `gem install chunky_png -v '1.3.1'` succeeds before bundling.
+```
+
+这个时候要修改 `Gemfile` 中第一行的地址为 `http://ruby.taobao.org` 即可
+
+
 安装 *Octopress* 的默认主题
 
 ``` bash
