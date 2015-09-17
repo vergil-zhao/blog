@@ -3,7 +3,7 @@ layout: post
 title: "使用 Facebook 的 pop 开源动画库做顺畅的2D动画"
 date: 2014-07-18 15:15:58 +0800
 comments: true
-categories: ios
+categories: iOS
 ---
 
 *pop* 是 *Facebook* 的在 *Paper* 中使用的动画库，开源之后非常受欢迎，它是一个成熟且经过良好测试的框架，使用它可以做出顺畅的2D动画。

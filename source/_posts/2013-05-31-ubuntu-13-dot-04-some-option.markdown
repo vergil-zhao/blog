@@ -3,7 +3,7 @@ layout: post
 title: "Ubuntu 13.04 的几个常用设置(grub背景、自动挂载、网络连接设置)"
 date: 2013-05-31 00:08:00 +0800
 comments: true
-categories: move_from_old_blog
+categories: Ancient Blog
 ---
 
 *<font color = "gray">这是一篇从旧博客迁移来的文章</font>*

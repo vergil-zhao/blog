@@ -3,7 +3,7 @@ layout: post
 title: "Ubuntu 下通过校园网认证的办法"
 date: 2013-05-26 04:13:00 +0800
 comments: true
-categories: move_from_old_blog
+categories: Ancient Blog
 ---
 
 *<font color = "gray">这是一篇从旧博客迁移来的文章</font>*

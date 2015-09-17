@@ -3,7 +3,7 @@ layout: post
 title: "Nokia 5230"
 date: 2013-01-16 22:28:00 +0800
 comments: true
-categories: move_from_old_blog
+categories: Ancient Blog
 ---
 
 *<font color = "gray">这是一篇从旧博客迁移来的文章</font>*

@@ -3,7 +3,7 @@ layout: post
 title: "Ubuntu 14.10 邮件服务器搭建：Postfix 和 dovecot "
 date: 2014-12-19 15:44:48 +0800
 comments: true
-categories: linux
+categories: Linux
 ---
 
 这几天需要在服务器上搭个邮件服务器，没想到还挺麻烦的。

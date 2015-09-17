@@ -3,7 +3,7 @@ layout: post
 title: "使用Github + Octopress建立博客"
 date: 2014-07-14 14:50:09 +0800
 comments: true
-categories: Blog_Build_Tech
+categories: Blog Relations
 ---
 
 学习研究的过程需要不断地总结，没有总结的学习会很快丢失那些记忆，建立一个博客是个很好的方法。

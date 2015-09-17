@@ -3,7 +3,7 @@ layout: post
 title: "解决 gem 安装 sqlite3 失败的问题"
 date: 2014-12-11 11:02:14 +0800
 comments: true
-categories: web
+categories: Web
 ---
 
 最近开始接触 *Ruby on Rails* , 刚刚新建一个工程就出现问题

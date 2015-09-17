@@ -3,7 +3,7 @@ layout: post
 title: "Kubuntu终端root用户下出现cannot connect to X server 和 unable to open DISPLAY 的解决办法"
 date: 2012-07-19 15:11:00 +0800
 comments: true
-categories: move_from_old_blog
+categories: Ancient Blog
 ---
 
 *<font color = "gray">这是一篇从旧博客迁移来的文章</font>*

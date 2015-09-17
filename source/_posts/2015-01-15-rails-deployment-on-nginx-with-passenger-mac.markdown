@@ -4,7 +4,7 @@ title: "在 Mac 上使用 Nginx + Passenger 部署 Rails"
 title-en: "Rails Deployment on Nginx with Passenger - Mac"
 date: 2015-01-15 13:06:58 +0800
 comments: true
-categories: web
+categories: Web
 ---
 
 
@@ -72,6 +72,7 @@ sudo mysql_install_db \
 #启动和停止
 mysql.server start
 mysql.server stop
+
 ```
 
 这个时候就可以按需修改 my.cnf

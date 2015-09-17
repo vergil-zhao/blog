@@ -3,7 +3,7 @@ layout: post
 title: "为 Octopress 中的代码块添加高亮行的功能"
 date: 2014-12-22 10:07:49 +0800
 comments: true
-categories: blog_build_tech
+categories: Blog Relations
 ---
 
 
@@ -15,7 +15,7 @@ categories: blog_build_tech
 
 我们先看这个网页 -- [Backtick Code Blocks](http://octopress.org/docs/plugins/backtick-codeblock/)
 
-![官方文档截图](/images/post_image/2014_12/backtick_codeblock.png)
+![官方文档截图](/images/2014_12/backtick_codeblock.png)
 
 截图时间 2014.12.22
 
@@ -38,9 +38,10 @@ categories: blog_build_tech
 第一次改动就先不考虑太多，把处理这个行高亮的情况单独处理，也就是不能同时有标题链接等参数。格式就使用官方给出的格式。
 
 ```plain
- ```ruby mark:#, #-#
+
+ruby mark:#, #-#
  # some codes
- ```
+ 
 ```
 
 正则表达式就是 (ruby 中的)

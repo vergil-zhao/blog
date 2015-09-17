@@ -3,7 +3,7 @@ layout: post
 title: "使用CreateJS，以及遇到的一些问题"
 date: 2014-10-31 13:58:45 +0800
 comments: true
-categories: web
+categories: Web
 ---
 
 最近由于公司要做一个微信小游戏，所以用了一点时间看了一下 *CreateJS*，写了一个很挫的小游戏，总结一下遇到的一些问题。
