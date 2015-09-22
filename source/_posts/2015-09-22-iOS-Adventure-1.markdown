@@ -1,7 +1,7 @@
 layout: post
 title: "iOS Adventure: 初章"
 title-en: "iOS Adventure: First Chatper"
-date: 2015-09-22 06:53:13
+date: 2015-07-09 06:53:13
 comments: true
 tags: iOS Adventure
 categories: iOS
@@ -33,6 +33,7 @@ categories: iOS
 <div align=center><img src="/images/2015_7/2015-07-09-Constraint_Correct.png"></div>
 <div align=center><font color="gray">与 Bottom Layout Guide.Bottom 连接的 Constraint</font></div>
 
+<br /><br /><br />
 
 ##推送的陷阱
 
@@ -73,6 +74,7 @@ So, you have already done!
 <div align=center><img src="/images/2015_7/2015-07-22-other1.png"></div>
 <div align=center><img src="/images/2015_7/2015-07-22-other2.png"></div>
 
+<br /><br /><br />
 
 ##覆盖不掉的属性
 

@@ -1,7 +1,8 @@
+layout: post
 title: {{ title }}
 title-en: 
 date: {{ date }}
-tags:
 comments: true
+tags:
 categories: 
 ---
