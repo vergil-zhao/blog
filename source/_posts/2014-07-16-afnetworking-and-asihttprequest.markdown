@@ -137,14 +137,14 @@ iOS 7.1
 
 <br /><br /><br />
 
-##AFNetworking
+## AFNetworking
 
 这个框架现在的版本和以前的用法有一些区别，而且有一些设置比较隐蔽。其中扩展了一些系统的UI类，可以非常方便的使用UIProgressView、UIImageView等实现进度条，图片加载等功能。
 
 
 <br /><br />
 
-###导入库
+### 导入库
 
 ---
 
@@ -152,7 +152,7 @@ iOS 7.1
 
 <br /><br />
 
-###GET请求并解析JSON
+### GET请求并解析JSON
 
 ---
 
@@ -173,7 +173,7 @@ manager.responseSerializer.acceptableContentTypes = nil;
 
 <br /><br />
 
-###通用请求
+### 通用请求
 
 ---
 
@@ -194,7 +194,7 @@ operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
     
 [[NSOperationQueue mainQueue] addOperation:operation];
 ```从上面的代码的输出可以看到，它使用了iOS自带的XML解析器。
-###文件下载保存
+### 文件下载保存
 ---
 
 下面的代码很方便的实现了一个文件的下载。
@@ -217,13 +217,13 @@ NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progre
 
 <br /><br /><br />
 
-##ASIHTTPRequest
+## ASIHTTPRequest
 
 这个停止更新很久的库使用的是MRC，并且在新的系统中使用可能会遇到一些问题，但确实一个很好地库，支持断点续传、缓存、身份验证等等。
 
 <br /><br />
 
-###导入库
+### 导入库
 
 ---
 
@@ -252,7 +252,7 @@ NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progre
 
 <br /><br />
 
-###数据请求
+### 数据请求
 
 ---
 
@@ -277,7 +277,7 @@ __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 ```
 
 <br /><br />
-###文件下载缓存
+### 文件下载缓存
 
 ---
 
@@ -319,7 +319,7 @@ request.downloadProgressDelegate = progressView;
 
 <br /><br /><br /><br />
 
-####参考资料
+#### 参考资料
 
 ---
 

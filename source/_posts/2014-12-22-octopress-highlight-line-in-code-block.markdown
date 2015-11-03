@@ -31,7 +31,7 @@ categories: Blog Relations
 
 <br />
 
-###确定格式
+### 确定格式
 ---
 
 
@@ -58,7 +58,7 @@ ruby mark:#, #-#
 
 <br /><br />
 
-###上代码
+### 上代码
 ---
 
 直接下载覆盖到指定路径 -- [给 Octopress 代码块添加高亮指定行的代码](/document/octopress_highlight_line_code.zip)

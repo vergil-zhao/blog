@@ -19,14 +19,14 @@ categories: iOS
 
 <!-- more   -->
 
-##编程范式 Programming Paradigm 
+## 编程范式 Programming Paradigm 
 
 在 *Wikipedia* 上搜索这个关键词的话，就可以看到在这个词条右边列出了几十个编程范式，领略一下前人的脑洞。<br />
 (￣ε(#￣)☆╰╮o(￣皿￣///)
 
-咳咳，对于 *[ReactiveCocoa][]* 这个框架最先应该我想最先应该了解的是 *[Functional Programming][]* 和 *[Reactive Programming][]*
+咳咳，对于 *[ReactiveCocoa][]* 这个框架最先应该了解的是 *[Functional Programming][]* 和 *[Reactive Programming][]*
 
-###函数式编程 Functional Programming
+### 函数式编程 Functional Programming
 
 参考 *Wikipedia* 我的理解是：
 
@@ -35,13 +35,13 @@ categories: iOS
 
 还有纯函数式编程语言里没有变量之类的暂时不去深究。这个范式其实在现代编程语言中大多都支持。
 
-###响应式编程 Reactive Programming
+### 响应式编程 Reactive Programming
 
 重点就一个，数据可以随着事件动态变化，就如同 Wiki 中所说的，表达式的结果会因为表达式中的变量改变自动更新。
 
 那么上面两种范式结合之后是什么？
 
-###函数响应式编程 Functional Reactive Programming
+### 函数响应式编程 Functional Reactive Programming
 
 重点还是在响应，通过组合函数可以实现复杂的响应过程。
 
@@ -49,7 +49,7 @@ categories: iOS
 
 <br />
 
-##MVC vs MVVM
+## MVC vs MVVM
 
 iOS 开发过程中会遇到在一个 View Controller 的文件里，有着几百上千行的代码。View Controller 总是承担着过多的任务，这里 MVVM 的出现就是为了剥离 View Controller 中过多的代码，objc.io 的第一个 issue 就是一篇分离 View Controller 和 Table View 的很好的文章，[英文版][5]，[中文版][6]。
 
@@ -57,7 +57,7 @@ iOS 开发过程中会遇到在一个 View Controller 的文件里，有着几�
 
 <br />
 
-##Reactive Cocoa
+## Reactive Cocoa
 
 终于进入正题。这个框架，就是吸收了如同 *Haskell* 这类函数式语言的思想，从微软的 Rx 演化来的。利用它就可以很好的实现 MVVM 的架构，防止臃肿杂乱的 View Controller。
 
@@ -66,17 +66,17 @@ iOS 开发过程中会遇到在一个 View Controller 的文件里，有着几�
 
 RAYWENDERLICH 上的 [一篇文章][8] 很详细的介绍了框架基本的用法。不过无论是这篇还是上一节的那篇文章，篇幅都很长，根据本文的初衷，下面总结一下。
 
-###信号 Signal
+### 信号 Signal
 
 这个就是最核心的概念，操作都基于对信号的各种处理上。信号就是用来 **承载** 数据的，跟满天飞来飞去的无线电波一样。我们可以对信号做各种处理，像是监听、过滤等等，在 Reactive Cocoa 中的信号非常类似于人们自然理解的信号。
 
-###操作符 Operator
+### 操作符 Operator
 
 处理信号使用操作符，代码上其实就是一个参数是 block 的函数。block 里面就是怎么处理信号。框架里面提供了很多操作符，参看 github 上的 [文档][9]。
 
 <br />
 
-##应用内切换语言
+## 应用内切换语言
 
 如果已经看过之前提到的两篇教程文章，相比那接下来的示例会更简单。之前两篇文章都是用了搜索 Twitter 的推文来展示框架的用法，鉴于你懂得的原因，和新浪微博的接口复杂一些，搜索功能也很限制，所以我用了这个想到就会觉得实现起来会很麻烦的功能。
 
@@ -110,7 +110,7 @@ RAYWENDERLICH 上的 [一篇文章][8] 很详细的介绍了框架基本的用�
 
 下面是如何发送信号
 
-###创建语言管理(视图模型)类
+### 创建语言管理(视图模型)类
 
 我们整个的信号流程很简单：修改语言(变化产生数据流) --> 加载语言文件 --> 刷新 UI
 
@@ -172,7 +172,7 @@ RAYWENDERLICH 上的 [一篇文章][8] 很详细的介绍了框架基本的用�
 
 Reactive Cocoa 是基于 KVO 的，所以要注意观察的属性是不是支持 KVO。在这里就是如果你使用下划线的熟悉去修改，就不会发生任何你想要的事，需要使用 setter 的方式去修改(`self.currentLanguage`)。
 
-###接下来
+### 接下来
 
 其实没有接下来了，没错，就是这么简单，核心部分的代码就是这样。
 
@@ -180,13 +180,13 @@ Reactive Cocoa 是基于 KVO 的，所以要注意观察的属性是不是支持
 
 <br />
 
-##新世界的大门
+## 新世界的大门
 
 新世界的大门打开了，使用 Reactive Cocoa 确实让代码变得很不同，虽然很多陌生的概念，但是当你熟悉和深入了解之后，他就是进入新世界的钥匙。
 
 <br />
 
-##附录
+## 附录
 
 1. [Github Repo - ReactiveCocoa][ReactiveCocoa]
 2. [Wikipedia - Functional Programming][Functional Programming]

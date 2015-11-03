@@ -10,7 +10,7 @@ categories: Web
 
 <!-- more -->
 
-###关于 *CreateJS*
+### 关于 *CreateJS*
 ---
 
 *CreateJS* 是一组JS工具集，包括 *EaselJS* *TweenJS* *SoundJS* *PreloadJS* 。
@@ -21,7 +21,7 @@ categories: Web
 
 <br /> <br />
 
-###*CreateJS*
+### *CreateJS*
 
 ---
 
@@ -41,7 +41,7 @@ stage.removeAllChildren();
 
 <br /> <br />
 
-###浏览器
+### 浏览器
 ---
 
 用这个工具集写一个小游戏本身难度不大，而且写起来也很顺手，但是就是会遇到几个让我这个新手蛋疼的事情。

@@ -18,7 +18,7 @@ categories: Linux
 
 <br />
 
-###软件包安装
+### 软件包安装
 
 ---
 
@@ -52,7 +52,7 @@ so~，we need search engine. Then I got a nice guide article:
 
 <br /><br />
 
-###配置
+### 配置
 
 ---
 

@@ -12,16 +12,16 @@ categories: iOS
 <!-- more -->
 
 
-##跳动的元素
+## 跳动的元素
 
-###Combat
+### Combat
 
 > 当从有 TabBar 的 `Controller A` 向一个需要隐藏 TabBar 的 `Controller B` push 时，`Controller B` 中设置好 Autolayout 与底部相距的 Constraint 的元素们，会在刚刚出现时在下方留下一个 TabBar 高度的空白，稍后就会跳动到正常位置。
 > 
 > <div align=center><img src="/images/2015_7/2015-07-09-Constrains_A.png"></div>
 > <div align=center>类似这样的 Constraint</div>
 
-###Conflict Resolved
+### Conflict Resolved
 
 其实这个时候的 Constraint 是这个样子的
 
@@ -35,16 +35,16 @@ categories: iOS
 
 <br /><br /><br />
 
-##推送的陷阱
+## 推送的陷阱
 
-###Combat
+### Combat
 
 > 开发环境的推送操作起来基本很简单，生产环境下则会遇到一些小问题，例如这样
 > <div align=center><img src="/images/2015_7/2015-07-22-Push_problem.jpg"></div>
 > 
 > 又或者都设置好了，但是就是收不到。
 
-###Conflict Resolved
+### Conflict Resolved
 
 首先呢，要在 *Developer Member Center* 把该有的 Certificates, Identifiers, Provisioning Profiles 都设置或者生成好。这里关键的步骤是这样的
 
@@ -76,16 +76,16 @@ So, you have already done!
 
 <br /><br /><br />
 
-##覆盖不掉的属性
+## 覆盖不掉的属性
 
-###Combat
+### Combat
 
 > 当你想直接覆盖一个系统类的属性时，会得到一个错误
 > 
 > <div align=center><img src="/images/2015_7/2015-07-09-Override-Error.png"></img></div>
 > <div align=center><font color=gray>直接重载是不行的</font></div>
 
-###Conflict Resolved
+### Conflict Resolved
 
 错误信息很明确
 

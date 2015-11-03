@@ -14,7 +14,7 @@ categories: Web
 
 <!-- more -->
 
-###前提一览
+### 前提一览
 ---
 
 各种版本号
@@ -31,7 +31,7 @@ Rails 的示例项目使用这个➡️[Rails 使用指南 - Rails 入门](http:
 
 <br /><br />
 
-###问题一览
+### 问题一览
 ---
 
 在这个环境下遇到的问题如下
@@ -42,12 +42,12 @@ Rails 的示例项目使用这个➡️[Rails 使用指南 - Rails 入门](http:
 
 <br /><br />
 
-###完整流程
+### 完整流程
 ---
 
 好了，终于到了搞定这些问题的时候。
 
-####~ 安装服务器 ~
+#### ~ 安装服务器 ~
 
 首先我们要安装 *Nginx* 和 *Passenger* ，这里选择了一个偷懒的办法，安装 Passenger 然后使用它自带的工具 `passenger-install-nginx-module` 来完成 Nginx 的安装配置。原因是 Nginx 默认的编译是不能支持 Passenger 的，所以需要重新编译，这个工具就是为了省掉这个步骤。
 
@@ -81,7 +81,7 @@ mysql.server stop
 
 <br />
 
-####~ 配置 Nginx ~
+#### ~ 配置 Nginx ~
 
 直接上例子
 
@@ -124,7 +124,7 @@ server {
 
 <br />
 
-###~ 部署 Rails 项目 ~
+### ~ 部署 Rails 项目 ~
 
 复制整个项目到上面配置里写下的路径，或者已经直接设置路径到项目目录。这个时候直接打开浏览器查看，会出现一个错误，查看 Nginx 日志，会有类似这样的记录
 
@@ -141,7 +141,7 @@ server {
 <br /><br />
 
 
-####参考链接
+#### 参考链接
 ---
 1. [让30台服务器缩减到2台：从Ruby迁移到Go语言](http://developer.51cto.com/art/201303/386391.htm)
 2. [Ruby社区应该去Rails化了](http://robbinfan.com/blog/40/ruby-off-rails)

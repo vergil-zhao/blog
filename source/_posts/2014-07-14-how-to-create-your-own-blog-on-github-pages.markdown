@@ -18,21 +18,21 @@ categories: Blog Relations
 
 <br /><br /><br />
 
-###<font color="330000">申请一个 *GitHub* 账号</font>
+### <font color="330000">申请一个 *GitHub* 账号</font>
 
 ---
 首先需要一个 *GitHub* 的账号，这个Coder通常都有，进入 *[Github](http://github.com/)* ，首页就可以快速的注册一个账号。
 
 <br /><br /><br />
 
-###<font color="330000">建立一个新的仓库(Repository)</font>
+### <font color="330000">建立一个新的仓库(Repository)</font>
 
 ---
 登录之后点击网页的右上角的加号可以快速建立一个Repo，建立的Repo名称格式需要是`your_username.github.io`，建立时不用初始化。
 
 <br /><br /><br />
 
-###<font color="330000">安装 *Octopress* 以及所需依赖</font>
+### <font color="330000">安装 *Octopress* 以及所需依赖</font>
 
 ---
 *Octopress* 是一个静态的博客系统，而它是基于 *jekyll*，一个静态blog生成工具。这是一套很好的方案，并且有很多人在用。
@@ -77,7 +77,7 @@ gem sources -l                            #查看当前源，保证当前源是�
 
 <br /><br /><br />
 
-###<font color="330000">配置并部署 Octopress</font>
+### <font color="330000">配置并部署 Octopress</font>
 
 ---
 执行下面语句来设置 *GitHub Pages*
@@ -126,14 +126,14 @@ git push origin source
 
 <br /><br /><br />
 
-###<font color="330000">开始撰写博客</font>
+### <font color="330000">开始撰写博客</font>
 
 ---
 博客的每个post都在 `source/_post` 目录下，文件名的按照 *jekyll* 的建议命名方式 `YYYY-MM-DD-post-title.markdown`。
 
 简单的建立方式是利用下面的命令
 
-####Syntax
+#### Syntax
 ``` bash
 rake new_post["title"]
 ```
@@ -168,7 +168,7 @@ rake preview
 jekyll serve
 ```
 
-###<font colot="330000">文章中代码的高亮</font>
+### <font colot="330000">文章中代码的高亮</font>
 
 ---
 最直接简单的办法
@@ -185,7 +185,7 @@ your code
 
 <br /><br /><br />
 
-###<font color="330000">过程中的一些问题</font>
+### <font color="330000">过程中的一些问题</font>
 
 ---
 `push` 或者 `rake deploy` 的过程中会遇到injected的问题，原因是文件重复，不能直接覆盖，使用以下语句解决
@@ -217,7 +217,7 @@ git config --global push.default matching
 <br />
 <br />
 
-####参考资料
+#### 参考资料
 
 ---
 1. [Octopress 官网](http://octopress.org/)
