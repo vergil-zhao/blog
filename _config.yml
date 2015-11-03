@@ -73,7 +73,7 @@ plugins:
 deploy:
   type: git
   repo: git@github.com:Veracruz/Veracruz.github.io.git
-  branch: 
+  branch: master
   message:
 
 
