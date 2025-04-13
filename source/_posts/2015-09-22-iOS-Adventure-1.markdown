@@ -1,3 +1,4 @@
+---
 layout: post
 title: "iOS Adventure: 初章"
 title-en: "iOS Adventure: First Chatper"
@@ -5,7 +6,6 @@ date: 2015-07-09 06:53:13
 comments: true
 tags: iOS Adventure
 categories: iOS
-
 ---
 
 很多零散的问题总结起来并不容易，尤其是在之后的日子想要把 _当时是如何解决的？_ 这件事想起来。所以开始尝试记录这些零散的问题。

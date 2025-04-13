@@ -1,3 +1,4 @@
+---
 layout: post
 title: ReactiveCocoa 初见
 title-en:
@@ -5,7 +6,6 @@ date: 2015-09-27 03:39:49
 comments: true
 tags: RAC
 categories: iOS
-
 ---
 
 > **闲话**: 听说学 Haskell 可以打开新世界的大门
@@ -77,7 +77,7 @@ RAYWENDERLICH 上的 [一篇文章][8] 很详细的介绍了框架基本的用�
 
 首先我们先看一下成果
 
-<image src="/images/2015_9/RAC-International-Example.gif" width=320></image>
+{% img "/images/2015_9/RAC-International-Example.gif" 300 %}
 
 最终在我们需要国际化的地方的代码长这样
 

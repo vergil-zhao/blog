@@ -1,3 +1,4 @@
+---
 layout: post
 title: One Word API - (1)
 title-en:
@@ -5,7 +6,6 @@ date: 2015-09-24 05:43:08
 comments: true
 tags: one word api
 categories: iOS
-
 ---
 
 有一些不是很常用的 API 看到之后可能根本看不出来是干什么的，或者看过文档之后很快就忘记了，又或者其实根本不知道文档在说什么(¦3[▓▓] 。
