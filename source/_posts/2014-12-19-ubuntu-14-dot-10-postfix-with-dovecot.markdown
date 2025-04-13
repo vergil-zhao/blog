@@ -8,9 +8,9 @@ categories: Linux
 
 这几天需要在服务器上搭个邮件服务器，没想到还挺麻烦的。
 
-麻烦主要来自两方面，可以选择的邮件服务器软件略多(例如 qmail xmail sendmail 等等，还有转发服务，验证服务相关的，cyrus，sasl等等)，各种配置略苦。
+麻烦主要来自两方面，可以选择的邮件服务器软件略多(例如 qmail xmail sendmail 等等，还有转发服务，验证服务相关的，cyrus，sasl 等等)，各种配置略苦。
 
-各种 Search 之后选择了 *Postfix* 和 *dovecot*，*Postfix* 是本体，*dovecot* 作为转发服务(IMAP, POP3, SMTP)。
+各种 Search 之后选择了 _Postfix_ 和 _dovecot_，_Postfix_ 是本体，_dovecot_ 作为转发服务(IMAP, POP3, SMTP)。
 
 <!-- more -->
 
@@ -35,16 +35,16 @@ apt-get install dovecot-core dovecot-pop3d dovecot-smtpd
 
 apt-get install mail-stack-delivery
 
-apt-get install mailutils 
+apt-get install mailutils
 ```
 
-以上命令安装完所需的软件包，接下来就是蛋疼的配置时间啦。老实说，要想熟悉全部设置选项非常费劲也费时间，还要正确的设置，相当苦啊 Σ( ￣□￣||)
+以上命令安装完所需的软件包，接下来就是蛋疼的配置时间啦。老实说，要想熟悉全部设置选项非常费劲也费时间，还要正确的设置，相当苦啊 Σ( ￣ □ ￣||)
 
 so~，we need search engine. Then I got a nice guide article:
 
 [使用 Ubuntu 安裝郵件伺服器 (Mail Server)：Postfix + Dovecot + Openwebmail](http://www.nowtaxes.com.tw/node/1147)
 
-2010年的文章，所以有些内容已经不适用了，不过只有个别地方。
+2010 年的文章，所以有些内容已经不适用了，不过只有个别地方。
 
 文章中最后的 Openwebmail 的依赖库有点略旧了，装到最后出现版本问题，要求不高就简单的用客户端就好了。
 
@@ -57,7 +57,6 @@ so~，we need search engine. Then I got a nice guide article:
 ---
 
 修改 `/etc/postfix/main.cf`
-
 
 <table style="border:0;">
     <tr>
@@ -87,55 +86,53 @@ so~，we need search engine. Then I got a nice guide article:
 </table>
 <br />
 
-
 变更的地方已高亮
 
 配置文件中的最后几行，要在安装完 `mail-stack-delivery` 包之后才会出现
 
-
 ```cf3 mark: 9, 21-25, 34, 41, 54, 56-61
 # See /usr/share/postfix/main.cf.dist for a commented, more complete version
- 
- 
+
+
 # Debian specific:  Specifying a file name will cause the first
 # line of that file to be used as the name.  The Debian default
 # is /etc/mailname.
 #myorigin = /etc/mailname
- 
+
 smtpd_banner = $myhostname ESMTP $mail_name
 biff = no
- 
+
 # appending .domain is the MUA's job.
 append_dot_mydomain = no
- 
+
 # Uncomment the next line to generate "delayed mail" warnings
 #delay_warning_time = 4h
- 
+
 readme_directory = no
- 
+
 # TLS parameters
 #smtpd_tls_cert_file = /etc/ssl/certs/ssl-mail.pem
 #smtpd_tls_key_file = /etc/ssl/private/ssl-mail.key
 #smtpd_use_tls = yes
 #smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 #smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
- 
+
 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
 # information on enabling SSL in the smtp client.
- 
+
 myhostname = dns.example.com.tw
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
 mydestination = localhost, localhost.localdomain, mail.example.com
-relayhost = 
+relayhost =
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
- 
+
 #home_mailbox = Maildir/
- 
+
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/dovecot-auth
@@ -143,12 +140,12 @@ smtpd_sasl_authenticated_header = yes
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain = $myhostname
 broken_sasl_auth_clients = yes
- 
+
 smtpd_recipient_restrictions = reject_unknown_sender_domain, reject_unknown_recipient_domain, reject_unauth_pipelining, permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
 smtpd_sender_restrictions = reject_unknown_sender_domain
- 
+
 #mailbox_command = /usr/lib/dovecot/deliver -c /etc/dovecot/conf.d/01-dovecot-postfix.conf -n -m "${EXTENSION}"
- 
+
 #smtp_use_tls = yes
 #smtpd_tls_received_header = yes
 #smtpd_tls_mandatory_protocols = SSLv3, TLSv1
@@ -156,7 +153,6 @@ smtpd_sender_restrictions = reject_unknown_sender_domain
 #smtpd_tls_auth_only = yes
 #tls_random_source = dev:/dev/urandom
 ```
-
 
 接下来修改 `/etc/dovecot/conf.d/99-mail-stack-delivery.conf`
 
@@ -182,7 +178,6 @@ smtpd_sender_restrictions = reject_unknown_sender_domain
         <td>加一行 mail_location = mbox:~/mail:INBOX=/var/spool/mail/%u</td>
     </tr>
 </table>
-
 
 ```cf3 mark:3-9
 # Some general options
@@ -236,7 +231,6 @@ service auth {
 }
 ```
 
-
 使用命令测试一下 `telnet localhost 25`
 
 Postfix 会有如下回应
@@ -280,7 +274,7 @@ passwd admin
 可以使用命令 `netstat -apn | grep 110` 会看到一行
 
 ```bash
-tcp    0    0 0.0.0.0:110    0.0.0.0:*     LISTEN     26719/dovecot 
+tcp    0    0 0.0.0.0:110    0.0.0.0:*     LISTEN     26719/dovecot
 ```
 
 POP3 服务可以正常使用了，**<font color="red">但是</font>**，只能接收邮件不能发送，SMTP 连不上，也许是因为我使用的客户端，或者我打开的方式不对...

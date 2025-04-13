@@ -6,12 +6,11 @@ comments: true
 categories: Web
 ---
 
-最近开始接触 *Ruby on Rails* , 刚刚新建一个工程就出现问题
+最近开始接触 _Ruby on Rails_ , 刚刚新建一个工程就出现问题
 
 <!-- more -->
 
 问题的主要描述节选如下
-
 
 ```bash
 # Create a new project of rails
@@ -27,13 +26,13 @@ ERROR: Error installing sqlite3:
 
 截图如下
 
-{% img /images/post_image/2014_12/sqlite3_problem_of_rails.jpg %}
+{% img /images/2014_12/sqlite3_problem_of_rails.jpg %}
 
-然后尝试了一些解决办法, 以及万能的 *Stack Overflow*, 但是没有解决到. 而实际上问题很简单, 错误提示中的 `port install sqlite3 +universal` 就能搞定.
+然后尝试了一些解决办法, 以及万能的 _Stack Overflow_, 但是没有解决到. 而实际上问题很简单, 错误提示中的 `port install sqlite3 +universal` 就能搞定.
 
-之所以没有立即使用 *MacPorts*, 考虑到是否可以用管理 *ruby* 依赖的 *brew* 来解决, 但是我想多了......
+之所以没有立即使用 _MacPorts_, 考虑到是否可以用管理 _ruby_ 依赖的 _brew_ 来解决, 但是我想多了......
 
-可以看得出这个时候是需要一个开发版的库, 所以还是要选择使用 *MacPorts* 来安装那些开源库
+可以看得出这个时候是需要一个开发版的库, 所以还是要选择使用 _MacPorts_ 来安装那些开源库
 
 [MacPorts.org](http://www.macports.org)
 

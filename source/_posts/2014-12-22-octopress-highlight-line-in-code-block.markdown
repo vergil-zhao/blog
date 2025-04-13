@@ -6,8 +6,7 @@ comments: true
 categories: Blog Relations
 ---
 
-
-在 *Octopress* 的官方文档中看到，反引号代码块(Backtick Code Block)是有高亮行的功能的
+在 _Octopress_ 的官方文档中看到，反引号代码块(Backtick Code Block)是有高亮行的功能的
 
 <p style="font-size:30px;color:red">But</p>
 
@@ -21,19 +20,15 @@ categories: Blog Relations
 
 事实上是无论我把 `mark:1, 2-3` 这种类似的写在任何地方都没效果。也许是我打开的方式不对，万能的 StackOverflow 上也没找到相关的解决办法，然后只好去查看代码。
 
-处理反引号代码块的代码在 `/plugins/backtick_code_block.rb` `/plugins/pygments_code.rb` 两个文件中。两段代码都很短，其中并没有包含高亮行的处理，虽然没有注释，但是很容易看懂(论命名的重要性(〜￣△￣)〜)，所以自己把这个功能加上吧。
+处理反引号代码块的代码在 `/plugins/backtick_code_block.rb` `/plugins/pygments_code.rb` 两个文件中。两段代码都很短，其中并没有包含高亮行的处理，虽然没有注释，但是很容易看懂(论命名的重要性(〜￣ △ ￣)〜)，所以自己把这个功能加上吧。
 
-顺带一提，*Pygments* 支持的语言还是相当多的，看这里 ~~ [Available lexers - Pygments](http://pygments.org/docs/lexers/)
-
-<br />
+顺带一提，_Pygments_ 支持的语言还是相当多的，看这里 ~~ [Available lexers - Pygments](http://pygments.org/docs/lexers/)
 
 <div class="post_attention"><b>Attention: </b>不识别同时含有标题、链接等的参数。未做样式兼容。高亮背景宽度是个坑爹的固定值。以后可能会更新_(:3」∠)_</div>
 
-<br />
-
 ### 确定格式
----
 
+---
 
 第一次改动就先不考虑太多，把处理这个行高亮的情况单独处理，也就是不能同时有标题链接等参数。格式就使用官方给出的格式。
 
@@ -41,7 +36,7 @@ categories: Blog Relations
 
 ruby mark:#, #-#
  # some codes
- 
+
 ```
 
 正则表达式就是 (ruby 中的)
@@ -56,19 +51,17 @@ ruby mark:#, #-#
 
 在 `/source/_includes/custom/_footer.html` 中加入处理 `highlight_line` 的样式
 
-<br /><br />
-
 ### 上代码
+
 ---
 
 直接下载覆盖到指定路径 -- [给 Octopress 代码块添加高亮指定行的代码](/document/octopress_highlight_line_code.zip)
 
 三段代码重点已高亮并注释，注意高亮样式处理可能会在一些浏览器中看不到(比如说，坑爹 IE (:3」∠))，未做兼容。
 
-
 `/plugins/backtick_code_block.rb` 内容
 
-```ruby mark: 9, 23, 25-30, 50-52
+````ruby mark: 9, 23, 25-30, 50-52
 require './plugins/pygments_code'
 
 module BacktickCodeBlock
@@ -130,8 +123,7 @@ module BacktickCodeBlock
   end
 end
 
-```
-
+````
 
 `/plugins/pygments_code.rb` 内容
 
@@ -216,23 +208,31 @@ end
 
 ```
 
-
 `/source/_includes/custom/footer.html` 内容
 
 ```html mark: 9-14
 <p>
   Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  <span class="credit"
+    >Powered by <a href="http://octopress.org">Octopress</a></span
+  >
 </p>
 <script type="text/javascript">
-    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1927408f733bc1f82c711c8aece7a832' type='text/javascript'%3E%3C/script%3E"));
+  var _bdhmProtocol =
+    "https:" == document.location.protocol ? " https://" : " http://";
+  document.write(
+    unescape(
+      "%3Cscript src='" +
+        _bdhmProtocol +
+        "hm.baidu.com/h.js%3F1927408f733bc1f82c711c8aece7a832' type='text/javascript'%3E%3C/script%3E"
+    )
+  );
 
-    var highlight_lines = document.getElementsByClassName("highlight_line");
-    for (var i = 0; i < highlight_lines.length; i++) {
-        highlight_lines[i].style.paddingRight = "2000px";
-        // highlight_lines[i].style.width = "100%";
-        highlight_lines[i].style.backgroundColor = "rgba(80,80,80,0.5)";
-    }
+  var highlight_lines = document.getElementsByClassName("highlight_line");
+  for (var i = 0; i < highlight_lines.length; i++) {
+    highlight_lines[i].style.paddingRight = "2000px";
+    // highlight_lines[i].style.width = "100%";
+    highlight_lines[i].style.backgroundColor = "rgba(80,80,80,0.5)";
+  }
 </script>
 ```
