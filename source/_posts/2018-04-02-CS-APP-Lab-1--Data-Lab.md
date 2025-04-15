@@ -4,7 +4,8 @@ title: CS:APP Lab 1 - Data Lab
 date: 2018-04-02 18:11:00
 tags:
   - CSAPP
-categories: 计算机基础
+categories:
+  - 计算机基础
 ---
 
 这里就不写具体题目要求了，直接上代码
